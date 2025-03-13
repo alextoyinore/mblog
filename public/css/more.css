@@ -1,0 +1,18 @@
+
+:root {
+    /**
+    * Colors
+    */
+    --text-primary: ;
+
+    /** 
+    * Typography
+    */
+  --font-primary: 'Instrument Sans', sans-serif;
+}
+
+
+body {
+    font-family: var(--font-primary);
+}
+
