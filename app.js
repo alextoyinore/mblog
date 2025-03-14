@@ -34,6 +34,11 @@ app.use(express.static(`${__dirname}/public`));
 app.use(express.urlencoded({extended: true}));
 
 /**
+ * parse json body
+ */
+app.use(express.json({ limit: '10mb' }));
+
+/**
  * instance of session storage
  */
 const store = new MongoStore({
@@ -61,7 +66,7 @@ app.use(session({
 const register = require('./src/routes/registerRoute')
 const login = require('./src/routes/loginRoute')
 const home = require('./src/routes/homeRoute')
-const song = require('./src/routes/songRoute')
+const addSong = require('./src/routes/songRoute')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongooseConfig');
@@ -73,15 +78,16 @@ app.use('/login', login);
 // home page
 app.use('/', home);
 // song page
-app.use('/publish', song);
+app.use('/publish', addSong);
 
 
 /**
  * start server
  */
 const PORT = process.env.PORT || 3000
-const server = app.listen(PORT, '0.0.0.0', async () => {
-    console.log('Server listening on http://localhost:3000');
+const IP = process.env.IP || '0.0.0.0'
+const server = app.listen(PORT, async () => {
+    console.log(`Server listening on localhost:3000`);
     await connectDB(process.env.MONGODB_CONNECTION_STRING);
 });
 

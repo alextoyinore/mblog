@@ -14,8 +14,8 @@ const router = require('express').Router();
  * custom modules
  */
 const {
-    renderAddSongOrURL, 
     handleAddSongOrURL, 
+    renderAddSongOrURL, 
     handleEditSongOrURL
 } = require('../controllers/songController');
 
@@ -29,3 +29,4 @@ router.post('/', handleAddSongOrURL);
 router.post('/', handleEditSongOrURL);
 
 module.exports = router;
+

@@ -5,24 +5,24 @@
         <!-- Add WaveSurfer.js library -->
     <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
     <script type="module" src="/js/newSong.js"></script>
-
   </head>
   <body class="w-full h-full">
     <%- include('../widgets/topnav') %>
-    <!-- Snackbar -->
-    <div data-snackbar></div>
 
     <main class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] mt-8 pb-20">
       <h1 class="font-instrument text-2xl font-bold mb-8 dark:text-white">
         Add New Song
       </h1>
 
+      <!-- Snackbar -->
+      <div data-snackbar></div>
+
       <form action="" data-add-song-form method="POST" enctype="multipart/form-data">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Left Column - Song Details -->
           <div class="space-y-6">
             <h2
-              class="text-lg font-medium text-gray-900 dark:text-white border-b pb-2"
+              class="text-lg font-medium text-gray-800 dark:text-white border-b dark:border-gray-800 pb-2"
             >
               Song Details
             </h2>
@@ -78,7 +78,7 @@
                   type="text"
                   placeholder="Song Title"
                   name="songTitle"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
 
                 <!-- Artist Name Input -->
@@ -86,7 +86,7 @@
                   type="text"
                   placeholder="Artist Name"
                   name="artistName"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
 
                 <!-- Album Title Input -->
@@ -94,7 +94,7 @@
                   type="text"
                   placeholder="Album Title"
                   name="albumTitle"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
 
                 <!-- Song Release Year Input -->
@@ -104,15 +104,29 @@
                   name="releaseYear"
                   min="1900"
                   max="2024"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
+
+                <!-- Genre Input -->
+                <div class="relative">
+                  <input
+                    id="genreInput"
+                    placeholder="Genre"
+                    type="text"
+                    name="genre"
+                    autocomplete="off"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+                  />
+                  <!-- Suggestions dropdown -->
+                  <div id="genreSuggestions" class="hidden absolute w-full mt-1 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg z-10 max-h-48 overflow-y-auto"></div>
+                </div>
 
                 <!-- Producer Input -->
                 <input
                   placeholder="Producer"
                   type="text"
                   name="producer"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
               </div>
             </div>
@@ -121,7 +135,7 @@
           <!-- Right Column - Streaming Links -->
           <div class="space-y-6">
             <h2
-              class="text-lg font-medium text-gray-900 dark:text-white border-b pb-2"
+              class="text-lg dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
             >
               Streaming Links
             </h2>
@@ -148,7 +162,7 @@
                     type="url"
                     placeholder="Spotify"
                     name="spotify"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -178,7 +192,7 @@
                     type="url"
                     placeholder="Apple Music"
                     name="appleMusic"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -213,7 +227,7 @@
                     type="url"
                     placeholder="Youtube Music"
                     name="youtubeMusic"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -235,7 +249,7 @@
                     type="url"
                     placeholder="Boomplay"
                     name="boomplay"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -257,7 +271,7 @@
                     type="url"
                     placeholder="Tidal"
                     name="tidal"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -279,7 +293,7 @@
                     type="url"
                     placeholder="Amazon"
                     name="amazon"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -301,7 +315,7 @@
                     type="url"
                     placeholder="Pandora"
                     name="pandora"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -323,7 +337,7 @@
                     type="url"
                     placeholder="Soundcloud"
                     name="soundcloud"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -345,7 +359,7 @@
                     type="url"
                     placeholder="Audiomack"
                     name="audiomack"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -367,7 +381,7 @@
                     type="url"
                     placeholder="Deezer"
                     name="deezer"
-                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 focus:ring-0"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                   />
                 </div>
               </div>
@@ -376,31 +390,31 @@
         </div>
 
         <!-- Song File Upload with Waveform -->
-<div class="mt-8 space-y-4">
-    <label class="block text-[13px] uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">Song File</label>
-    <label class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer hover:border-gray-400 border-dotted dark:hover:border-gray-500">
-        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-        </svg>
-        <span id="songFileName" class="ml-2 text-sm text-gray-500 dark:text-gray-400">Upload song file (MP3, WAV)</span>
-        <input type="file" class="hidden" name="songFile" accept="audio/*" onchange="handleAudioUpload(this)"/>
-    </label>
+        <div class="mt-8 space-y-4">
+          <label class="block text-[13px] uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">Song File</label>
+          <label class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer hover:border-gray-400 border-dotted dark:hover:border-gray-500">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+            </svg>
+            <span id="songFileName" class="ml-2 text-sm text-gray-500 dark:text-gray-400">Upload song file (MP3, WAV)</span>
+            <input type="file" class="hidden" name="songFile" accept="audio/*" onchange="handleAudioUpload(this)"/>
+          </label>
 
-    <!-- Waveform Preview Container -->
-    <div id="waveformContainer" class="hidden">
-        <!-- Audio Player Controls -->
-        <div class="flex items-center space-x-4 mb-2">
-            <button id="playButton" class="text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500" onclick="togglePlay()">
-                ▶
-            </button>
-            <span id="currentTime" class="text-sm text-gray-500 dark:text-gray-400">0:00</span>
-            <div class="flex-1">
-                <div id="waveform" class="w-full h-24 bg-gray-50 dark:bg-gray-800 rounded"></div>
-            </div>
-            <span id="duration" class="text-sm text-gray-500 dark:text-gray-400">0:00</span>
-        </div>
+      <!-- Waveform Preview Container -->
+      <div id="waveformContainer" class="hidden">
+          <!-- Audio Player Controls -->
+          <div class="flex items-center space-x-4 mb-2">
+              <button id="playButton" class="text-gray-600 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-500" onclick="togglePlay()">
+                  ▶
+              </button>
+              <span id="currentTime" class="text-sm text-gray-500 dark:text-gray-400">0:00</span>
+              <div class="flex-1">
+                  <div id="waveform" class="w-full h-24 bg-gray-50 dark:bg-gray-800 rounded"></div>
+              </div>
+              <span id="duration" class="text-sm text-gray-500 dark:text-gray-400">0:00</span>
+          </div>
+      </div>
     </div>
-</div>
 
         <!-- Submit Button - Full Width -->
 
@@ -409,10 +423,8 @@
           type="submit" data-submit-song
             href="/publish"
             value='Submit Song'
-            class="w-full cursor-pointer lg:block bg-black dark:bg-white text-white dark:text-black px-4 py-3 text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+            class="w-full cursor-pointer lg:block bg-black dark:bg-red-500 text-white dark:text-white px-4 py-3 text-sm font-medium rounded"
            />
-            
-          
         </div>
       </form>
     </main>
@@ -530,6 +542,113 @@
         if (wavesurfer) {
             wavesurfer.destroy();
         }
+    });
+
+    const genres = [
+      'Afrobeat', 'Amapiano', 'Hip Hop', 'Gospel', 'RnB', 'Pop', 'Rock', 
+      'Alternative', 'Jazz', 'Classical', 'Electronic', 'Dance', 'Reggae', 'Blues', 'Country', 'Folk', 'Metal', 'Punk', 'Soul', 'Funk', 'Disco', 'House', 'Techno', 'Trap', 'Drill', 'Grime', 'Indie', 'Juju', 'Fuji', 'High Life'
+    ];
+
+    const genreInput = document.getElementById('genreInput');
+    const suggestionsDiv = document.getElementById('genreSuggestions');
+    let selectedGenre = '';
+
+    // Show suggestions based on input
+    genreInput.addEventListener('input', function(e) {
+      const value = e.target.value.toLowerCase();
+      selectedGenre = ''; // Clear selected genre when typing
+      
+      // Filter genres based on input
+      const filteredGenres = genres.filter(genre => 
+        genre.toLowerCase().includes(value)
+      );
+
+      // Show/hide and populate suggestions
+      if (value && filteredGenres.length) {
+        suggestionsDiv.innerHTML = filteredGenres
+          .map(genre => `
+            <div class="suggestion-item px-4 py-2 text-sm text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+              ${genre}
+            </div>
+          `)
+          .join('');
+        suggestionsDiv.classList.remove('hidden');
+      } else {
+        suggestionsDiv.classList.add('hidden');
+      }
+
+      // Clear input if no genre is selected
+      if (!selectedGenre) {
+        setTimeout(() => {
+          if (!selectedGenre) {
+            genreInput.value = '';
+          }
+        }, 100);
+      }
+    });
+
+    // Handle suggestion clicks
+    suggestionsDiv.addEventListener('click', function(e) {
+      if (e.target.classList.contains('suggestion-item')) {
+        selectedGenre = e.target.textContent.trim();
+        genreInput.value = selectedGenre;
+        suggestionsDiv.classList.add('hidden');
+      }
+    });
+
+    // Handle keyboard navigation
+    genreInput.addEventListener('keydown', function(e) {
+      const items = suggestionsDiv.getElementsByClassName('suggestion-item');
+      const currentIndex = Array.from(items).findIndex(item => 
+        item.classList.contains('bg-gray-100') || 
+        item.classList.contains('dark:bg-gray-700')
+      );
+
+      switch(e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          if (currentIndex < items.length - 1) {
+            if (currentIndex >= 0) {
+              items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+            }
+            items[currentIndex + 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+            items[currentIndex + 1].scrollIntoView({ block: 'nearest' });
+          }
+          break;
+
+        case 'ArrowUp':
+          e.preventDefault();
+          if (currentIndex > 0) {
+            items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+            items[currentIndex - 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+            items[currentIndex - 1].scrollIntoView({ block: 'nearest' });
+          }
+          break;
+
+        case 'Enter':
+          e.preventDefault();
+          const selectedItem = suggestionsDiv.querySelector('.bg-gray-100, .dark:bg-gray-700');
+          if (selectedItem) {
+            selectedGenre = selectedItem.textContent.trim();
+            genreInput.value = selectedGenre;
+            suggestionsDiv.classList.add('hidden');
+          }
+          break;
+
+        case 'Escape':
+          suggestionsDiv.classList.add('hidden');
+          break;
+      }
+    });
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!genreInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
+        suggestionsDiv.classList.add('hidden');
+        if (!selectedGenre) {
+          genreInput.value = '';
+        }
+      }
     });
     </script>
 

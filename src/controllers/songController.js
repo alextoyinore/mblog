@@ -8,12 +8,16 @@
 /**
  * node modules
  */
+const crypto = require('crypto');
 
 
 /**
  * custom modules
  */
-
+const uploadToCloudinary = require('../config/cloudinaryConfig')
+const Song = require('../models/songModel')
+const User = require('../models/userModel');
+const { log } = require('console');
 
 /**
  * Renders the song add page
@@ -23,7 +27,6 @@
  */
 const renderAddSongOrURL = (req, res) => {
     const { userAuthenticated } = req.session.user
-    // console.log(req.session.user);
 
     if (!userAuthenticated){
         return res.redirect('/login');
@@ -44,7 +47,61 @@ const renderAddSongOrURL = (req, res) => {
  */
 
 const handleAddSongOrURL = async (req, res) => {
+    console.log(req.body);
 
+    try {
+        // Retrieve content from request body
+        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer } = req.body
+    
+        // Upload artwork and song file to Cloudinary
+        const public_id = crypto.randomBytes(10).toString('hex');
+        const artworkURL = await uploadToCloudinary(artwork, public_id);
+    
+        // Find user who is posting the song
+        const user = await User.findOne({ username:req.session.user.username }).select('_id songs songsPublished');
+    
+        // Post new song to server
+        const newSong = await Song.create({
+            user: user._id,
+            artwork: {
+                url: artworkURL,
+                public_id: public_id
+            },
+            songFile: songFile,
+            songTitle: songTitle,
+            artistName:  artistName,
+            albumTitle: albumTitle,
+            releaseYear: releaseYear,
+            genre: genre,
+            producer: producer,
+            spotify: spotify,
+            appleMusic: appleMusic,
+            youtubeMusic: youtubeMusic,
+            boomplay: boomplay,
+            tidal: tidal,
+            amazon: amazon,
+            pandora: pandora,
+            soundcloud: soundcloud,
+            audiomack: audiomack,
+            deezer: deezer
+        });
+
+        // Update user data
+        user.songs.push(newSong._id);
+        user.songsPublished++;
+        await user.save();
+
+        console.log(newSong);
+        console.log(user);
+
+        // redirect to newly created song page
+        res.redirect(`songs/${newSong._id}`);
+
+    }catch (error) {
+        // Log and throw error if any
+        console.error('Error publishing new song or song URL: ', error.message);
+        throw error;
+    }
 }
 
 /**

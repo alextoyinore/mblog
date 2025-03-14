@@ -21,7 +21,7 @@ const Snackbar = (props) => {
     // snackbar.classList.add('snackbar');
     props.type &&  snackbar.classList.add(props.type);
     snackbar.innerHTML = `
-       <p class="fixed left-1/2 -translate-x-1/2 bottom-1/6 -translate-y-1/2 text-orange-500 text-center mb-5 text-[14px]">${props.message}</p>     
+       <p class="text-orange-500 my-3 text-[14px]">${props.message}</p>     
     `; 
 
     // Clear previous snackbar and append new one

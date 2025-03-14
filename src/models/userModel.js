@@ -20,14 +20,14 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true },
     bio: String,
     password: { type: String, required: true },
-    posts: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Post' },
-    links: String,
-    postPublished: { type: Number, default: 0 },
-    postSaved: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Post' },
-    postLiked: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Post' },
+    songs: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Song' },
+    playlist: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Song' },
+    links: { url: String },
+    songsPublished: { type: Number, default: 0 },
+    favourites: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Song' },
+    followers : {type: [mongoose.SchemaTypes.ObjectId], ref: 'User'},
+    totalFollowers: { type: Number, default: 0 },
     totalVisits: { type: Number, default: 0 },
-    totalReactions: { type: Number, default: 0 },
-    readingList: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Post' }
 },{
     timestamps: true
 });

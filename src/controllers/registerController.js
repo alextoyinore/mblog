@@ -14,7 +14,7 @@ const bcrypt = require('bcrypt');
  * custom modules
  */
 const User = require('../models/userModel');
-const generateUsername = require('../utils/generatePassword');
+const generateUsername = require('../../public/js/utils/generateUsername');
 
 /**
  * Renders the register page
