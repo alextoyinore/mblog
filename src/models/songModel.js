@@ -39,6 +39,8 @@ const SongSchema = new mongoose.Schema(
     deezer: { type: String },
     totalPlays: { type: Number, default: 0 },
     totalLikes: { type: Number, default: 0 },
+    region: {type: String},
+    country: {type: String}
   },
   {
     timestamps: true,

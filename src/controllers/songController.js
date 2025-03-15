@@ -5,120 +5,55 @@
 
 'use strict'
 
+
 /**
  * node modules
  */
-const crypto = require('crypto');
-
+const bcrypt = require('bcrypt');
 
 /**
  * custom modules
  */
-const uploadToCloudinary = require('../config/cloudinaryConfig')
-const Song = require('../models/songModel')
 const User = require('../models/userModel');
-const { log } = require('console');
+const Song = require('../models/songModel');
 
 /**
- * Renders the song add page
+ * Renders the register page
  * 
  * @param {object} req - The request object 
  * @param {object} res - The response object
  */
-const renderAddSongOrURL = (req, res) => {
-    const { userAuthenticated } = req.session.user
+const renderSongPage = async (req, res) => {
+    const { userAuthenticated } = req.session.user || {}
+    // console.log(req.session.user);
 
     if (!userAuthenticated){
         return res.redirect('/login');
     }
-    
-    res.render('./pages/newSong', {
-        sessionUser: req.session.user,
-        route: req.originalUrl
-    });
-}
 
-/**
- * Handles adding new song or song URL
- * @param {object} req The request object
- * @param {object} res The response object
- * @returns {Promise<void>} - A Promise that returns after the registration process is completed
- * @throws {Error} - If error occurs during registration
- */
+    const songId = req.params.id; // Access the song ID from the URL
 
-const handleAddSongOrURL = async (req, res) => {
-    console.log(req.body);
+    // Retrieve songs from database, selecting specified fields and populating user field
+    const song = await Song.findOne({_id: songId}).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt');
 
-    try {
-        // Retrieve content from request body
-        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer } = req.body
-    
-        // Upload artwork and song file to Cloudinary
-        const public_id = crypto.randomBytes(10).toString('hex');
-        const artworkURL = await uploadToCloudinary(artwork, public_id);
-    
-        // Find user who is posting the song
-        const user = await User.findOne({ username:req.session.user.username }).select('_id songs songsPublished');
-    
-        // Post new song to server
-        const newSong = await Song.create({
-            user: user._id,
-            artwork: {
-                url: artworkURL,
-                public_id: public_id
-            },
-            songFile: songFile,
-            songTitle: songTitle,
-            artistName:  artistName,
-            albumTitle: albumTitle,
-            releaseYear: releaseYear,
-            genre: genre,
-            producer: producer,
-            spotify: spotify,
-            appleMusic: appleMusic,
-            youtubeMusic: youtubeMusic,
-            boomplay: boomplay,
-            tidal: tidal,
-            amazon: amazon,
-            pandora: pandora,
-            soundcloud: soundcloud,
-            audiomack: audiomack,
-            deezer: deezer
+    if (song) {
+        const relatedSongs = await Song.find()
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+            .where('genre').equals(song.genre)
+            .limit(3)
+            .exec();
+
+        res.render('./pages/song', {
+            sessionUser: req.session.user,
+            song: song,
+            relatedSongs: relatedSongs
         });
-
-        // Update user data
-        user.songs.push(newSong._id);
-        user.songsPublished++;
-        await user.save();
-
-        console.log(newSong);
-        console.log(user);
-
-        // redirect to newly created song page
-        res.redirect(`songs/${newSong._id}`);
-
-    }catch (error) {
-        // Log and throw error if any
-        console.error('Error publishing new song or song URL: ', error.message);
-        throw error;
+    } else {
+        res.status(404).send('Song not found');
     }
 }
 
-/**
- * Handles adding editing song or song URL
- * @param {object} req The request object
- * @param {object} res The response object
- * @returns {Promise<void>} - A Promise that returns after the registration process is completed
- * @throws {Error} - If error occurs during registration
- */
-
-const handleEditSongOrURL = async (req, res) => {
-
-}
-
 module.exports = {
-    renderAddSongOrURL,
-    handleAddSongOrURL,
-    handleEditSongOrURL
+    renderSongPage
 }
 

@@ -63,7 +63,7 @@ const handleRegister = async (req, res) => {
                 return res.status(400).send({message: 'Kindly use another email please. The username we generated from your email address is already taken by another user. Or, try again shortly with the same email.'});
             }
         }else{
-            return res.status(400).send({message: `An error occured while creating user.</b>${error.message}`});
+            return res.status(400).send({message: `An error occured while creating user. ${error.message}`});
         }
 
         console.log(error.message);

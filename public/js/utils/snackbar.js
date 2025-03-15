@@ -5,7 +5,7 @@
 
 'use strict';
 
-const snackbarWrapper = document.querySelector('[data-snackbar]')
+const snackbarWrapper = document.getElementById('snackbarWrapper');
 let lastTimeout = null
 
 
@@ -18,20 +18,35 @@ let lastTimeout = null
 const Snackbar = (props) => {
     // Create snackbar element
     const snackbar = document.createElement('div');
-    // snackbar.classList.add('snackbar');
-    props.type &&  snackbar.classList.add(props.type);
+    snackbar.classList.add('fixed', 'top-25', 'left-1/2', 'transform', '-translate-x-1/2', 'bg-gray-800', 'text-white', 'text-sm', 'px-4', 'py-2', 'rounded', 'transition-opacity', 'duration-300', 'opacity-0', 'z-50');
+
+    // Set the type if provided
+    if (props.type) {
+        snackbar.classList.add(props.type);
+    }
+
     snackbar.innerHTML = `
-       <p class="text-orange-500 my-3 text-[14px]">${props.message}</p>     
+       <p class="my-2 text-[14px]">${props.message}</p>     
     `; 
 
     // Clear previous snackbar and append new one
     snackbarWrapper.innerHTML = '';
     snackbarWrapper.append(snackbar);
 
+    // Show snackbar
+    setTimeout(() => {
+        snackbar.classList.remove('opacity-0'); // Fade in
+        snackbar.classList.add('opacity-100');
+    }, 10); // Small timeout to allow for the DOM to update
+
     // Remove snackbar after 10 seconds
     clearTimeout(lastTimeout);
     lastTimeout = setTimeout(() => {
-        snackbarWrapper.removeChild(snackbar);
+        snackbar.classList.remove('opacity-100'); // Fade out
+        snackbar.classList.add('opacity-0');
+        setTimeout(() => {
+            snackbarWrapper.removeChild(snackbar);
+        }, 300); // Wait for fade out to complete
     }, 10000);
 }
 

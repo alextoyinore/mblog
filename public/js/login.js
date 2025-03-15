@@ -54,7 +54,7 @@ $form.addEventListener('submit', async(e) => {
         // Enable submit button and show error message
         // const { message } = await response.json();
         Snackbar({
-            message: 'Oops, we could not sign you in at this time. Try again later',
+            message: 'Oops, we could not sign you in at this time. Please try again later',
             type: 'error'
         });
         // console.log(message);

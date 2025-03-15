@@ -102,12 +102,12 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
         <a href="/">
           <img
             src="/images/light.svg"
-            class="h-7 hidden dark:inline"
+            class="h-6 hidden dark:inline"
             alt="musicnow logo"
           />
           <img
             src="/images/dark.svg"
-            class="h-7 inline dark:hidden"
+            class="h-6 inline dark:hidden"
             alt="musicnow logo"
           />
         </a>
@@ -161,12 +161,12 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
         >
           <!-- User Info Section -->
           <div
-            class="flex gap-2 px-3 py-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+            class="flex gap-2 px-3 py-3 cursor-pointer border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
           >
             <button
               id="profileButton"
               href="#"
-              class="hidden lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 rounded-full bg-gray-900 p-2 dark:hover:text-gray-400"
+              class="hidden lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 rounded-full dark:bg-gray-900 bg-gray-100 p-2 dark:hover:text-gray-400"
             >
               <%= initials %>
             </button>
@@ -213,7 +213,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           <form action="/logout" method="POST" class="block">
             <button
               type="submit"
-              class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500"
+              class="w-full cursor-pointer text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500"
             >
               Sign out
             </button>
@@ -247,7 +247,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       <div class="flex items-center justify-center space-x-8 py-2">
         <!-- Genres Dropdown Trigger -->
         <div class="relative group">
-          <button class="flex items-center text-gray-800 cursor-pointer dark:text-gray-200 hover:text-red-500 dark:hover:text-gray-400 text-sm">
+          <button id="genreButton" class="flex items-center text-gray-800 cursor-pointer dark:text-gray-200 hover:text-red-500 dark:hover:text-gray-400 text-sm">
             Genres
             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -255,13 +255,13 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           </button>
 
           <!-- Mega Menu -->
-          <div class="hidden group-hover:block absolute top-[28px] left-1/2 -translate-x-1/3 border-t w-full bg-white border-b border-b-gray-200 dark:bg-gray-800 dark:border-gray-700  backdrop-blur-sm z-50" style="width: calc(100vw * 0.75); max-width: 1400px;">
+          <div id="megaMenu" class="hidden group-hover:block absolute top-[28px] left-1/2 -translate-x-1/3 border-t w-full bg-white border-b border-b-gray-200 dark:bg-gray-800 dark:border-gray-700  backdrop-blur-sm z-50" style="width: calc(100vw * 0.75); max-width: 1400px;">
             <div class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] py-6">
-              <div class="grid grid-cols-4 gap-8">
+              <div class="grid grid-cols-5 gap-8">
                 <!-- Popular Genres -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Popular</h3>
-                  <ul class="space-y-3">
+                  <ul class="space-y-1">
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Afrobeat</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Amapiano</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Hip Hop</a></li>
@@ -272,7 +272,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
                 <!-- Traditional -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Traditional</h3>
-                  <ul class="space-y-3">
+                  <ul class="space-y-1">
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Juju</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Fuji</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">High Life</a></li>
@@ -282,7 +282,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
                 <!-- Contemporary -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Contemporary</h3>
-                  <ul class="space-y-3">
+                  <ul class="space-y-1">
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">RnB</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Pop</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Rock</a></li>
@@ -290,10 +290,25 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
                   </ul>
                 </div>
 
+                <!-- Classical -->
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Classical</h3>
+                  <ul class="space-y-1">
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Baroque</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Romantic</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Modern</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Impressionism</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Minimalism</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Neoclassicism</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Chamber Music</a></li>
+                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Opera</a></li>
+                  </ul>
+                </div>
+
                 <!-- Other -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Other</h3>
-                  <ul class="space-y-3">
+                  <ul class="space-y-1">
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Global</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Reggae</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Beats</a></li>
@@ -442,6 +457,9 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
   </div>
 </div>
 
+<div id="snackbarWrapper" class="relative">
+  <!-- Snackbar will be appended here -->
+</div>
 
 <script>
   // Get theme from localStorage or system preference
@@ -476,6 +494,23 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!('theme' in localStorage)) {
       applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // Mega menu
+  const genresButton = document.getElementById('genresButton');
+  const megaMenu = document.getElementById('megaMenu');
+
+  // Toggle mega menu visibility
+  genresButton.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent click event from bubbling up
+    megaMenu.classList.toggle('hidden');
+  });
+
+  // Close mega menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!genresButton.contains(event.target) && !megaMenu.contains(event.target)) {
+      megaMenu.classList.add('hidden');
     }
   });
 </script>

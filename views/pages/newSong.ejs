@@ -14,9 +14,6 @@
         Add New Song
       </h1>
 
-      <!-- Snackbar -->
-      <div data-snackbar></div>
-
       <form action="" data-add-song-form method="POST" enctype="multipart/form-data">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <!-- Left Column - Song Details -->
@@ -31,7 +28,7 @@
             <div class="space-y-2 grid grid-cols-1 lg:grid-cols-2 gap-5">
               <div class="flex flex-col">
                 <label
-                  class="relative w-full h-60 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer hover:border-gray-400 dark:hover:border-gray-500"
+                  class="relative w-full h-62 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer hover:border-gray-400 dark:hover:border-gray-500"
                 >
                   <div
                     class="absolute inset-0 flex flex-col items-center justify-center"
@@ -103,7 +100,6 @@
                   type="number"
                   name="releaseYear"
                   min="1900"
-                  max="2024"
                   class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
                 />
 
@@ -122,12 +118,12 @@
                 </div>
 
                 <!-- Producer Input -->
-                <input
+                <!-- <input
                   placeholder="Producer"
                   type="text"
                   name="producer"
                   class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
-                />
+                /> -->
               </div>
             </div>
           </div>
@@ -389,6 +385,46 @@
           </div>
         </div>
 
+        <!-- Region Specific Code -->
+
+      <h2
+        class="text-lg my-5 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+      >
+        Region
+      </h2>
+
+        <div class="space-y-2 grid grid-cols-1 lg:grid-cols-4 gap-5">
+          <!-- Region Input -->
+            <div class="relative">
+              <input
+                id="regionInput"
+                placeholder="Region"
+                type="text"
+                name="region"
+                autocomplete="off"
+                class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+              />
+              <!-- Suggestions dropdown -->
+              <div id="regionSuggestionsDiv" class="hidden absolute w-full mt-1 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg z-10 max-h-48 overflow-y-auto"></div>
+            </div>
+
+
+            <!-- Country Input -->
+            <div class="relative">
+              <input
+                id="countryInput"
+                placeholder="Country"
+                type="text"
+                name="country"
+                autocomplete="off"
+                class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+              />
+              <!-- Suggestions dropdown -->
+              <div id="countrySuggestionsDiv" class="hidden absolute w-full mt-1 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg z-10 max-h-48 overflow-y-auto"></div>
+            </div>
+            
+        </div>
+
         <!-- Song File Upload with Waveform -->
         <div class="mt-8 space-y-4">
           <label class="block text-[13px] uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">Song File</label>
@@ -423,11 +459,12 @@
           type="submit" data-submit-song
             href="/publish"
             value='Submit Song'
-            class="w-full cursor-pointer lg:block bg-black dark:bg-red-500 text-white dark:text-white px-4 py-3 text-sm font-medium rounded"
+            class="w-full cursor-pointer lg:block bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-sm font-medium rounded"
            />
         </div>
       </form>
     </main>
+
 
     <script>
       // Preview artwork
@@ -650,6 +687,223 @@
         }
       }
     });
+
+    // Region Suggestion
+
+    const regions = [
+    'Africa', 'US', 'Europe', 'Latin America', 'Asia', 'Australia', 'Canada', 'Caribbean', 'Middle East'
+  ];
+
+  const regionInput = document.getElementById('regionInput');
+  const regionSuggestionsDiv = document.getElementById('regionSuggestionsDiv');
+  let selectedRegion = '';
+
+  // Show suggestions based on input
+  regionInput.addEventListener('input', function(e) {
+    const value = e.target.value.toLowerCase();
+    selectedRegion = ''; // Clear selected region when typing
+    
+    // Filter regions based on input
+    const filteredRegions = regions.filter(region => 
+      region.toLowerCase().includes(value)
+    );
+
+    // Show/hide and populate suggestions
+    if (value && filteredRegions.length) {
+      regionSuggestionsDiv.innerHTML = filteredRegions
+        .map(region => `
+          <div class="suggestion-item px-4 py-2 text-sm text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+            ${region}
+          </div>
+        `)
+        .join('');
+      regionSuggestionsDiv.classList.remove('hidden');
+    } else {
+      regionSuggestionsDiv.classList.add('hidden');
+    }
+
+    // Clear input if no region is selected
+    if (!selectedRegion) {
+      setTimeout(() => {
+        if (!selectedRegion) {
+          regionInput.value = '';
+        }
+      }, 100);
+    }
+  });
+
+  // Handle suggestion clicks
+  regionSuggestionsDiv.addEventListener('click', function(e) {
+    if (e.target.classList.contains('suggestion-item')) {
+      selectedRegion = e.target.textContent.trim();
+      regionInput.value = selectedRegion;
+      regionSuggestionsDiv.classList.add('hidden');
+    }
+  });
+
+  // Handle keyboard navigation
+  regionInput.addEventListener('keydown', function(e) {
+    const items = regionSuggestionsDiv.getElementsByClassName('suggestion-item');
+    const currentIndex = Array.from(items).findIndex(item => 
+      item.classList.contains('bg-gray-100') || 
+      item.classList.contains('dark:bg-gray-700')
+    );
+
+    switch(e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (currentIndex < items.length - 1) {
+          if (currentIndex >= 0) {
+            items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+          }
+          items[currentIndex + 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex + 1].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        if (currentIndex > 0) {
+          items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex - 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex - 1].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
+      case 'Enter':
+        e.preventDefault();
+        const selectedItem = regionSuggestionsDiv.querySelector('.bg-gray-100, .dark:bg-gray-700');
+        if (selectedItem) {
+          selectedRegion = selectedItem.textContent.trim();
+          regionInput.value = selectedRegion;
+          regionSuggestionsDiv.classList.add('hidden');
+        }
+        break;
+
+      case 'Escape':
+        regionSuggestionsDiv.classList.add('hidden');
+        break;
+    }
+  });
+
+  // Close suggestions when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!regionInput.contains(e.target) && !regionSuggestionsDiv.contains(e.target)) {
+      regionSuggestionsDiv.classList.add('hidden');
+      if (!selectedRegion) {
+        regionInput.value = '';
+      }
+    }
+  });
+
+  const countries = [
+    'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 
+    'France', 'Italy', 'Spain', 'Brazil', 'Mexico', 'India', 'China', 
+    'Japan', 'South Korea', 'Nigeria', 'South Africa', 'Argentina', 
+    'Russia', 'Netherlands', 'Sweden', 'Norway', 'Finland', 'Denmark'
+  ];
+
+  const countryInput = document.getElementById('countryInput');
+  const countrySuggestionsDiv = document.getElementById('countrySuggestionsDiv');
+  let selectedCountry = '';
+
+  // Show suggestions based on input
+  countryInput.addEventListener('input', function(e) {
+    const value = e.target.value.toLowerCase();
+    selectedCountry = ''; // Clear selected country when typing
+    
+    // Filter countries based on input
+    const filteredCountries = countries.filter(country => 
+      country.toLowerCase().includes(value)
+    );
+
+    // Show/hide and populate suggestions
+    if (value && filteredCountries.length) {
+      countrySuggestionsDiv.innerHTML = filteredCountries
+        .map(country => `
+          <div class="suggestion-item px-4 py-2 text-sm text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+            ${country}
+          </div>
+        `)
+        .join('');
+      countrySuggestionsDiv.classList.remove('hidden');
+    } else {
+      countrySuggestionsDiv.classList.add('hidden');
+    }
+
+    // Clear input if no country is selected
+    if (!selectedCountry) {
+      setTimeout(() => {
+        if (!selectedCountry) {
+          countryInput.value = '';
+        }
+      }, 100);
+    }
+  });
+
+  // Handle suggestion clicks
+  countrySuggestionsDiv.addEventListener('click', function(e) {
+    if (e.target.classList.contains('suggestion-item')) {
+      selectedCountry = e.target.textContent.trim();
+      countryInput.value = selectedCountry;
+      countrySuggestionsDiv.classList.add('hidden');
+    }
+  });
+
+  // Handle keyboard navigation
+  countryInput.addEventListener('keydown', function(e) {
+    const items = countrySuggestionsDiv.getElementsByClassName('suggestion-item');
+    const currentIndex = Array.from(items).findIndex(item => 
+      item.classList.contains('bg-gray-100') || 
+      item.classList.contains('dark:bg-gray-700')
+    );
+
+    switch(e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (currentIndex < items.length - 1) {
+          if (currentIndex >= 0) {
+            items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+          }
+          items[currentIndex + 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex + 1].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        if (currentIndex > 0) {
+          items[currentIndex].classList.remove('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex - 1].classList.add('bg-gray-100', 'dark:bg-gray-700');
+          items[currentIndex - 1].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
+      case 'Enter':
+        e.preventDefault();
+        const selectedItem = countrySuggestionsDiv.querySelector('.bg-gray-100, .dark:bg-gray-700');
+        if (selectedItem) {
+          selectedCountry = selectedItem.textContent.trim();
+          countryInput.value = selectedCountry;
+          countrySuggestionsDiv.classList.add('hidden');
+        }
+        break;
+
+      case 'Escape':
+        countrySuggestionsDiv.classList.add('hidden');
+        break;
+    }
+  });
+
+  // Close suggestions when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!countryInput.contains(e.target) && !countrySuggestionsDiv.contains(e.target)) {
+      countrySuggestionsDiv.classList.add('hidden');
+      if (!selectedCountry) {
+        countryInput.value = '';
+      }
+    }
+  });
     </script>
 
     <style>

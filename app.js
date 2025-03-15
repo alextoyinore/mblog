@@ -66,7 +66,8 @@ app.use(session({
 const register = require('./src/routes/registerRoute')
 const login = require('./src/routes/loginRoute')
 const home = require('./src/routes/homeRoute')
-const addSong = require('./src/routes/songRoute')
+const newSong = require('./src/routes/newSongRoute')
+const song = require('./src/routes/songRoute')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongooseConfig');
@@ -77,8 +78,10 @@ app.use('/register', register);
 app.use('/login', login);
 // home page
 app.use('/', home);
+// new song page
+app.use('/publish', newSong);
 // song page
-app.use('/publish', addSong);
+app.use('/song', song)
 
 
 /**

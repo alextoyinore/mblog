@@ -14,19 +14,11 @@ const router = require('express').Router();
  * custom modules
  */
 const {
-    handleAddSongOrURL, 
-    renderAddSongOrURL, 
-    handleEditSongOrURL
+    renderSongPage 
 } = require('../controllers/songController');
 
-// GET route: Render the add song page
-router.get('/', renderAddSongOrURL);
-
-// POST route: Handles form submission for adding song or song URL
-router.post('/', handleAddSongOrURL);
-
-// POST route: Handles form submission for editing song or song URL
-router.post('/', handleEditSongOrURL);
+// GET route: Render the song page
+router.get('/:id', renderSongPage);
 
 module.exports = router;
 

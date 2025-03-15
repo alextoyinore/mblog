@@ -24,26 +24,29 @@ const Song = require('../models/songModel')
  * @param {object} res - The response object
  */
 const renderHome = async (req, res) => {
-    // const { userAuthenticated } = req.session.user || {}
+    const { userAuthenticated } = req.session.user || {}
     // console.log(req.session.user);
 
-    // if (!userAuthenticated){
-    //     return res.redirect('/login');
-    // }
+    if (!userAuthenticated){
+        return res.redirect('/login');
+    }
 
     try{
 
         // Retrieve songs from database, selecting specified fields and populating user field
-        const latestSongs = await Song.find().select('artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes createdAt')
+        const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt')
         .populate({
             path: 'user',
             select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
         })
         .sort({ createdAt: 'desc'});
 
+        const rockSongs = latestSongs.filter((song) => song.genre.toLowerCase() === 'rock');
+
         res.render('./pages/home', {
             sessionUser: req.session.user,
             latestSongs,
+            rockSongs,
             moment
         });
 

@@ -20,74 +20,120 @@
           <!-- Trending List -->
           <div class="space-y-0">
             <!-- Trending Item -->
-            <div
-              class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 dark:hover:text-red-500"
-            >
-              <div>
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1682125227290-f62abb91ed5b"
-                  alt="Taylor Swift"
-                  class="object-cover h-8 w-8 rounded-full"
-                />
-              </div>
-              <div class="ml-3 flex-grow min-w-0">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
-                    Let it be
-                  </h3>
-                  <span class="text-xs text-gray-400">2d ago</span>
+            <% if (locals.rockSongs.length) { %> <%
+              locals.rockSongs.forEach(song => { %>
+            <div class="accordion-item">
+              <div
+                class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header"
+                onclick="toggleAccordion(event)"
+              >
+                <div>
+                  <img
+                    src="<%= song.artwork.url %>"
+                    alt="<%= song.artistName %>"
+                    class="object-cover h-8 w-8 rounded-full"
+                  />
                 </div>
+                <div class="ml-3 flex-grow min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
+                      <%= song.songTitle %>
+                    </h3>
+                    <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
+                      %></span>
+                  </div>
 
-                <div class="flex items-center">
-                  <p class="truncate text-gray-600 text-xs pr-4 font-medium">
-                    Taylor Swift
-                  </p>
-                  <div class="flex gap-2 text-[12px] items-center text-xs">
-                    <span class="text-xs text-red-500">Hot</span>
-                    <span>.</span>
-                    <span class="text-xs text-gray-500 dark:text-gray-300"
-                      >US</span
-                    >
+                  <div class="flex items-center">
+                    <p class="truncate text-gray-600 text-xs pr-4 font-medium">
+                      <%= song.artistName %>
+                    </p>
+                    <div class="flex gap-2 text-[12px] items-center text-xs">
+                      <span class="text-xs text-red-500">Hot</span>
+                      <span>.</span>
+                      <span class="text-xs text-gray-500 dark:text-gray-300"
+                        ><%= song.genre %></span
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Trendig Item -->
-            <div
-              class="flex border-b border-0 dark:border-gray-700 border-gray-200 gap-2 items-center hover:text-red-500 hover:bg-gray-50 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 dark:hover:text-red-500"
-            >
-              <div>
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1732799397450-31d8b8739d8e"
-                  alt="Taylor Swift"
-                  class="object-cover h-8 w-8 rounded-full"
-                />
-              </div>
-              <div class="ml-3 flex-grow min-w-0">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
-                    Let it be
-                  </h3>
-                  <span class="text-xs text-gray-400">2d ago</span>
+              <!-- Streaming Platforms Links -->
+              <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+                <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
+                  <% if (song.spotify) { %>
+                  <a target="_blank"
+                    href="<%= song.spotify %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Spotify</a
+                  >
+                  <% } %> <% if (song.youtubeMusic) { %>
+                  <a target="_blank"
+                    href="<%= song.youtubeMusic %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >YouTube Music</a
+                  >
+                  <% } %> <% if (song.appleMusic) { %>
+                  <a target="_blank"
+                    href="<%= song.appleMusic %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Apple Music</a
+                  >
+                  <% } %> <% if (song.boomplay) { %>
+                  <a target="_blank"
+                    href="<%= song.boomplay %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Boomplay</a
+                  >
+                  <% } %> <% if (song.tidal) { %>
+                  <a target="_blank"
+                    href="<%= song.tidal %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Tidal</a
+                  >
+                  <% } %> <% if (song.amazon) { %>
+                  <a target="_blank"
+                    href="<%= song.amazon %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Amazon</a
+                  >
+                  
+                  <% } %> <% if (song.pandora) { %>
+                  <a target="_blank"
+                    href="<%= song.pandora %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Pandora</a
+                  >
+                  <% } %> 
+                  
+                  <% if (song.soundcloud) { %>
+                  <a target="_blank"
+                    href="<%= song.soundcloud %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >SoundCloud</a
+                  >
+                  <% } %> 
+                  <% if (song.audiomack) { %>
+                  <a target="_blank"
+                    href="<%= song.audiomack %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Audiomack</a
+                  >
+                  <% } %> 
+                  <% if (song.deezer) { %>
+                  <a target="_blank"
+                    href="<%= song.deezer %>"
+                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                    >Deezer</a
+                  >
+                  
+                  <% } %>
+
+                  <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                 </div>
-
-                <div class="flex items-center">
-                  <p class="truncate text-gray-600 text-xs pr-4 font-medium">
-                    Taylor Swift
-                  </p>
-                  <div class="flex gap-2 text-[12px] items-center text-xs">
-                    <span class="text-xs text-red-500">Hot</span>
-                    <span>.</span>
-                    <span class="text-xs text-gray-500 dark:text-gray-300"
-                      >US</span
-                    >
-                  </div>
-                </div>
               </div>
             </div>
-
-            <!-- More trending items (repeat structure) -->
+            <% }) %> <% } %>
           </div>
         </div>
 
@@ -105,6 +151,152 @@
               <!-- Song Item -->
               <% if (locals.latestSongs.length) { %> <%
               locals.latestSongs.forEach(song => { %>
+              <div class="accordion-item">
+                <div
+                  href="#"
+                  class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-1.5 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header"
+                  onclick="toggleAccordion(event)"
+                >
+                  <button
+                    class="flex-shrink-0 w-5 h-5 text-gray-500 hover:text-red-500"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+
+                  <div class="ml-3 flex-grow min-w-0 flex items-center">
+                    <span class="text-sm font-medium dark:text-white"
+                      ><%= song.songTitle %></span
+                    >
+                    <span class="mx-2 text-gray-400">-</span>
+                    <span
+                      class="text-xs text-gray-500 dark:text-gray-400 truncate"
+                      ><%= song.artistName %></span
+                    >
+                  </div>
+                  <div
+                    class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span><%= song.releaseYear %></span>
+                    <span><%= song.albumTitle %></span>
+                    <span
+                      ><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
+                      %></span
+                    >
+                  </div>
+                </div>
+
+                <!-- Streaming Platforms Links -->
+                <div
+                  class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden"
+                >
+                  <div
+                    class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center"
+                  >
+                    <% if (song.spotify) { %>
+                    <a target="_blank"
+                      href="<%= song.spotify %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Spotify</a
+                    >
+                    <% } %> <% if (song.youtubeMusic) { %>
+                    <a target="_blank"
+                      href="<%= song.youtubeMusic %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >YouTube Music</a
+                    >
+                    <% } %> <% if (song.appleMusic) { %>
+                    <a target="_blank"
+                      href="<%= song.appleMusic %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Apple Music</a
+                    >
+                    <% } %> <% if (song.boomplay) { %>
+                    <a target="_blank"
+                      href="<%= song.boomplay %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Boomplay</a
+                    >
+                    <% } %> <% if (song.tidal) { %>
+                    <a target="_blank"
+                      href="<%= song.tidal %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Tidal</a
+                    >
+                    <% } %> <% if (song.amazon) { %>
+                    <a target="_blank"
+                      href="<%= song.amazon %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Amazon</a
+                    >
+                    
+                    <% } %> <% if (song.pandora) { %>
+                    <a target="_blank"
+                      href="<%= song.pandora %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Pandora</a
+                    >
+                    <% } %> 
+                    
+                    <% if (song.soundcloud) { %>
+                    <a target="_blank"
+                      href="<%= song.soundcloud %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >SoundCloud</a
+                    >
+                    <% } %> 
+                    <% if (song.audiomack) { %>
+                    <a target="_blank"
+                      href="<%= song.audiomack %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Audiomack</a
+                    >
+                    <% } %> 
+                    <% if (song.deezer) { %>
+                    <a target="_blank"
+                      href="<%= song.deezer %>"
+                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
+                      >Deezer</a
+                    >
+
+                    
+                    <% } %>
+                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
+                  </div>
+                </div>
+              </div>
+              <% }) %> <% } %>
+            </div>
+          </section>
+
+          <!-- Genre Sections -->
+          <section class="mb-8 mt-8">
+            <h2
+              class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"
+            >
+              Rock
+            </h2>
+            <div class="flex flex-col gap-0">
+              <!-- Song Item -->
+              <% if (locals.rockSongs.length) { %> <%
+              locals.rockSongs.forEach(song => { %>
               <div class="accordion-item">
                 <a
                   href="#"
@@ -162,47 +354,47 @@
                   class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden"
                 >
                   <div
-                    class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800"
+                    class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center"
                   >
                     <% if (song.spotify) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.spotify %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Spotify</a
                     >
                     <% } %> <% if (song.youtubeMusic) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.youtubeMusic %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >YouTube Music</a
                     >
                     <% } %> <% if (song.appleMusic) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.appleMusic %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Apple Music</a
                     >
                     <% } %> <% if (song.boomplay) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.boomplay %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Boomplay</a
                     >
                     <% } %> <% if (song.tidal) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.tidal %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Tidal</a
                     >
                     <% } %> <% if (song.amazon) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.amazon %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Amazon</a
                     >
                     
                     <% } %> <% if (song.pandora) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.pandora %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Pandora</a
@@ -210,136 +402,31 @@
                     <% } %> 
                     
                     <% if (song.soundcloud) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.soundcloud %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >SoundCloud</a
                     >
                     <% } %> 
                     <% if (song.audiomack) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.audiomack %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Audiomack</a
                     >
                     <% } %> 
                     <% if (song.deezer) { %>
-                    <a
+                    <a target="_blank"
                       href="<%= song.deezer %>"
                       class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
                       >Deezer</a
                     >
                     <% } %>
+                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                   </div>
                 </div>
               </div>
               <% }) %> <% } %>
-            </div>
-          </section>
-
-          <!-- Genre Sections -->
-          <section class="mb-8 mt-8">
-            <h2
-              class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"
-            >
-              Rock
-            </h2>
-            <div class="flex flex-wrap flex-col gap-0">
-              <!-- Song items (same structure as above) -->
-
-              <!-- Song Item -->
-              <a
-                class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-1.5 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500"
-              >
-                <button
-                  class="flex-shrink-0 w-5 h-5 text-gray-500 hover:text-red-500"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </button>
-
-                <div class="ml-3 flex-grow min-w-0 flex items-center">
-                  <span class="text-sm font-medium dark:text-white truncate"
-                    >Never Walk Alone</span
-                  >
-                  <span class="mx-2 text-gray-400">-</span>
-                  <span
-                    class="text-xs text-gray-500 dark:text-gray-400 truncate"
-                    >Linkin Park</span
-                  >
-                </div>
-                <div
-                  class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
-                >
-                  <span>3:45</span>
-                  <span>The Beginning</span>
-                  <span>1d ago</span>
-                </div>
-              </a>
-
-              <!-- Song Item -->
-              <a
-                class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-1.5 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500"
-              >
-                <button
-                  class="flex-shrink-0 w-5 h-5 text-gray-500 hover:text-red-500"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1"
-                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </button>
-
-                <div class="ml-3 flex-grow min-w-0 flex items-center">
-                  <span class="text-sm font-medium dark:text-white truncate"
-                    >21 Guns</span
-                  >
-                  <span class="mx-2 text-gray-400">-</span>
-                  <span
-                    class="text-xs text-gray-500 dark:text-gray-400 truncate"
-                    >Green Day</span
-                  >
-                </div>
-                <div
-                  class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
-                >
-                  <span>4:05</span>
-                  <span>21 Guns</span>
-                  <span>1d ago</span>
-                </div>
-              </a>
             </div>
           </section>
 
@@ -405,88 +492,41 @@
           <!-- More sections for different genres/regions -->
         </div>
       </div>
+
+      <!-- Include Play Bar -->
+      <%- include('../widgets/playBar') %>
     </main>
-
-    <!-- Floating Play Bar - Fixed Position -->
-    <div
-      class="backdrop-blur-sm fixed bottom-0 left-0 right-0 w-full bg-white dark:bg-gray-900 border-t dark:border-gray-700 z-50"
-    >
-      <div class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] h-16">
-        <div class="flex items-center justify-between h-full">
-          <!-- Now Playing - Left Side -->
-          <div class="flex items-center min-w-0">
-            <img
-              src="https://images.unsplash.com/photo-1741192223245-46cbbe8ae332"
-              alt="Now Playing"
-              class="w-12 h-12 object-cover rounded"
-            />
-            <div class="ml-3 min-w-0">
-              <h3 class="text-sm font-medium dark:text-white truncate">
-                Currently Playing Track
-              </h3>
-              <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
-                Artist Name
-              </p>
-            </div>
-          </div>
-
-          <!-- Controls - Right Side -->
-          <div class="flex items-center">
-            <button class="text-red-500 hover:text-red-600">
-              <svg
-                class="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <script>
       function toggleAccordion(event) {
+        event.preventDefault();
         const accordionContent = event.currentTarget.nextElementSibling;
-        const allContents = document.querySelectorAll(".accordion-content");
+        const allContents = document.querySelectorAll('.accordion-content');
 
         // Close all other open accordions
-        allContents.forEach((content) => {
+        allContents.forEach(content => {
           if (content !== accordionContent) {
-            content.classList.add("hidden");
-            content.style.maxHeight = "0"; // Reset max-height for animation
+            content.classList.add('hidden');
+            content.style.maxHeight = '0'; // Reset max-height for animation
           }
         });
 
         // Toggle the clicked accordion
-        if (accordionContent.classList.contains("hidden")) {
-          accordionContent.classList.remove("hidden");
-          accordionContent.style.maxHeight =
-            accordionContent.scrollHeight + "px"; // Set max-height for animation
+        if (accordionContent.classList.contains('hidden')) {
+          accordionContent.classList.remove('hidden');
+          accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; // Set max-height for animation
         } else {
-          accordionContent.classList.add("hidden");
-          accordionContent.style.maxHeight = "0"; // Reset max-height for animation
+          accordionContent.classList.add('hidden');
+          accordionContent.style.maxHeight = '0'; // Reset max-height for animation
         }
       }
     </script>
 
     <style>
       .accordion-content {
-        transition: max-height 0.3s ease;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
       }
     </style>
   </body>
 </html>
+

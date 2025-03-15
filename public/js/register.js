@@ -66,7 +66,7 @@ $form.addEventListener('submit', async(e) => {
         // Enable submit button and show error message
         // const { message } = await response.json();
         Snackbar({
-            message: 'Oops, we could not register you at this point. Try again later',
+            message: 'Oops, we could not register you at this point. Please try again later',
             type: 'error'
         });
         // console.log(message);
