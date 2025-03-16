@@ -39,14 +39,63 @@ const renderHome = async (req, res) => {
             path: 'user',
             select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
         })
-        .sort({ createdAt: 'desc'});
+        .sort({ createdAt: 'desc'})
+        .limit(10)
+        .exec();
 
-        const rockSongs = latestSongs.filter((song) => song.genre.toLowerCase() === 'rock');
+        
+        // Retrieve Trending Songs
+        const sevenDaysAgo = moment().subtract(7, 'days').toDate(); // Get the date for 3 days ago
+
+        const trendingSongs = await Song.find({
+            createdAt: { $gte: sevenDaysAgo } // Filter for songs created in the last 3 days
+        })
+        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+        .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
+        .limit(5) // Limit the results to 10
+        .exec(); // Execute the query
+
+        // Retrieve Top Songs
+        const topSongs = await Song.find()
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+            .sort({ totalPlays: -1 })
+            .limit(5)
+            .exec();
+
+        // Group songs by region
+        
+        // Fetch all songs from the database
+        const songs = await Song.find()
+        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+        .exec();
+
+        // Group songs by region
+        const songsByRegion = {};
+
+        songs.forEach(song => {
+            const region = song.region || 'Global'; // Default to 'Unknown' if no region is specified
+
+            // Initialize the region if it doesn't exist
+            if (!songsByRegion[region]) {
+            songsByRegion[region] = [];
+            }
+
+            // Push the song to the corresponding region
+            songsByRegion[region].push(song);
+        });
+
+        // Limit to 10 songs per region
+        for (const region in songsByRegion) {
+            songsByRegion[region] = songsByRegion[region].slice(0, 10); // Get the first 10 songs
+        }
 
         res.render('./pages/home', {
             sessionUser: req.session.user,
+            route: req.originalUrl,
             latestSongs,
-            rockSongs,
+            trendingSongs,
+            topSongs,
+            songsByRegion,
             moment
         });
 
@@ -83,6 +132,6 @@ const handleSearch = async (req, res) => {
 
 module.exports = {
     renderHome,
-    handleSearch
+    handleSearch,
 }
 

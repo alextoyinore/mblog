@@ -2,8 +2,8 @@
 <div
 class="backdrop-blur-sm fixed bottom-0 left-0 right-0 w-full bg-white dark:bg-gray-900 border-t dark:border-gray-700 z-50"
 >
-<div class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] h-16">
-  <div class="flex items-center justify-between h-full">
+<div class="container mx-auto px-5 h-16">
+  <div class="flex items-center justify-between dark:text-gray-500 h-full text-xs">
     <!-- Now Playing - Left Side -->
     <div class="flex items-center min-w-0">
       <img
@@ -22,29 +22,117 @@ class="backdrop-blur-sm fixed bottom-0 left-0 right-0 w-full bg-white dark:bg-gr
     </div>
 
     <!-- Controls - Right Side -->
-    <div class="flex items-center">
-      <button class="text-red-500 hover:text-red-600">
-        <svg
-          class="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1"
-            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-          />
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1"
-            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
+    <div class="playbar flex min-w-0 items-center justify-center space-x-4 p-4  text-gray-600">
+      <button id="prevButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200">
+        <i class="fas fa-backward"></i>
       </button>
+      <button id="playButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200 text-lg">
+        <i class="fas fa-play"></i>
+      </button>
+      <button id="nextButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200">
+        <i class="fas fa-forward"></i>
+      </button>
+      
+      <div class="flex items-center">
+        <input type="range" id="seeker" class="w-64 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer" value="0" min="0" max="100" />
+        <span id="currentTime" class="ml-2">0:00</span> / <span id="duration" class="ml-2">0:00</span>
+      </div>
+    </div>
+
+    <div class="flex min-w-0 items-center justify-between gap-5">
+      <div class="flex min-w-[60px] items-center justify-between">
+        <button id="likeButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200">
+          <i class="fas fa-thumbs-up"></i>
+        </button>
+        <button id="shareButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200">
+          <i class="fas fa-share"></i>
+        </button>
+        <button id="addToPlaylistButton" class="bg-transparent dark:text-white hover:text-gray-400 transition duration-200">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+     
+      <!-- Volume Control -->
+      <div class="flex items-center">
+        <i class="fas fa-volume-down"></i>
+        <input type="range" id="volumeControl" class="w-24 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer mx-2" value="100" min="0" max="100" />
+        <i class="fas fa-volume-up"></i>
+      </div>
     </div>
   </div>
 </div>
 </div>
+
+<script>
+const audio = new Audio('path/to/your/audio/file.mp3'); // Replace with your audio file path
+const playButton = document.getElementById('playButton');
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+const seeker = document.getElementById('seeker');
+const currentTimeDisplay = document.getElementById('currentTime');
+const durationDisplay = document.getElementById('duration');
+const volumeControl = document.getElementById('volumeControl');
+
+playButton.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+    playButton.innerHTML = '<i class="fas fa-pause text-lg"></i>';
+  } else {
+    audio.pause();
+    playButton.innerHTML = '<i class="fas fa-play text-lg"></i>';
+  }
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  durationDisplay.textContent = formatTime(audio.duration);
+  seeker.max = audio.duration;
+});
+
+audio.addEventListener('timeupdate', () => {
+  currentTimeDisplay.textContent = formatTime(audio.currentTime);
+  seeker.value = audio.currentTime;
+});
+
+seeker.addEventListener('input', () => {
+  audio.currentTime = seeker.value;
+});
+
+volumeControl.addEventListener('input', () => {
+  audio.volume = volumeControl.value / 100;
+});
+
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+</script>
+
+<style>
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  width: 15px; /* Thumb width */
+  height: 15px; /* Thumb height */
+  background: #f56565; /* Red-500 color */
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px; /* Thumb width */
+  height: 15px; /* Thumb height */
+  background: #f56565; /* Red-500 color */
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+  width: 15px; /* Thumb width */
+  height: 15px; /* Thumb height */
+  background: #f56565; /* Red-500 color */
+  border-radius: 50%; /* Round thumb */
+  cursor: pointer;
+}
+</style>
+
