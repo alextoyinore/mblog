@@ -4,63 +4,45 @@
     <%- include('../layouts/head', {title : 'Home'}) %>
     <script type="module" src="/js/home.js"></script>
 </head>
-  <body class="font-nyt-sans w-full h-full">
+<body class="font-nyt-sans w-full h-full">
     <%- include('../widgets/topnav') %>
 
     <main class="container w-full mt-8 px-5 pb-20">
-      <div class="flex gap-8">
-        <!-- Left Column - Sidenav -->
-        <div class="lg:col-span-1">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left Column - Sidenav (hidden on small screens) -->
+        <div class="lg:col-span-1 hidden lg:block">
           <%- include('../widgets/sidenav') %>
         </div>
 
         <!-- Second Column - Trending Music -->
-        <div class="lg:col-span-1 w-150 lg:border-r dark:border-gray-700 lg:pr-6 h-screen overflow-y-auto sticky top-25">
+        <div class="lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-6 lg:h-screen overflow-y-auto lg:sticky lg:top-25">
           <% if (locals.trendingSongs) { %>
-          <h2
-            class="font-instrument text-lg dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center"
-          >
+          <h2 class="font-instrument text-lg dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
             <span class="text-red-500 mr-2">&bullet;</span> Trending Now
           </h2>
 
           <!-- Trending List -->
           <div class="space-y-0">
-            <!-- Trending Item -->
-            <% if (locals.trendingSongs.length) { %> <%
-              locals.trendingSongs.forEach(song => { %>
+            <% if (locals.trendingSongs.length) { %> 
+              <% locals.trendingSongs.forEach(song => { %>
             <div class="accordion-item">
-              <div
-                class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header"
-                onclick="toggleAccordion(event)"
-              >
+              <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
                 <div>
-                  <img
-                    src="<%= song.artwork.url %>"
-                    alt="<%= song.artistName %>"
-                    class="object-cover h-8 w-8 rounded-full"
-                  />
+                  <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
                 </div>
                 <div class="ml-3 flex-grow min-w-0">
                   <div class="flex items-center justify-between">
-                    <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
-                      <%= song.songTitle %>
-                    </h3>
-                    <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
-                      %></span>
+                    <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
+                    <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
                   </div>
-
                   <div class="flex items-center">
-                    <p class="truncate text-gray-600 text-xs pr-4 font-medium">
-                      <%= song.artistName %>
-                    </p>
+                    <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
                     <div class="flex gap-2 text-[12px] items-center text-xs">
                       <span class="text-xs text-red-500">Hot</span>
                       <span>.</span>
-                      <span class="text-xs text-gray-500 dark:text-gray-300"
-                        ><%= song.genre %></span
-                      >
-                        </div>
+                      <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
                     </div>
+                  </div>
                 </div>
               </div>
 
@@ -68,470 +50,252 @@
               <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
                 <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
                   <% if (song.spotify) { %>
-                  <a target="_blank"
-                    href="<%= song.spotify %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Spotify</a
-                  >
-                  <% } %> <% if (song.youtubeMusic) { %>
-                  <a target="_blank"
-                    href="<%= song.youtubeMusic %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >YouTube Music</a
-                  >
-                  <% } %> <% if (song.appleMusic) { %>
-                  <a target="_blank"
-                    href="<%= song.appleMusic %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Apple Music</a
-                  >
-                  <% } %> <% if (song.boomplay) { %>
-                  <a target="_blank"
-                    href="<%= song.boomplay %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Boomplay</a
-                  >
-                  <% } %> <% if (song.tidal) { %>
-                  <a target="_blank"
-                    href="<%= song.tidal %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Tidal</a
-                  >
-                  <% } %> <% if (song.amazon) { %>
-                  <a target="_blank"
-                    href="<%= song.amazon %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Amazon</a
-                  >
-                  
-                  <% } %> <% if (song.pandora) { %>
-                  <a target="_blank"
-                    href="<%= song.pandora %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Pandora</a
-                  >
+                  <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
                   <% } %> 
-                  
+                  <% if (song.youtubeMusic) { %>
+                  <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+                  <% } %> 
+                  <% if (song.appleMusic) { %>
+                  <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+                  <% } %> 
+                  <% if (song.boomplay) { %>
+                  <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+                  <% } %> 
+                  <% if (song.tidal) { %>
+                  <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+                  <% } %> 
+                  <% if (song.amazon) { %>
+                  <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+                  <% } %> 
+                  <% if (song.pandora) { %>
+                  <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+                  <% } %> 
                   <% if (song.soundcloud) { %>
-                  <a target="_blank"
-                    href="<%= song.soundcloud %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >SoundCloud</a
-                  >
+                  <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
                   <% } %> 
                   <% if (song.audiomack) { %>
-                  <a target="_blank"
-                    href="<%= song.audiomack %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Audiomack</a
-                  >
+                  <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
                   <% } %> 
                   <% if (song.deezer) { %>
-                  <a target="_blank"
-                    href="<%= song.deezer %>"
-                    class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                    >Deezer</a
-                  >
-                  
+                  <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
                   <% } %>
-
                   <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                 </div>
+              </div>
             </div>
-        </div>
-            <% }) %> <% } %>
+            <% }) %> 
+          <% } %>
           </div>
           <% } %>
 
           <% if (locals.topSongs) { %>
-            <h2
-              class="font-instrument text-lg dark:text-white font-bold mt-8 mb-4 pb-2 border-b dark:border-gray-700 flex items-center"
-            >
+            <h2 class="font-instrument text-lg dark:text-white font-bold mt-8 mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
               <span class="text-sky-500 mr-2">&bullet;</span> Top Songs
             </h2>
   
             <!-- Top List -->
             <div class="space-y-0">
-              <!-- Trending Item -->
-              <% if (locals.topSongs.length) { %> <%
-                locals.topSongs.forEach(song => { %>
+              <% if (locals.topSongs.length) { %> 
+                <% locals.topSongs.forEach(song => { %>
               <div class="accordion-item">
-                <div
-                  class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header"
-                  onclick="toggleAccordion(event)"
-                >
+                <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
                   <div>
-                    <img
-                      src="<%= song.artwork.url %>"
-                      alt="<%= song.artistName %>"
-                      class="object-cover h-8 w-8 rounded-full"
-                    />
-        </div>
+                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+                  </div>
                   <div class="ml-3 flex-grow min-w-0">
                     <div class="flex items-center justify-between">
-                      <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
-                        <%= song.songTitle %>
-                      </h3>
-                      <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
-                        %></span>
-            </div>
-  
+                      <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
+                      <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
+                    </div>
                     <div class="flex items-center">
-                      <p class="truncate text-gray-600 text-xs pr-4 font-medium">
-                        <%= song.artistName %>
-                      </p>
+                      <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
                       <div class="flex gap-2 text-[12px] items-center text-xs">
                         <span class="text-xs text-sky-500">Top</span>
                         <span>.</span>
-                        <span class="text-xs text-gray-500 dark:text-gray-300"
-                          ><%= song.genre %></span
-                        >
+                        <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
                 <!-- Streaming Platforms Links -->
                 <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
                   <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
                     <% if (song.spotify) { %>
-                    <a target="_blank"
-                      href="<%= song.spotify %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Spotify</a
-                    >
-                    <% } %> <% if (song.youtubeMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.youtubeMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >YouTube Music</a
-                    >
-                    <% } %> <% if (song.appleMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.appleMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Apple Music</a
-                    >
-                    <% } %> <% if (song.boomplay) { %>
-                    <a target="_blank"
-                      href="<%= song.boomplay %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Boomplay</a
-                    >
-                    <% } %> <% if (song.tidal) { %>
-                    <a target="_blank"
-                      href="<%= song.tidal %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Tidal</a
-                    >
-                    <% } %> <% if (song.amazon) { %>
-                    <a target="_blank"
-                      href="<%= song.amazon %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Amazon</a
-                    >
-                    
-                    <% } %> <% if (song.pandora) { %>
-                    <a target="_blank"
-                      href="<%= song.pandora %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Pandora</a
-                    >
+                    <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
                     <% } %> 
-                    
+                    <% if (song.youtubeMusic) { %>
+                    <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+                    <% } %> 
+                    <% if (song.appleMusic) { %>
+                    <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+                    <% } %> 
+                    <% if (song.boomplay) { %>
+                    <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+                    <% } %> 
+                    <% if (song.tidal) { %>
+                    <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+                    <% } %> 
+                    <% if (song.amazon) { %>
+                    <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+                    <% } %> 
+                    <% if (song.pandora) { %>
+                    <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+                    <% } %> 
                     <% if (song.soundcloud) { %>
-                    <a target="_blank"
-                      href="<%= song.soundcloud %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >SoundCloud</a
-                    >
+                    <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
                     <% } %> 
                     <% if (song.audiomack) { %>
-                    <a target="_blank"
-                      href="<%= song.audiomack %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Audiomack</a
-                    >
+                    <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
                     <% } %> 
                     <% if (song.deezer) { %>
-                    <a target="_blank"
-                      href="<%= song.deezer %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Deezer</a
-                    >
-                    
+                    <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
                     <% } %>
-  
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                   </div>
-                    </div>
-            </div>
-              <% }) %> <% } %>
-            </div>
+                </div>
+              </div>
+              <% }) %> 
             <% } %>
+            </div>
+          <% } %>
         </div>
 
         <!-- Right Column - All Songs -->
         <div class="w-full">
           <!-- Latest Releases Section -->
           <section class="mb-8">
-            <h2
-              class="font-instrument text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700"
-            >
-              Latest Releases
-            </h2>
+            <h2 class="font-instrument text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700">Latest Releases</h2>
 
             <div class="flex flex-col gap-0">
-              <!-- Song Item -->
-              <% if (locals.latestSongs.length) { %> <%
-              locals.latestSongs.forEach(song => { %>
+              <% if (locals.latestSongs.length) { %> 
+                <% locals.latestSongs.forEach(song => { %>
               <div class="accordion-item">
-                <div
-                  class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header"
-                  onclick="toggleAccordion(event)"
-                >
+                <div class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
                   <div>
-                    <img
-                      src="<%= song.artwork.url %>"
-                      alt="<%= song.artistName %>"
-                      class="object-cover h-8 w-8 rounded-full"
-                    />
-    </div>
-
+                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+                  </div>
                   <div class="ml-3 flex-grow min-w-0 flex items-center">
-                    <span class="text-sm font-medium dark:text-white"
-                      ><%= song.songTitle %></span
-                    >
+                    <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
                     <span class="mx-2 text-gray-400">-</span>
-                    <span
-                      class="text-xs text-gray-500 dark:text-gray-400 truncate"
-                      ><%= song.artistName %></span
-                    >
-        </div>
-                  <div
-                    class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
-                  >
+                    <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
+                  </div>
+                  <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
                     <span><%= song.releaseYear %></span>
                     <span><%= song.albumTitle %></span>
-                    <span
-                      ><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
-                      %></span
-                    >
-    </div>
+                    <span><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
+                  </div>
                 </div>
 
                 <!-- Streaming Platforms Links -->
-                <div
-                  class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden"
-                >
-                  <div
-                    class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center"
-                  >
+                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
                     <% if (song.spotify) { %>
-                    <a target="_blank"
-                      href="<%= song.spotify %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Spotify</a
-                    >
-                    <% } %> <% if (song.youtubeMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.youtubeMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >YouTube Music</a
-                    >
-                    <% } %> <% if (song.appleMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.appleMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Apple Music</a
-                    >
-                    <% } %> <% if (song.boomplay) { %>
-                    <a target="_blank"
-                      href="<%= song.boomplay %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Boomplay</a
-                    >
-                    <% } %> <% if (song.tidal) { %>
-                    <a target="_blank"
-                      href="<%= song.tidal %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Tidal</a
-                    >
-                    <% } %> <% if (song.amazon) { %>
-                    <a target="_blank"
-                      href="<%= song.amazon %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Amazon</a
-                    >
-                    
-                    <% } %> <% if (song.pandora) { %>
-                    <a target="_blank"
-                      href="<%= song.pandora %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Pandora</a
-                    >
+                    <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
                     <% } %> 
-                    
+                    <% if (song.youtubeMusic) { %>
+                    <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+                    <% } %> 
+                    <% if (song.appleMusic) { %>
+                    <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+                    <% } %> 
+                    <% if (song.boomplay) { %>
+                    <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+                    <% } %> 
+                    <% if (song.tidal) { %>
+                    <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+                    <% } %> 
+                    <% if (song.amazon) { %>
+                    <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+                    <% } %> 
+                    <% if (song.pandora) { %>
+                    <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+                    <% } %> 
                     <% if (song.soundcloud) { %>
-                    <a target="_blank"
-                      href="<%= song.soundcloud %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >SoundCloud</a
-                    >
+                    <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
                     <% } %> 
                     <% if (song.audiomack) { %>
-                    <a target="_blank"
-                      href="<%= song.audiomack %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Audiomack</a
-                    >
+                    <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
                     <% } %> 
                     <% if (song.deezer) { %>
-                    <a target="_blank"
-                      href="<%= song.deezer %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Deezer</a
-                    >
-
-                    
+                    <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
                     <% } %>
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
+                  </div>
                 </div>
-                </div>
-        </div>
-              <% }) %> <% } %>
-                </div>
-            </section>
+              </div>
+              <% }) %> 
+              <% } %>
+            </div>
+          </section>
 
           <!-- Region Sections -->
           <% if (locals.songsByRegion) { %> 
           <section class="mb-8 mt-8">
             <% Object.keys(songsByRegion).forEach(region => { %>
-            <h2
-              class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"
-            >
-              <%= region %>
-            </h2>
+            <h2 class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"><%= region %></h2>
             <div class="flex flex-col gap-0 my-4">
-              <!-- Song Item -->
-              <% if (songsByRegion[region].length) { %> <%
-                songsByRegion[region].forEach(song => { %>
+              <% if (songsByRegion[region].length) { %> 
+                <% songsByRegion[region].forEach(song => { %>
               <div class="accordion-item">
-                <a
-                  class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header"
-                  onclick="toggleAccordion(event)"
-                >
-                <div>
-                  <img
-                    src="<%= song.artwork.url %>"
-                    alt="<%= song.artistName %>"
-                    class="object-cover h-8 w-8 rounded-full"
-                  />
-                </div>
-
-                  <div class="ml-3 flex-grow min-w-0 flex items-center">
-                    <span class="text-sm font-medium dark:text-white"
-                      ><%= song.songTitle %></span
-                    >
-                    <span class="mx-2 text-gray-400">-</span>
-                    <span
-                      class="text-xs text-gray-500 dark:text-gray-400 truncate"
-                      ><%= song.artistName %></span
-                    >
+                <a class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
+                  <div>
+                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
                   </div>
-                  <div
-                    class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
-                  >
+                  <div class="ml-3 flex-grow min-w-0 flex items-center">
+                    <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
+                    <span class="mx-2 text-gray-400">-</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
+                  </div>
+                  <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
                     <span><%= song.releaseYear %></span>
                     <span><%= song.albumTitle %></span>
-                    <span
-                      ><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
-                      %></span
-                    >
-                </div>
+                    <span><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
+                  </div>
                 </a>
 
                 <!-- Streaming Platforms Links -->
-                <div
-                  class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden"
-                >
-                  <div
-                    class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center"
-                  >
+                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
                     <% if (song.spotify) { %>
-                    <a target="_blank"
-                      href="<%= song.spotify %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Spotify</a
-                    >
-                    <% } %> <% if (song.youtubeMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.youtubeMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >YouTube Music</a
-                    >
-                    <% } %> <% if (song.appleMusic) { %>
-                    <a target="_blank"
-                      href="<%= song.appleMusic %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Apple Music</a
-                    >
-                    <% } %> <% if (song.boomplay) { %>
-                    <a target="_blank"
-                      href="<%= song.boomplay %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Boomplay</a
-                    >
-                    <% } %> <% if (song.tidal) { %>
-                    <a target="_blank"
-                      href="<%= song.tidal %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Tidal</a
-                    >
-                    <% } %> <% if (song.amazon) { %>
-                    <a target="_blank"
-                      href="<%= song.amazon %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Amazon</a
-                    >
-                    
-                    <% } %> <% if (song.pandora) { %>
-                    <a target="_blank"
-                      href="<%= song.pandora %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Pandora</a
-                    >
+                    <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
                     <% } %> 
-                    
+                    <% if (song.youtubeMusic) { %>
+                    <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+                    <% } %> 
+                    <% if (song.appleMusic) { %>
+                    <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+                    <% } %> 
+                    <% if (song.boomplay) { %>
+                    <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+                    <% } %> 
+                    <% if (song.tidal) { %>
+                    <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+                    <% } %> 
+                    <% if (song.amazon) { %>
+                    <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+                    <% } %> 
+                    <% if (song.pandora) { %>
+                    <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+                    <% } %> 
                     <% if (song.soundcloud) { %>
-                    <a target="_blank"
-                      href="<%= song.soundcloud %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >SoundCloud</a
-                    >
+                    <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
                     <% } %> 
                     <% if (song.audiomack) { %>
-                    <a target="_blank"
-                      href="<%= song.audiomack %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Audiomack</a
-                    >
+                    <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
                     <% } %> 
                     <% if (song.deezer) { %>
-                    <a target="_blank"
-                      href="<%= song.deezer %>"
-                      class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                      >Deezer</a
-                    >
+                    <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
                     <% } %>
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                   </div>
                 </div>
-        </div>
-              <% }) %> <% } %>
+              </div>
+              <% }) %> 
+              <% } %>
             </div>
             <% }) %>
-        </section>
+          </section>
           <% } %>
 
           <!-- Top Genre Sections -->

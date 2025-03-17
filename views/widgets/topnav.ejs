@@ -7,9 +7,28 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
     <!-- Top Bar -->
   <div class="container mx-auto">
       <!-- Upper Nav -->
-    <div class="flex items-center justify-between py-3 pl-5 relative">
+    <div class="flex items-center gap-5 py-3 pl-5">
+
+      <div class="lg:hidden">
+        <button id="openMobileMenu" class="text-gray-800 dark:text-gray-200">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 18 18"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
       <!-- Left Menu Group - Logo -->
-      <div class="flex items-center space-x-4">
+      <div class="">
         <a href="/">
           <img src="/images/light.svg" class="h-6 hidden dark:inline" alt="musicnow logo" />
           <img src="/images/dark.svg" class="h-6 inline dark:hidden" alt="musicnow logo" />
@@ -17,7 +36,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       </div>
 
       <!-- Centered Search and Country Select -->
-      <div class="flex-grow mx-4 flex items-center justify-center">
+      <div class="hidden flex-grow mx-4 lg:flex items-center justify-center">
         <div class="relative flex items-center w-full max-w-[600px]">
           <!-- Country Select -->
           <div class="relative flex gap-2">
@@ -86,7 +105,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       </div>
 
       <!-- Right Menu Group -->
-      <div class="absolute right-0 flex items-center space-x-4 pr-5">
+      <div class="absolute right-0 flex items-center lg:space-x-4 pr-5">
         <!-- Dark Mode Toggle -->
         <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800">
           <svg class="hidden dark:block w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -406,6 +425,26 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
   document.addEventListener('click', (event) => {
     if (!genresButton.contains(event.target) && !megaMenu.contains(event.target)) {
       megaMenu.classList.add('hidden');
+    }
+  });
+
+  // Toggle mobile menu
+  const hamburgerButton = document.getElementById('hamburgerButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+  hamburgerButton.addEventListener('click', () => {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+
+  closeMobileMenu.addEventListener('click', () => {
+    mobileMenu.classList.add('translate-x-full');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!hamburgerButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+      mobileMenu.classList.add('translate-x-full');
     }
   });
   </script>
