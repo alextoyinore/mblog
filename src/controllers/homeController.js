@@ -62,11 +62,16 @@ const renderHome = async (req, res) => {
             .limit(5)
             .exec();
 
+        /**
+         * Songs by Region
+         */
+
         // Group songs by region
         
         // Fetch all songs from the database
         const songs = await Song.find()
         .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+        .limit(10)
         .exec();
 
         // Group songs by region
@@ -89,6 +94,30 @@ const renderHome = async (req, res) => {
             songsByRegion[region] = songsByRegion[region].slice(0, 10); // Get the first 10 songs
         }
 
+        /**
+         * Songs By Genre
+         */
+
+        // Group songs by genre
+        const songsByGenre = {};
+
+        songs.forEach(song => {
+            const genre = song.genre || 'World'; // Default to 'World' if no genre is specified
+
+            // Initialize the genre if it doesn't exist
+            if (!songsByGenre[genre]) {
+                songsByGenre[genre] = [];
+            }
+
+            // Push the song to the corresponding genre
+            songsByGenre[genre].push(song);
+        });
+
+        // Limit to 10 songs per genre
+        for (const genre in songsByGenre) {
+            songsByGenre[genre] = songsByGenre[genre].slice(0, 10); // Get the first 10 songs
+        }
+
         res.render('./pages/home', {
             sessionUser: req.session.user,
             route: req.originalUrl,
@@ -96,6 +125,7 @@ const renderHome = async (req, res) => {
             trendingSongs,
             topSongs,
             songsByRegion,
+            songsByGenre,
             moment
         });
 
