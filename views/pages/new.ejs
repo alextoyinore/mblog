@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
+<head>
+    <%- include('../layouts/head', {title : locals.title}) %>
+    <!-- <script type="module" src="/js/home.js"></script> -->
+</head>
+<body class="font-nyt-sans w-full h-full">
+    <%- include('../widgets/topnav') %>
+
+    <main class="container w-full mt-8 px-5 pb-20">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Left Column - Sidenav (hidden on small screens) -->
+        <div class="lg:col-span-1 hidden lg:block">
+          <%- include('../widgets/sidenav') %>
+        </div>
+
+        <!-- Right Column - All Songs -->
+        <div class="w-full">
+          <!-- Query Section -->
+          <section class="mb-8">
+            <h1 class="font-instrument lg:text-5xl text-3xl bg-white dark:bg-gray-900 py-5 font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700 sticky lg:top-24 top-10"><%= locals.title %></h1>
+
+            <div class="flex flex-col gap-0">
+              <% if (locals.latestSongs.length) { %> 
+                <% locals.latestSongs.forEach(song => { %>
+              <div class="accordion-item">
+                <div class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
+                  <div>
+                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+                  </div>
+                  <div class="ml-3 flex-grow min-w-0 flex items-center">
+                    <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
+                    <span class="mx-2 text-gray-400">-</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
+                  </div>
+                  <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+                    <span><%= song.releaseYear %></span>
+                    <span><%= song.albumTitle %></span>
+                    <span><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
+                  </div>
+                </div>
+
+                <!-- Streaming Platforms Links -->
+                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
+                    <% if (song.spotify) { %>
+                    <a target="_blank" href="<%= song.spotify %>" onclick="incrementPlays('<%= song.id %>')" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
+                    <% } %> 
+                    <% if (song.youtubeMusic) { %>
+                    <a target="_blank" href="<%= song.youtubeMusic %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+                    <% } %> 
+                    <% if (song.appleMusic) { %>
+                    <a target="_blank" href="<%= song.appleMusic %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+                    <% } %> 
+                    <% if (song.boomplay) { %>
+                    <a target="_blank" href="<%= song.boomplay %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+                    <% } %> 
+                    <% if (song.tidal) { %>
+                    <a target="_blank" href="<%= song.tidal %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+                    <% } %> 
+                    <% if (song.amazon) { %>
+                    <a target="_blank" href="<%= song.amazon %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+                    <% } %> 
+                    <% if (song.pandora) { %>
+                    <a target="_blank" href="<%= song.pandora %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+                    <% } %> 
+                    <% if (song.soundcloud) { %>
+                    <a target="_blank" href="<%= song.soundcloud %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
+                    <% } %> 
+                    <% if (song.audiomack) { %>
+                    <a target="_blank" href="<%= song.audiomack %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
+                    <% } %> 
+                    <% if (song.deezer) { %>
+                    <a target="_blank" href="<%= song.deezer %>"
+                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
+                    <% } %>
+                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
+                  </div>
+                </div>
+              </div>
+              <% }) %> 
+              <% } %>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Include Play Bar -->
+      <%- include('../widgets/playbar') %>
+    </main>
+
+    <style>
+     
+    </style>
+</body>
+</html>
+
