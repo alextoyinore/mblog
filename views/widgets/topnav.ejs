@@ -20,7 +20,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
+              stroke-width="1"
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
@@ -129,16 +129,30 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
               <%= initials %>
             </button>
             <div class="flex flex-col">
-              <p class="text-xs text-gray-600 dark:text-gray-400 truncate"><%= username.substring(0,10) + '...' %></p>
+              <p class="text-xs text-gray-600 dark:text-gray-400 truncate"><%= username.substring(0,18) + '...' %></p>
               <p class="text-sm text-gray-600 dark:text-gray-400 truncate"><%= name %></p>
             </div>
           </div>
 
           <!-- Menu Items -->
           <a href="/publish" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">New Song / URL</a>
-          <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Profile</a>
+
+           <!-- Separator -->
+           <div class="lg:hidden border-t border-gray-200 dark:border-gray-700"></div>
+
+          
+          <a href="/playlists" class="block lg:hidden px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Playlists</a>
+
+          <a href="/explore" class="block lg:hidden px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Explore</a>
+
+          <a href="/library" class="block lg:hidden px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Library</a>
+
+          <a href="/favourites" class="block lg:hidden px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Liked Songs</a>
+
+          <!-- Separator -->
+          <div class="lg:hidden border-t border-gray-200 dark:border-gray-700"></div>
+
           <a href="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Settings</a>
-          <a href="/playlists" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">My Playlists</a>
 
           <!-- Separator -->
           <div class="border-t border-gray-200 dark:border-gray-700"></div>
@@ -276,14 +290,14 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
     </div>
 
     <!-- Mobile Menu Content -->
-    <div class="flex-1 overflow-y-auto p-4">
+    <div class="flex-1 overflow-y-auto p-4 mb-20">
       <!-- Search Bar -->
       <div class="mb-6">
         <div class="relative">
           <input
             type="search"
             placeholder="SEARCH"
-            class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-gray-800 dark:text-gray-200 focus:outline-none"
+            class="w-full placeholder:text-sm bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-gray-800 dark:text-gray-200 focus:outline-none"
           />
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
             <svg
@@ -307,10 +321,10 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       <nav>
         <!-- Main Links -->
         <div class="mb-6">
-          <a href="#" class="block text-lg font-serif text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">New Releases</a>
-          <a href="#" class="block text-lg font-serif text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Top Charts</a>
-          <a href="#" class="block text-lg font-serif text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Artists</a>
-          <a href="#" class="block text-lg font-serif text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Playlists</a>
+          <a href="#" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">New Releases</a>
+          <a href="#" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Top Charts</a>
+          <a href="#" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Artists</a>
+          <a href="#" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Playlists</a>
         </div>
 
         <!-- Genres Section -->
@@ -351,22 +365,32 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
             <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Beats</a>
             <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">AI</a>
       </div>
+
+      <div class="my-10"></div>
     </div>
   </nav>
 
       <!-- Bottom Section -->
+      <% if (!userAuthenticated) { %>
       <div class="mt-8 pt-6 border-t dark:border-gray-700">
         <a
-          href="#"
+          href="/login"
           class="block mb-4 text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
           >Sign In</a
         >
         <a
-          href="#"
+          href="/register"
           class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
-          >Submit Link</a
+          >Get Started</a
         >
       </div>
+      <% } else { %>
+        <a
+        href="/publish"
+        class="block w-full bg-black dark:bg-red-500 text-black dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+        >Submit Link or URL</a
+      >
+      <% } %>
     </div>
   </div>
 </div>
