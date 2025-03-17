@@ -99,7 +99,7 @@ const renderHome = async (req, res) => {
             moment
         });
 
-        console.log(latestSongs);
+        // console.log(latestSongs);
 
         
     }catch(error){

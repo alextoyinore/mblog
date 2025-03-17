@@ -1912,6 +1912,15 @@
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
+  .border-gray-400 {
+    border-color: var(--color-gray-400);
+  }
+  .border-gray-500 {
+    border-color: var(--color-gray-500);
+  }
+  .border-gray-600 {
+    border-color: var(--color-gray-600);
+  }
   .border-green-500 {
     border-color: var(--color-green-500);
   }
@@ -3697,6 +3706,11 @@
     @media (prefers-color-scheme: dark) {
       border-bottom-style: var(--tw-border-style);
       border-bottom-width: 1px;
+    }
+  }
+  .dark\:border-gray-500 {
+    @media (prefers-color-scheme: dark) {
+      border-color: var(--color-gray-500);
     }
   }
   .dark\:border-gray-600 {

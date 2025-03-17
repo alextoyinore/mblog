@@ -38,20 +38,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Dark mode toggle functionality
-  const darkModeToggle = document.getElementById("darkModeToggle");
-  darkModeToggle.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-    // Optional: Save preference to localStorage
-    const isDark = document.documentElement.classList.contains("dark");
-    localStorage.setItem("darkMode", isDark);
+  // Function to apply the system theme
+  function systemTheme() {
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (prefersDarkScheme) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+    localStorage.setItem('theme', 'system');
+  }
+
+  // Function to apply the light theme
+  function lightTheme() {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    localStorage.setItem('theme', 'light');
+  }
+
+  // Function to apply the dark theme
+  function darkTheme() {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    localStorage.setItem('theme', 'dark');
+  }
+
+  // Function to apply the saved theme on page load
+  function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      darkTheme();
+    } else if (savedTheme === 'light') {
+      lightTheme();
+    } else {
+      systemTheme(); // Default to system theme
+    }
+  }
+
+  // Call the function to apply the saved theme on page load
+  document.addEventListener('DOMContentLoaded', applySavedTheme);
+
+  // Mega menu
+  const genresButton = document.getElementById('genresButton');
+  const megaMenu = document.getElementById('megaMenu');
+
+  // Toggle mega menu visibility
+  genresButton.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent click event from bubbling up
+    megaMenu.classList.toggle('hidden');
   });
 
-  // Check for saved dark mode preference
-  if (
-    localStorage.getItem("darkMode") === "true" ||
-    (!localStorage.getItem("darkMode") &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.add("dark");
-  }
+  // Close mega menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!genresButton.contains(event.target) && !megaMenu.contains(event.target)) {
+      megaMenu.classList.add('hidden');
+    }
+  });
+
+  // Toggle mobile menu
+  const hamburgerButton = document.getElementById('hamburgerButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+  hamburgerButton.addEventListener('click', () => {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+
+  closeMobileMenu.addEventListener('click', () => {
+    mobileMenu.classList.add('translate-x-full');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!hamburgerButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+      mobileMenu.classList.add('translate-x-full');
+    }
+  });
