@@ -68,6 +68,7 @@ const login = require('./src/routes/loginRoute')
 const home = require('./src/routes/homeRoute')
 const newSong = require('./src/routes/newSongRoute')
 const song = require('./src/routes/songRoute')
+const playing = require('./src/routes/playingRoute')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongooseConfig');
@@ -82,7 +83,8 @@ app.use('/', home);
 app.use('/publish', newSong);
 // song page
 app.use('/song', song)
-
+// now playing page
+app.use('/playing', playing)
 
 /**
  * start server

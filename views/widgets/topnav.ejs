@@ -4,9 +4,9 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
 %>
 
 <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
-  <!-- Top Bar -->
+    <!-- Top Bar -->
   <div class="container mx-auto">
-    <!-- Upper Nav -->
+      <!-- Upper Nav -->
     <div class="flex items-center justify-between py-3 pl-5 relative">
       <!-- Left Menu Group - Logo -->
       <div class="flex items-center space-x-4">
@@ -98,7 +98,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
         </button>
 
         <% if (userAuthenticated) { %>
-        <button id="profileButton" class="lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 rounded-full bg-gray-100 dark:bg-gray-900 p-2 cursor-pointer transition-colors">
+        <button id="profileButton" class="lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 cursor-pointer transition-colors">
           <%= initials %>
         </button>
 
@@ -106,7 +106,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
         <div id="profileDropdown" class="hidden absolute top-10.5 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 border border-gray-200 dark:border-gray-700 z-50">
           <!-- User Info Section -->
           <div class="flex gap-2 px-3 py-3 cursor-pointer border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
-            <button id="profileButton" class="hidden lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 rounded-full dark:bg-gray-900 bg-gray-100 p-2 dark:hover:text-gray-400">
+            <button id="profileButton" class="hidden lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 rounded-full dark:bg-gray-700 bg-gray-100 p-1.5 dark:hover:text-gray-400">
               <%= initials %>
             </button>
             <div class="flex flex-col">
@@ -130,7 +130,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           </form>
         </div>
         <% if (!route.includes('publish')) { %>
-          <a href="/publish" class="hidden lg:block bg-black dark:bg-red-500 text-white px-4 py-2 text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-red-600 transition-colors">Submit Song or URL</a>
+          <a href="/publish" class="hidden lg:block bg-black dark:bg-red-500 text-white px-4 py-1.5 text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-red-600 transition-colors">Submit Song or URL</a>
         <% } %>
         
         <% } else { %>
@@ -186,8 +186,8 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Rock</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Alternative</a></li>
                   </ul>
-                </div>
-
+        </div>
+  
                 <!-- Classical -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Classical</h3>
@@ -195,14 +195,11 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Baroque</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Romantic</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Modern</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Impressionism</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Minimalism</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Neoclassicism</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Chamber Music</a></li>
                     <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Opera</a></li>
                   </ul>
-                </div>
-
+        </div>
+  
                 <!-- Other -->
                 <div>
                   <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Other</h3>
@@ -217,7 +214,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
             </div>
           </div>
         </div>
-
+  
         <!-- Other nav items -->
         <a href="#" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">New Releases</a>
         <a href="#" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">Top Charts</a>
@@ -255,7 +252,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
             stroke-width="2"
             d="M6 18L18 6M6 6l12 12"
           />
-        </svg>
+            </svg>
       </button>
     </div>
 
@@ -286,7 +283,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           </div>
         </div>
       </div>
-
+  
       <!-- Navigation Links -->
       <nav>
         <!-- Main Links -->
@@ -334,9 +331,9 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
             <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Reggae</a>
             <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Beats</a>
             <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">AI</a>
-          </div>
-        </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
 
       <!-- Bottom Section -->
       <div class="mt-8 pt-6 border-t dark:border-gray-700">
@@ -358,8 +355,8 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
 <div id="snackbarWrapper" class="relative">
   <!-- Snackbar will be appended here -->
 </div>
-
-<script>
+  
+  <script>
   // Get theme from localStorage or system preference
   const getInitialTheme = () => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -411,5 +408,5 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       megaMenu.classList.add('hidden');
     }
   });
-</script>
+  </script>
 

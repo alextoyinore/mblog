@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
-  <head>
+<head>
     <%- include('../layouts/head', {title : 'Home'}) %>
     <script type="module" src="/js/home.js"></script>
-  </head>
+</head>
   <body class="font-nyt-sans w-full h-full">
     <%- include('../widgets/topnav') %>
 
@@ -59,8 +59,8 @@
                       <span class="text-xs text-gray-500 dark:text-gray-300"
                         ><%= song.genre %></span
                       >
+                        </div>
                     </div>
-                  </div>
                 </div>
               </div>
 
@@ -137,8 +137,8 @@
 
                   <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                 </div>
-              </div>
             </div>
+        </div>
             <% }) %> <% } %>
           </div>
           <% } %>
@@ -166,7 +166,7 @@
                       alt="<%= song.artistName %>"
                       class="object-cover h-8 w-8 rounded-full"
                     />
-                  </div>
+        </div>
                   <div class="ml-3 flex-grow min-w-0">
                     <div class="flex items-center justify-between">
                       <h3 class="text-sm font-medium pr-4 dark:text-white truncate">
@@ -174,7 +174,7 @@
                       </h3>
                       <span class="text-xs text-gray-400"><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
                         %></span>
-                    </div>
+            </div>
   
                     <div class="flex items-center">
                       <p class="truncate text-gray-600 text-xs pr-4 font-medium">
@@ -186,11 +186,11 @@
                         <span class="text-xs text-gray-500 dark:text-gray-300"
                           ><%= song.genre %></span
                         >
-                      </div>
-                    </div>
-                  </div>
                 </div>
-  
+            </div>
+        </div>
+    </div>
+
                 <!-- Streaming Platforms Links -->
                 <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
                   <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
@@ -264,8 +264,8 @@
   
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                   </div>
-                </div>
-              </div>
+                    </div>
+            </div>
               <% }) %> <% } %>
             </div>
             <% } %>
@@ -296,7 +296,7 @@
                       alt="<%= song.artistName %>"
                       class="object-cover h-8 w-8 rounded-full"
                     />
-                  </div>
+    </div>
 
                   <div class="ml-3 flex-grow min-w-0 flex items-center">
                     <span class="text-sm font-medium dark:text-white"
@@ -307,7 +307,7 @@
                       class="text-xs text-gray-500 dark:text-gray-400 truncate"
                       ><%= song.artistName %></span
                     >
-                  </div>
+        </div>
                   <div
                     class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400"
                   >
@@ -317,7 +317,7 @@
                       ><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
                       %></span
                     >
-                  </div>
+    </div>
                 </div>
 
                 <!-- Streaming Platforms Links -->
@@ -396,12 +396,12 @@
                     
                     <% } %>
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                  </div>
                 </div>
-              </div>
+                </div>
+        </div>
               <% }) %> <% } %>
-            </div>
-          </section>
+                </div>
+            </section>
 
           <!-- Region Sections -->
           <% if (locals.songsByRegion) { %> 
@@ -448,7 +448,7 @@
                       ><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY')
                       %></span
                     >
-                  </div>
+                </div>
                 </a>
 
                 <!-- Streaming Platforms Links -->
@@ -527,11 +527,11 @@
                     <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
                   </div>
                 </div>
-              </div>
+        </div>
               <% }) %> <% } %>
             </div>
             <% }) %>
-          </section>
+        </section>
           <% } %>
 
           <!-- Top Genre Sections -->
@@ -573,6 +573,6 @@
         transition: max-height 0.3s ease, opacity 0.3s ease;
       }
     </style>
-  </body>
+</body>
 </html>
 
