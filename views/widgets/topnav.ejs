@@ -30,8 +30,8 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       <!-- Left Menu Group - Logo -->
       <div class="">
         <a href="/">
-          <img src="/images/light.svg" class="h-6 hidden dark:inline" alt="musicnow logo" />
-          <img src="/images/dark.svg" class="h-6 inline dark:hidden" alt="musicnow logo" />
+          <img src="/images/light.svg" class="h-6 hidden dark:inline" alt="music1 logo" />
+          <img src="/images/dark.svg" class="h-6 inline dark:hidden" alt="music1 logo" />
         </a>
       </div>
 
@@ -107,14 +107,14 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       <!-- Right Menu Group -->
       <div class="absolute right-0 flex items-center lg:space-x-4 pr-5">
         <!-- Dark Mode Toggle -->
-        <button id="darkModeToggle" class="hidden lg:flex p-2 rounded-full hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800">
+        <!-- <button id="darkModeToggle" class="hidden lg:flex p-2 rounded-full hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800">
           <svg class="hidden dark:block w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
           </svg>
           <svg class="block dark:hidden w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
           </svg>
-        </button>
+        </button> -->
 
         <% if (userAuthenticated) { %>
         <button id="profileButton" class="lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 cursor-pointer transition-colors">
@@ -135,7 +135,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           </div>
 
           <!-- Menu Items -->
-          <a href="/publish" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">New Song / URL</a>
+          <a href="/publish" class="lg:hidden block px-4 py-2 text-sm dark:bg-gray-900 bg-gray-50 text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-800">New Song / URL</a>
 
            <!-- Separator -->
            <div class="lg:hidden border-t border-gray-200 dark:border-gray-700"></div>
@@ -150,7 +150,20 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
           <a href="/favourites" class="block lg:hidden px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Liked Songs</a>
 
           <!-- Separator -->
-          <div class="lg:hidden border-t border-gray-200 dark:border-gray-700"></div>
+          <div class="border-t border-gray-200 dark:border-gray-700"></div>
+
+          <div onclick="toggleAccordion(event)" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Theme</div>
+
+            <div class="accordion-item bg-gray-50 dark:bg-gray-900 transition-all duration-300 ease-in-out hidden">
+              <a onclick="systemTheme()" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">System</a>
+
+              <a onclick="lightTheme()" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Light</a>
+
+              <a onclick="darkTheme()" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Dark</a>
+            </div>
+
+          <!-- Separator -->
+          <div class="border-t border-gray-200 dark:border-gray-700"></div>
 
           <a href="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Settings</a>
 
@@ -387,7 +400,7 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
       <% } else { %>
         <a
         href="/publish"
-        class="block w-full bg-black dark:bg-red-500 text-black dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+        class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
         >Submit Link or URL</a
       >
       <% } %>
@@ -404,40 +417,47 @@ const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
 </style>
   
   <script>
-  // Get theme from localStorage or system preference
-  const getInitialTheme = () => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      return 'dark';
-    }
-    return 'light';
-  };
-
-  // Apply theme to document
-  const applyTheme = (theme) => {
-    if (theme === 'dark') {
+  // Function to apply the system theme
+  function systemTheme() {
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (prefersDarkScheme) {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
     }
-    localStorage.theme = theme;
-  };
+    localStorage.setItem('theme', 'system');
+  }
 
-  // Initialize theme
-  applyTheme(getInitialTheme());
+  // Function to apply the light theme
+  function lightTheme() {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    localStorage.setItem('theme', 'light');
+  }
 
-  // Theme toggle button functionality
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  darkModeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.contains('dark');
-    applyTheme(isDark ? 'light' : 'dark');
-  });
+  // Function to apply the dark theme
+  function darkTheme() {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    localStorage.setItem('theme', 'dark');
+  }
 
-  // Optional: Listen for system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!('theme' in localStorage)) {
-      applyTheme(e.matches ? 'dark' : 'light');
+  // Function to apply the saved theme on page load
+  function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      darkTheme();
+    } else if (savedTheme === 'light') {
+      lightTheme();
+    } else {
+      systemTheme(); // Default to system theme
     }
-  });
+  }
+
+  // Call the function to apply the saved theme on page load
+  document.addEventListener('DOMContentLoaded', applySavedTheme);
 
   // Mega menu
   const genresButton = document.getElementById('genresButton');
