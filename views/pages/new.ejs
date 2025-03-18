@@ -36,7 +36,7 @@
                   <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
                     <span><%= song.releaseYear %></span>
                     <span><%= song.albumTitle %></span>
-                    <span><%= moment(song.createdAt).format('hh:mm a MMM DD YYYY') %></span>
+                    <span><%= moment(song.createdAt).fromNow() %></span>
                   </div>
                 </div>
 

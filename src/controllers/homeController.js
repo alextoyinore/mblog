@@ -45,10 +45,10 @@ const renderHome = async (req, res) => {
 
         
         // Retrieve Trending Songs
-        const sevenDaysAgo = moment().subtract(7, 'days').toDate(); // Get the date for 3 days ago
+        const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
 
         const trendingSongs = await Song.find({
-            createdAt: { $gte: sevenDaysAgo } // Filter for songs created in the last 3 days
+            createdAt: { $gte: threeDaysAgo } // Filter for songs created in the last 3 days
         })
         .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
         .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
