@@ -26,9 +26,9 @@ const Song = require('../models/songModel')
 const renderNew = async (req, res) => {
     const { userAuthenticated } = req.session.user || {}
 
-    if (!userAuthenticated){
-        return res.redirect('/login');
-    }
+    // if (!userAuthenticated){
+    //     return res.redirect('/login');
+    // }
 
     try{
 

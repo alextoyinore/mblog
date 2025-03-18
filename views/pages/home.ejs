@@ -7,17 +7,17 @@
 <body class="font-nyt-sans w-full h-full">
     <%- include('../widgets/topnav') %>
 
-    <main class="container w-full mt-8 px-5 pb-20">
-      <div class="flex flex-col lg:flex-row gap-8">
+    <main class="container w-full px-5 lg:px-0">
+      <div class="flex flex-col lg:flex-row gap-6">
         <!-- Left Column - Sidenav (hidden on small screens) -->
         <div class="lg:col-span-1 hidden lg:block">
           <%- include('../widgets/sidenav') %>
         </div>
 
         <!-- Second Column - Trending Music -->
-        <div class="lg:h-[calc(100vh-175px)] lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-6 lg:overflow-y-auto lg:sticky lg:top-25">
+        <div class="lg:h-[calc(100vh-150px)] lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-4 lg:overflow-y-auto lg:sticky lg:top-0">
           <% if (locals.trendingSongs) { %>
-          <h2 class="font-instrument text-lg dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
+          <h2 class="font-instrument text-lg mt-4 dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
             <span class="text-red-500 mr-2">&bullet;</span> Trending Now
           </h2>
 
@@ -104,7 +104,7 @@
             </h2>
   
             <!-- Top List -->
-            <div class="space-y-0">
+            <div class="space-y-0 mb-8">
               <% if (locals.topSongs.length) { %> 
                 <% locals.topSongs.forEach(song => { %>
               <div class="accordion-item">
@@ -181,10 +181,10 @@
         </div>
 
         <!-- Right Column - All Songs -->
-        <div class="w-full lg:h-[calc(100vh-175px)] lg:overflow-y-auto lg:sticky lg:top:25">
+        <div class="w-full lg:h-[calc(100vh-150px)] lg:overflow-y-auto lg:sticky lg:top:0 mb-10">
           <!-- Latest Releases Section -->
           <section class="mb-8">
-            <h2 class="font-instrument text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700">Latest Releases</h2>
+            <h2 class="font-instrument  mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700">Latest Releases</h2>
 
             <div class="flex flex-col gap-0">
               <% if (locals.latestSongs.length) { %> 
