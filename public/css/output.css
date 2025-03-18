@@ -1074,6 +1074,9 @@
   .w-\[50\%\] {
     width: 50%;
   }
+  .w-\[70\%\] {
+    width: 70%;
+  }
   .w-\[75\%\] {
     width: 75%;
   }
@@ -1982,6 +1985,9 @@
   .border-b-gray-200 {
     border-bottom-color: var(--color-gray-200);
   }
+  .border-b-gray-500 {
+    border-bottom-color: var(--color-gray-500);
+  }
   .bg-\(--my_variable\) {
     background-color: var(--my_variable);
   }
@@ -2875,6 +2881,10 @@
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
+  .outline-0 {
+    outline-style: var(--tw-outline-style);
+    outline-width: 0px;
+  }
   .blur {
     --tw-blur: blur(8px);
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -3660,6 +3670,16 @@
   .lg\:w-\[7\%\] {
     @media (width >= 64rem) {
       width: 7%;
+    }
+  }
+  .lg\:w-\[20\%\] {
+    @media (width >= 64rem) {
+      width: 20%;
+    }
+  }
+  .lg\:w-\[25\%\] {
+    @media (width >= 64rem) {
+      width: 25%;
     }
   }
   .lg\:w-\[75\%\] {

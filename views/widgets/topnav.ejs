@@ -1,7 +1,8 @@
 <% const { userAuthenticated, name, username, email } = locals.sessionUser || {}
 const route = locals.route || ''
+var initials = ''
 if (name){
-  const initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
+  initials = (name.split(' ')[0][0] + name.split(' ')[1][0]).toUpperCase();
 }
 %>
 

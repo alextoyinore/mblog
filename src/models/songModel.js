@@ -27,6 +27,7 @@ const SongSchema = new mongoose.Schema(
     genre: { type: String },
     producer: { type: String },
     user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
+    comments: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Comment' },
     spotify: { type: String },
     appleMusic: { type: String },
     youtubeMusic: { type: String },
@@ -38,9 +39,12 @@ const SongSchema = new mongoose.Schema(
     audiomack: { type: String },
     deezer: { type: String },
     totalPlays: { type: Number, default: 0 },
+    totalShares: { type: Number, default: 0 },
     totalLikes: { type: Number, default: 0 },
+    totalPlaylistAdds: { type: Number, default: 0 },
     region: {type: String},
-    country: {type: String}
+    country: {type: String},
+    moreInfo: { type: String }
   },
   {
     timestamps: true,

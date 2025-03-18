@@ -99,7 +99,6 @@ app.use('/new', latest)
  * start server
  */
 const PORT = process.env.PORT || 3000
-const IP = process.env.IP || '0.0.0.0'
 const server = app.listen(PORT, async () => {
     console.log(`Server listening on localhost:3000`);
     await connectDB(process.env.MONGODB_CONNECTION_STRING);

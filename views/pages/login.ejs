@@ -4,14 +4,14 @@
     <%- include('../layouts/head', {title : 'Login'}) %>
     <script type="module" src="/js/login.js"></script>
 </head>
-<body class="w-full h-full font-nyt-sans">
+<body class="w-full h-screen font-nyt-sans">
 
     <div id="snackbarWrapper" class="relative">
         <!-- Snackbar will be appended here -->
       </div>
 
     <div class="w-full h-screen flex items-center justify-center px-10">
-        <form data-login-form class="max-w-sm flex flex-col">
+        <form data-login-form class="max-w-sm flex flex-col lg:w-[20%] w-full">
             <div class="flex flex-col gap-3 mb-5 items-center">
                     <!-- Logo -->
                     <a href="/">
