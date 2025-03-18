@@ -3199,6 +3199,12 @@
       line-height: var(--tw-leading, var(--text-sm--line-height));
     }
   }
+  .placeholder\:text-xs {
+    &::placeholder {
+      font-size: var(--text-xs);
+      line-height: var(--tw-leading, var(--text-xs--line-height));
+    }
+  }
   .focus-within\:border-gray-900 {
     &:focus-within {
       border-color: var(--color-gray-900);

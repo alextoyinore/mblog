@@ -50,7 +50,7 @@ const renderSearch = async (req, res) => {
             sessionUser: req.session.user,
             route: req.originalUrl,
             songs: results,
-            title: 'Search Result(s) For: ' + query,
+            title: 'Search result(s) for: ' + query,
             moment
         });
         
