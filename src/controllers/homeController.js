@@ -27,9 +27,9 @@ const renderHome = async (req, res) => {
     const { userAuthenticated } = req.session.user || {}
     // console.log(req.session.user);
 
-    if (!userAuthenticated){
-        return res.redirect('/login');
-    }
+    // if (!userAuthenticated){
+    //     return res.redirect('/login');
+    // }
 
     try{
 

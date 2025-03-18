@@ -27,7 +27,7 @@ const handleLogout = (req, res) => {
     try {
         if (userAuthenticated){
             req.session.destroy();
-            return res.redirect('/login');
+            return res.redirect('/');
         } else {
             return res.redirect('/login');
         }
