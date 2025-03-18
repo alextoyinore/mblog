@@ -72,6 +72,7 @@ const playing = require('./src/routes/playingRoute')
 const incrementPlays = require('./src/routes/incrementPlaysRoute')
 const latest = require('./src/routes/newRoute')
 const logout = require('./src/routes/logoutRoute')
+const search = require('./src/routes/searchRoute')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongooseConfig');
@@ -92,8 +93,10 @@ app.use('/song', song)
 app.use('/playing', playing)
 // increment totalPlays
 app.use('/incrementPlays', incrementPlays)
-// query
+// latest
 app.use('/new', latest)
+// search
+app.use('/search', search)
 
 /**
  * start server
