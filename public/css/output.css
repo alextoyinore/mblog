@@ -3840,6 +3840,11 @@
       padding-right: calc(var(--spacing) * 4);
     }
   }
+  .lg\:pr-5 {
+    @media (width >= 64rem) {
+      padding-right: calc(var(--spacing) * 5);
+    }
+  }
   .lg\:pr-6 {
     @media (width >= 64rem) {
       padding-right: calc(var(--spacing) * 6);
