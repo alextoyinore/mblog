@@ -21,8 +21,8 @@ const CommentSchema = new mongoose.Schema(
     },
     comment: { type: String },
     totalLikes: { type: Number, default: 0 },
-    region: { type: String },
-    country: { type: String }
+    // region: { type: String },
+    // country: { type: String }
   },
   {
     timestamps: true,

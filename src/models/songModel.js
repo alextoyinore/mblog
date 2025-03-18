@@ -26,6 +26,7 @@ const SongSchema = new mongoose.Schema(
     releaseYear: { type: Number },
     genre: { type: String },
     producer: { type: String },
+    writer: { type: String },
     user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
     comments: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Comment' },
     spotify: { type: String },

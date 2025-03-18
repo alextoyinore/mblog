@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
-<head>
+  <head>
     <%- include('../layouts/head', {title : 'Home'}) %>
-    <script type="module" src="/js/home.js"></script>
-</head>
-<body class="font-nyt-sans w-full h-full">
+    <!-- <script src="/js/home.js"></script> -->
+  </head>
+  <body class="font-nyt-sans w-full h-full">
     <%- include('../widgets/topnav') %>
 
     <main class="container w-full px-5 lg:px-0">
@@ -15,423 +15,40 @@
         </div>
 
         <!-- Second Column - Trending Music -->
-        <div class="lg:h-[calc(100vh-150px)] lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-4 lg:overflow-y-auto lg:sticky lg:top-0">
-          <% if (locals.trendingSongs) { %>
-          <h2 class="font-instrument text-lg mt-4 dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
-            <span class="text-red-500 mr-2">&bullet;</span> Trending Now
-          </h2>
-
-          <!-- Trending List -->
-          <div class="space-y-0">
-            <% if (locals.trendingSongs.length) { %> 
-              <% locals.trendingSongs.forEach(song => { %>
-            <div class="accordion-item">
-              <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
-                <div>
-                  <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-                </div>
-                <div class="ml-3 flex-grow min-w-0">
-                  <div class="flex items-center justify-between">
-                    <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
-                    <span class="text-xs text-gray-400"><%= moment(song.createdAt).fromNow() %></span>
-                  </div>
-                  <div class="flex items-center">
-                    <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
-                    <div class="flex gap-2 text-[12px] items-center text-xs">
-                      <span class="text-xs text-red-500">Hot</span>
-                      <span>.</span>
-                      <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Streaming Platforms Links -->
-              <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-                <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
-                  <% if (song.spotify) { %>
-                  <a target="_blank" href="<%= song.spotify %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-                  <% } %> 
-                  <% if (song.youtubeMusic) { %>
-                  <a target="_blank" href="<%= song.youtubeMusic %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-                  <% } %> 
-                  <% if (song.appleMusic) { %>
-                  <a target="_blank" href="<%= song.appleMusic %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-                  <% } %> 
-                  <% if (song.boomplay) { %>
-                  <a target="_blank" href="<%= song.boomplay %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-                  <% } %> 
-                  <% if (song.tidal) { %>
-                  <a target="_blank" href="<%= song.tidal %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-                  <% } %> 
-                  <% if (song.amazon) { %>
-                  <a target="_blank" href="<%= song.amazon %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-                  <% } %> 
-                  <% if (song.pandora) { %>
-                  <a target="_blank" href="<%= song.pandora %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-                  <% } %> 
-                  <% if (song.soundcloud) { %>
-                  <a target="_blank" href="<%= song.soundcloud %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-                  <% } %> 
-                  <% if (song.audiomack) { %>
-                  <a target="_blank" href="<%= song.audiomack %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-                  <% } %> 
-                  <% if (song.deezer) { %>
-                  <a target="_blank" href="<%= song.deezer %>"
-                    onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-                  <% } %>
-                  <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                </div>
-              </div>
-            </div>
-            <% }) %> 
-          <% } %>
-          </div>
-          <% } %>
-
-          <% if (locals.topSongs) { %>
-            <h2 class="font-instrument text-lg dark:text-white font-bold mt-8 mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
-              <span class="text-sky-500 mr-2">&bullet;</span> Top Songs
-            </h2>
-  
-            <!-- Top List -->
-            <div class="space-y-0 mb-8">
-              <% if (locals.topSongs.length) { %> 
-                <% locals.topSongs.forEach(song => { %>
-              <div class="accordion-item">
-                <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
-                  <div>
-                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-                  </div>
-                  <div class="ml-3 flex-grow min-w-0">
-                    <div class="flex items-center justify-between">
-                      <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
-                      <span class="text-xs text-gray-400"><%= moment(song.createdAt).fromNow() %></span>
-                    </div>
-                    <div class="flex items-center">
-                      <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
-                      <div class="flex gap-2 text-[12px] items-center text-xs">
-                        <span class="text-xs text-sky-500">Top</span>
-                        <span>.</span>
-                        <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Streaming Platforms Links -->
-                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800">
-                    <% if (song.spotify) { %>
-                    <a target="_blank" href="<%= song.spotify %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-                    <% } %> 
-                    <% if (song.youtubeMusic) { %>
-                    <a target="_blank" href="<%= song.youtubeMusic %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-                    <% } %> 
-                    <% if (song.appleMusic) { %>
-                    <a target="_blank" href="<%= song.appleMusic %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-                    <% } %> 
-                    <% if (song.boomplay) { %>
-                    <a target="_blank" href="<%= song.boomplay %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-                    <% } %> 
-                    <% if (song.tidal) { %>
-                    <a target="_blank" href="<%= song.tidal %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-                    <% } %> 
-                    <% if (song.amazon) { %>
-                    <a target="_blank" href="<%= song.amazon %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-                    <% } %> 
-                    <% if (song.pandora) { %>
-                    <a target="_blank" href="<%= song.pandora %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-                    <% } %> 
-                    <% if (song.soundcloud) { %>
-                    <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-                    <% } %> 
-                    <% if (song.audiomack) { %>
-                    <a target="_blank" href="<%= song.audiomack %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-                    <% } %> 
-                    <% if (song.deezer) { %>
-                    <a target="_blank" href="<%= song.deezer %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-                    <% } %>
-                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                  </div>
-                </div>
-              </div>
-              <% }) %> 
-            <% } %>
-            </div>
-          <% } %>
+        <div
+          class="lg:h-[calc(100vh-150px)] lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-4 lg:overflow-y-auto lg:sticky lg:top-0"
+        >
+          <%- include('../widgets/trending') %> <%-
+          include('../widgets/topsongs') %>
         </div>
 
         <!-- Right Column - All Songs -->
-        <div class="w-full lg:h-[calc(100vh-150px)] pr-3 lg:overflow-y-auto lg:sticky lg:top:0 mb-10">
+        <div
+          class="w-full lg:h-[calc(100vh-150px)] pr-3 lg:overflow-y-auto lg:sticky lg:top:0 mb-10"
+        >
           <!-- Latest Releases Section -->
           <section class="mb-8">
-            <h2 class="font-instrument  mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700">Latest Releases</h2>
+            <h2
+              class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700"
+            >
+              Latest Releases
+            </h2>
 
             <div class="flex flex-col gap-0">
-              <% if (locals.latestSongs.length) { %> 
-                <% locals.latestSongs.forEach(song => { %>
-              <div class="accordion-item">
-                <div class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
-                  <div>
-                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-                  </div>
-                  <div class="ml-3 flex-grow min-w-0 flex items-center">
-                    <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
-                    <span class="mx-2 text-gray-400">-</span>
-                    <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
-                  </div>
-                  <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-                    <span><%= song.releaseYear %></span>
-                    <span><%= song.albumTitle %></span>
-                    <span><%= moment(song.createdAt).fromNow() %></span>
-                  </div>
-                </div>
-
-                <!-- Streaming Platforms Links -->
-                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
-                    <% if (song.spotify) { %>
-                    <a target="_blank" href="<%= song.spotify %>" onclick="incrementPlays('<%= song.id %>')" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-                    <% } %> 
-                    <% if (song.youtubeMusic) { %>
-                    <a target="_blank" href="<%= song.youtubeMusic %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-                    <% } %> 
-                    <% if (song.appleMusic) { %>
-                    <a target="_blank" href="<%= song.appleMusic %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-                    <% } %> 
-                    <% if (song.boomplay) { %>
-                    <a target="_blank" href="<%= song.boomplay %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-                    <% } %> 
-                    <% if (song.tidal) { %>
-                    <a target="_blank" href="<%= song.tidal %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-                    <% } %> 
-                    <% if (song.amazon) { %>
-                    <a target="_blank" href="<%= song.amazon %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-                    <% } %> 
-                    <% if (song.pandora) { %>
-                    <a target="_blank" href="<%= song.pandora %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-                    <% } %> 
-                    <% if (song.soundcloud) { %>
-                    <a target="_blank" href="<%= song.soundcloud %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-                    <% } %> 
-                    <% if (song.audiomack) { %>
-                    <a target="_blank" href="<%= song.audiomack %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-                    <% } %> 
-                    <% if (song.deezer) { %>
-                    <a target="_blank" href="<%= song.deezer %>"
-                      onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-                    <% } %>
-                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                  </div>
-                </div>
-              </div>
-              <% }) %> 
-              <% } %>
+              <%- include('../widgets/latest') %>
             </div>
           </section>
 
           <!-- Region Sections -->
-          <% if (locals.songsByRegion) { %> 
-          <section class="mb-8 mt-8">
-            <% Object.keys(songsByRegion).forEach(region => { %>
-            <h2 class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"><%= region %></h2>
-            <div class="flex flex-col gap-0 my-4">
-              <% if (songsByRegion[region].length) { %> 
-                <% songsByRegion[region].forEach(song => { %>
-              <div class="accordion-item">
-                <a class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
-                  <div>
-                    <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-                  </div>
-                  <div class="ml-3 flex-grow min-w-0 flex items-center">
-                    <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
-                    <span class="mx-2 text-gray-400">-</span>
-                    <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
-                  </div>
-                  <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-                    <span><%= song.releaseYear %></span>
-                    <span><%= song.albumTitle %></span>
-                    <span><%= moment(song.createdAt).fromNow() %></span>
-                  </div>
-                </a>
-
-                <!-- Streaming Platforms Links -->
-                <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-                  <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
-                    <% if (song.spotify) { %>
-                    <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-                    <% } %> 
-                    <% if (song.youtubeMusic) { %>
-                    <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-                    <% } %> 
-                    <% if (song.appleMusic) { %>
-                    <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-                    <% } %> 
-                    <% if (song.boomplay) { %>
-                    <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-                    <% } %> 
-                    <% if (song.tidal) { %>
-                    <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-                    <% } %> 
-                    <% if (song.amazon) { %>
-                    <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-                    <% } %> 
-                    <% if (song.pandora) { %>
-                    <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-                    <% } %> 
-                    <% if (song.soundcloud) { %>
-                    <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-                    <% } %> 
-                    <% if (song.audiomack) { %>
-                    <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-                    <% } %> 
-                    <% if (song.deezer) { %>
-                    <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-                    <% } %>
-                    <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                  </div>
-                </div>
-              </div>
-              <% }) %> 
-              <% } %>
-            </div>
-            <% }) %>
-          </section>
-          <% } %>
+          <%- include('../widgets/region') %>
 
           <!-- Top Genre Sections -->
-          <% if (locals.songsByGenre) { %> 
-            <section class="mb-8 mt-8">
-              <% Object.keys(songsByGenre).forEach(genre => { %>
-              <h2 class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"><%= genre %></h2>
-              <div class="flex flex-col gap-0 my-4">
-                <% if (songsByGenre[genre].length) { %> 
-                  <% songsByGenre[genre].forEach(song => { %>
-                <div class="accordion-item">
-                  <a class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
-                    <div>
-                      <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-                    </div>
-                    <div class="ml-3 flex-grow min-w-0 flex items-center">
-                      <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
-                      <span class="mx-2 text-gray-400">-</span>
-                      <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
-                    </div>
-                    <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-                      <span><%= song.releaseYear %></span>
-                      <span><%= song.albumTitle %></span>
-                      <span><%= moment(song.createdAt).fromNow() %></span>
-                    </div>
-                  </a>
-  
-                  <!-- Streaming Platforms Links -->
-                  <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-                    <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
-                      <% if (song.spotify) { %>
-                      <a target="_blank" href="<%= song.spotify %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-                      <% } %> 
-                      <% if (song.youtubeMusic) { %>
-                      <a target="_blank" href="<%= song.youtubeMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-                      <% } %> 
-                      <% if (song.appleMusic) { %>
-                      <a target="_blank" href="<%= song.appleMusic %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-                      <% } %> 
-                      <% if (song.boomplay) { %>
-                      <a target="_blank" href="<%= song.boomplay %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-                      <% } %> 
-                      <% if (song.tidal) { %>
-                      <a target="_blank" href="<%= song.tidal %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-                      <% } %> 
-                      <% if (song.amazon) { %>
-                      <a target="_blank" href="<%= song.amazon %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-                      <% } %> 
-                      <% if (song.pandora) { %>
-                      <a target="_blank" href="<%= song.pandora %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-                      <% } %> 
-                      <% if (song.soundcloud) { %>
-                      <a target="_blank" href="<%= song.soundcloud %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-                      <% } %> 
-                      <% if (song.audiomack) { %>
-                      <a target="_blank" href="<%= song.audiomack %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-                      <% } %> 
-                      <% if (song.deezer) { %>
-                      <a target="_blank" href="<%= song.deezer %>" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-                      <% } %>
-                      <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-                    </div>
-                  </div>
-                </div>
-                <% }) %> 
-                <% } %>
-              </div>
-              <% }) %>
-            </section>
-            <% } %>
+          <%- include('../widgets/genre') %>
         </div>
       </div>
 
       <!-- Include Play Bar -->
       <%- include('../widgets/playbar') %>
     </main>
-
-    <script>
-      function toggleAccordion(event) {
-        event.preventDefault();
-        const accordionContent = event.currentTarget.nextElementSibling;
-        const allContents = document.querySelectorAll('.accordion-content');
-
-        // Close all other open accordions
-        allContents.forEach(content => {
-          if (content !== accordionContent) {
-            content.classList.add('hidden');
-            content.style.maxHeight = '0'; // Reset max-height for animation
-          }
-        });
-
-        // Toggle the clicked accordion
-        if (accordionContent.classList.contains('hidden')) {
-          accordionContent.classList.remove('hidden');
-          accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; // Set max-height for animation
-        } else {
-          accordionContent.classList.add('hidden');
-          accordionContent.style.maxHeight = '0'; // Reset max-height for animation
-        }
-      }
-
-    </script>
-
-    <style>
-      .accordion-content {
-        transition: max-height 0.3s ease, opacity 0.3s ease;
-      }
-    </style>
-</body>
+  </body>
 </html>
-

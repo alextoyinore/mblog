@@ -45,7 +45,7 @@ const renderNew = async (req, res) => {
             sessionUser: req.session.user,
             route: req.originalUrl,
             latestSongs,
-            title: 'New Releases',
+            title: 'New Arrivals',
             moment
         });
         

@@ -1,0 +1,81 @@
+<% if (locals.trendingSongs) { %>
+    <h2 class="font-instrument text-lg mt-4 dark:text-white font-bold mb-4 pb-2 border-b dark:border-gray-700 flex items-center">
+      <span class="text-red-500 mr-2">&bullet;</span> Trending Now
+    </h2>
+
+    <!-- Trending List -->
+    <div class="space-y-0">
+      <% if (locals.trendingSongs.length) { %> 
+        <% locals.trendingSongs.forEach(song => { %>
+      <div class="accordion-item">
+        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
+          <div>
+            <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+          </div>
+          <div class="ml-3 flex-grow min-w-0">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
+              <span class="text-xs text-gray-400"><%= moment(song.createdAt).fromNow() %></span>
+            </div>
+            <div class="flex items-center">
+              <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
+              <div class="flex gap-2 text-[12px] items-center text-xs">
+                <span class="text-xs text-red-500">Hot</span>
+                <span>.</span>
+                <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streaming Platforms Links -->
+        <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+          <div class="flex justify-center gap-4 flex-wrap py-4 border-b dark:border-gray-800">
+            <% if (song.spotify) { %>
+            <a target="_blank" href="<%= song.spotify %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
+            <% } %> 
+            <% if (song.youtubeMusic) { %>
+            <a target="_blank" href="<%= song.youtubeMusic %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
+            <% } %> 
+            <% if (song.appleMusic) { %>
+            <a target="_blank" href="<%= song.appleMusic %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
+            <% } %> 
+            <% if (song.boomplay) { %>
+            <a target="_blank" href="<%= song.boomplay %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
+            <% } %> 
+            <% if (song.tidal) { %>
+            <a target="_blank" href="<%= song.tidal %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
+            <% } %> 
+            <% if (song.amazon) { %>
+            <a target="_blank" href="<%= song.amazon %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
+            <% } %> 
+            <% if (song.pandora) { %>
+            <a target="_blank" href="<%= song.pandora %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
+            <% } %> 
+            <% if (song.soundcloud) { %>
+            <a target="_blank" href="<%= song.soundcloud %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
+            <% } %> 
+            <% if (song.audiomack) { %>
+            <a target="_blank" href="<%= song.audiomack %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
+            <% } %> 
+            <% if (song.deezer) { %>
+            <a target="_blank" href="<%= song.deezer %>"
+              onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
+            <% } %>
+            <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
+          </div>
+        </div>
+      </div>
+      <% }) %> 
+    <% } %>
+    </div>
+    <% } %>
