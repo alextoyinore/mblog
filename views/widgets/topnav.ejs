@@ -42,7 +42,7 @@ if (name){
       <div class="hidden flex-grow mx-4 lg:flex items-center justify-center">
         <div class="relative flex items-center w-full max-w-[600px]">
           <!-- Country Select -->
-          <div class="relative flex gap-2">
+         <!--  <div class="relative flex gap-2">
             <select
               class="appearance-none bg-gray-50 dark:bg-gray-800 px-4 py-2 text-sm text-gray-800 dark:text-gray-500 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 cursor-pointer rounded-md"
             >
@@ -51,9 +51,9 @@ if (name){
               <option value="us">US</option>
               <option value="uk">SA</option>
               <option value="asia">GH</option>
-            </select>
+            </select> -->
             <!-- Custom Arrow -->
-            <div
+            <!-- <div
               class="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700 dark:text-gray-300"
             >
               <svg
@@ -65,11 +65,11 @@ if (name){
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                 />
               </svg>
-            </div>
-          </div>
+            </div> 
+          </div> -->
 
           <!-- Search Field -->
-          <form action="/search" class="relative flex-1 max-w-[200px]">
+          <form action="/search" class="relative flex-1 max-w-[400px]">
             <div class="relative">
               <!-- Search Icon -->
               <div
@@ -196,67 +196,7 @@ if (name){
             </svg>
           </button>
 
-          <!-- Mega Menu -->
-          <div id="megaMenu" class="hidden group-hover:block absolute top-[28px] left-0 -translate-x-1/3 border-t w-full bg-white border-b border-b-gray-200 dark:bg-gray-800 dark:border-gray-700 backdrop-blur-sm z-50" style="width: calc(100vw * 1); max-width: 1400px;">
-            <div class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] py-6">
-              <div class="grid grid-cols-5 gap-8">
-                <!-- Popular Genres -->
-                <div>
-                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Popular</h3>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Afrobeat</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Amapiano</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Hip Hop</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Gospel</a></li>
-                  </ul>
-                </div>
-
-                <!-- Traditional -->
-                <div>
-                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Traditional</h3>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Juju</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Fuji</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">High Life</a></li>
-                  </ul>
-                </div>
-
-                <!-- Contemporary -->
-                <div>
-                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Contemporary</h3>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">RnB</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Pop</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Rock</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Alternative</a></li>
-                  </ul>
-        </div>
-  
-                <!-- Classical -->
-                <div>
-                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Classical</h3>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Baroque</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Romantic</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Modern</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Chamber Music</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Opera</a></li>
-                  </ul>
-        </div>
-  
-                <!-- Other -->
-                <div>
-                  <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Other</h3>
-                  <ul class="space-y-1">
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Global</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Reggae</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">Beats</a></li>
-                    <li><a href="#" class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">AI</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%- include('./mega.ejs') %>
         </div>
   
         <!-- Other nav items -->
@@ -340,69 +280,31 @@ if (name){
         </div>
 
         <!-- Genres Section -->
-        <div class="border-t dark:border-gray-700 pt-6">
-          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Popular Genres</h3>
-          <div class="space-y-3">
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Afrobeat</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Amapiano</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Hip Hop</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Gospel</a>
-          </div>
-        </div>
+        <%- include('./mobile-mega.ejs') %>
 
-        <div class="border-t dark:border-gray-700 pt-6 mt-6">
-          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Traditional</h3>
-          <div class="space-y-3">
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Juju</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Fuji</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">High Life</a>
-          </div>
-        </div>
-
-        <div class="border-t dark:border-gray-700 pt-6 mt-6">
-          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Contemporary</h3>
-          <div class="space-y-3">
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">RnB</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Pop</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Rock</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Alternative</a>
-          </div>
-        </div>
-
-        <div class="border-t dark:border-gray-700 pt-6 mt-6">
-          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">Other</h3>
-          <div class="space-y-3">
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Global</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Reggae</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">Beats</a>
-            <a href="#" class="block text-sm text-gray-600 dark:text-gray-400">AI</a>
-      </div>
-
-      <div class="my-10"></div>
-    </div>
-  </nav>
-
-      <!-- Bottom Section -->
+          <!-- Bottom Section -->
       <% if (!userAuthenticated) { %>
-      <div class="mt-8 pt-6 border-t dark:border-gray-700">
-        <a
-          href="/login"
-          class="block mb-4 text-sm text-center text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
-          >Sign In</a
+        <div class="mt-8 pt-6 border-t dark:border-gray-700">
+          <a
+            href="/login"
+            class="block mb-4 py-2 text-sm text-center text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
+            >Sign In</a
+          >
+          <a
+            href="/register"
+            class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+            >Get Started</a
+          >
+        </div>
+        <% } else { %>
+          <a
+          href="/publish"
+          class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+          >Submit Link or URL</a
         >
-        <a
-          href="/register"
-          class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
-          >Get Started</a
-        >
+        <% } %>
       </div>
-      <% } else { %>
-        <a
-        href="/publish"
-        class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
-        >Submit Link or URL</a
-      >
-      <% } %>
+      </nav>
     </div>
   </div>
 </div>

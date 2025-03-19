@@ -51,7 +51,7 @@ const handleNewSongOrURL = async (req, res) => {
 
     try {
         // Retrieve content from request body
-        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
+        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
     
         // Upload artwork and song file to Cloudinary
         const public_id = crypto.randomBytes(10).toString('hex');
@@ -74,6 +74,8 @@ const handleNewSongOrURL = async (req, res) => {
             releaseYear: releaseYear,
             genre: genre,
             producer: producer,
+            writer: writer,
+            moreInfo: moreInfo,
             spotify: spotify,
             appleMusic: appleMusic,
             youtubeMusic: youtubeMusic,

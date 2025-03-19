@@ -34,7 +34,7 @@ const renderHome = async (req, res) => {
     try{
 
         // Retrieve songs from database, selecting specified fields and populating user field
-        const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt')
+        const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
         .populate({
             path: 'user',
             select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
@@ -48,16 +48,17 @@ const renderHome = async (req, res) => {
         const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
 
         const trendingSongs = await Song.find({
-            createdAt: { $gte: threeDaysAgo } // Filter for songs created in the last 3 days
+            createdAt: { $gte: threeDaysAgo }, // Filter for songs created in the last 3 days
+            totalPlays: { $gt: 0 } // Ensure that we only consider songs that have been played
         })
-        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
         .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
         .limit(5) // Limit the results to 10
         .exec(); // Execute the query
 
         // Retrieve Top Songs
         const topSongs = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
             .sort({ totalPlays: -1 })
             .limit(5)
             .exec();
@@ -70,7 +71,7 @@ const renderHome = async (req, res) => {
         
         // Fetch all songs from the database
         const songs = await Song.find()
-        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country createdAt')
+        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
         .limit(10)
         .exec();
 

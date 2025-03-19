@@ -1,0 +1,126 @@
+<!-- Mega Menu -->
+<% 
+const megaMenu = [
+    {
+        groupName: 'Popular',
+        genres: [
+            {
+                title: 'Gospel',
+                url: '/genre/gospel'
+            },
+            {
+                title: 'Afrobeat',
+                url: '/genre/afrobeat'
+            },
+            {
+                title: 'Amapiano',
+                url: '/genre/amapiano'
+            },
+            {
+                title: 'Afro-pop',
+                url: '/genre/afro-pop'
+            },
+        ]
+    },
+    {
+        groupName: 'Traditional',
+        genres: [
+            {
+                title: 'Juju',
+                url: '/genre/juju'
+            },
+            {
+                title: 'Fuji',
+                url: '/genre/fuji'
+            },
+            {
+                title: 'High Life',
+                url: '/genre/high-life'
+            },
+        ]
+    },
+    {
+        groupName: 'Contemporary',
+        genres: [
+            {
+                title: 'RnB',
+                url: '/genre/rnb'
+            },
+            {
+                title: 'Pop',
+                url: '/genre/pop'
+            },
+            {
+                title: 'Rock',
+                url: '/genre/rock'
+            },
+            {
+                title: 'Alternative',
+                url: '/genre/alternative'
+            },
+        ]
+    },
+    {
+        groupName: 'Classical',
+        genres: [
+            {
+                title: 'Baroque',
+                url: '/genre/baroque'
+            },
+            {
+                title: 'Romantic',
+                url: '/genre/romantic'
+            },
+            {
+                title: 'Modern',
+                url: '/genre/modern'
+            },
+            {
+                title: 'Chamber Music',
+                url: '/genre/chamber-music'
+            },
+            {
+                title: 'Opera',
+                url: '/genre/opera'
+            },
+        ]
+    },
+    {
+        groupName: 'Other',
+        genres: [
+            {
+                title: 'Global',
+                url: '/genre/global'
+            },
+            {
+                title: 'Reggae',
+                url: '/genre/reggae'
+            },
+            {
+                title: 'Beats',
+                url: '/genre/beats'
+            },
+            {
+                title: 'AI',
+                url: '/genre/ai'
+            },
+        ]
+    }
+];
+%>
+<!-- Vertical spacing for mobile layout -->
+<% megaMenu.forEach(group => { %>
+    <div class="border-t dark:border-gray-700 pt-6 pb-6">
+        <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100 mb-4">
+            <%= group.groupName %>
+        </h3>
+        <div class="space-y-3">
+            <% group.genres.forEach(genre => { %>
+                <a href="<%= genre.url %>" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">
+                    <%= genre.title %>
+                </a>
+            <% }) %>
+        </div>
+    </div>
+<% }) %>
+
