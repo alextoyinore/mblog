@@ -13,10 +13,10 @@ const router = require('express').Router();
 /**
  * custom modules
  */
-const { renderSearch } = require('../controllers/searchController');
+const {incrementPlays} = require('../controllers/increment.plays.controller');
 
-// GET route: Route to render search
-router.get('/', renderSearch);
+// POST route: Route to increment totalPlays
+router.post('/:id', incrementPlays);
 
 module.exports = router;
 

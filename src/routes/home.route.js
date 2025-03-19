@@ -13,7 +13,7 @@ const router = require('express').Router();
 /**
  * custom modules
  */
-const {renderHome, handleSearch} = require('../controllers/homeController');
+const {renderHome, handleSearch} = require('../controllers/home.controller');
 
 // GET route: Render the register page
 router.get('/', renderHome);

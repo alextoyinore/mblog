@@ -14,11 +14,11 @@ const router = require('express').Router();
  * custom modules
  */
 const {
-    renderPlayingPage 
-} = require('../controllers/playingController');
+    renderSongPage 
+} = require('../controllers/song.controller');
 
 // GET route: Render the song page
-router.get('/:id', renderPlayingPage);
+router.get('/:id', renderSongPage);
 
 module.exports = router;
 

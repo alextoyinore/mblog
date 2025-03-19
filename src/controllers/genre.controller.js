@@ -16,8 +16,8 @@ const moment = require('moment');
 /**
  * custom modules
  */
-const User = require('../models/userModel');
-const Song = require('../models/songModel');
+const User = require('../models/user.model');
+const Song = require('../models/song.model');
 const {toTitleCase} = require('../../public/js/utils/funcs')
 
 /**

@@ -17,7 +17,7 @@ const {
     handleNewSongOrURL, 
     renderNewSongOrURL, 
     handleEditSongOrURL
-} = require('../controllers/newSongController');
+} = require('../controllers/newsong.controller');
 
 // GET route: Render the add song page
 router.get('/', renderNewSongOrURL);

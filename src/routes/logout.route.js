@@ -13,10 +13,9 @@ const router = require('express').Router();
 /**
  * custom modules
  */
-const {incrementPlays} = require('../controllers/incrementPlaysController');
+const {handleLogout} = require('../controllers/logout.controller');
 
-// POST route: Route to increment totalPlays
-router.post('/:id', incrementPlays);
+// POST route: Handles form submission for user logout
+router.post('/', handleLogout);
 
 module.exports = router;
-

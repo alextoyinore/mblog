@@ -13,9 +13,10 @@ const router = require('express').Router();
 /**
  * custom modules
  */
-const {handleLogout} = require('../controllers/logoutController');
+const {renderNew} = require('../controllers/new.controller');
 
-// POST route: Handles form submission for user logout
-router.post('/', handleLogout);
+// POST route: Route to increment totalPlays
+router.get('/', renderNew);
 
 module.exports = router;
+

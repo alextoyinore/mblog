@@ -63,20 +63,20 @@ app.use(session({
 /**
  * custom route modules
  */
-const register = require('./src/routes/registerRoute')
-const login = require('./src/routes/loginRoute')
-const home = require('./src/routes/homeRoute')
-const newSong = require('./src/routes/newSongRoute')
-const song = require('./src/routes/songRoute')
-const playing = require('./src/routes/playingRoute')
-const incrementPlays = require('./src/routes/incrementPlaysRoute')
-const latest = require('./src/routes/newRoute')
-const logout = require('./src/routes/logoutRoute')
-const search = require('./src/routes/searchRoute')
-const genre = require('./src/routes/genreRoute')
+const register = require('./src/routes/register.route')
+const login = require('./src/routes/login.route')
+const home = require('./src/routes/home.route')
+const newSong = require('./src/routes/newsong.route')
+const song = require('./src/routes/song.route')
+const playing = require('./src/routes/playing.route')
+const incrementPlays = require('./src/routes/increment.plays.route')
+const latest = require('./src/routes/new.route')
+const logout = require('./src/routes/logout.route')
+const search = require('./src/routes/search.route')
+const genre = require('./src/routes/genre.route')
 
 // Mongoose Config Module
-const {connectDB, disconnectDB} = require('./src/config/mongooseConfig');
+const {connectDB, disconnectDB} = require('./src/config/mongoose.config');
 
 // register page
 app.use('/register', register);

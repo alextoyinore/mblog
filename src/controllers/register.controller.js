@@ -13,7 +13,7 @@ const bcrypt = require('bcrypt');
 /**
  * custom modules
  */
-const User = require('../models/userModel');
+const User = require('../models/user.model');
 const generateUsername = require('../../public/js/utils/generateUsername');
 
 /**

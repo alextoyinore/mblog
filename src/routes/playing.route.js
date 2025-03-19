@@ -13,10 +13,12 @@ const router = require('express').Router();
 /**
  * custom modules
  */
-const { renderGenre } = require('../controllers/genreController');
+const {
+    renderPlayingPage 
+} = require('../controllers/playing.controller');
 
-// GET route: Route to render search
-router.get('/:genre', renderGenre);
+// GET route: Render the song page
+router.get('/:id', renderPlayingPage);
 
 module.exports = router;
 

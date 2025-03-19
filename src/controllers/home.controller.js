@@ -14,8 +14,9 @@ const moment = require('moment');
 /**
  * custom modules
  */
-const User = require('../models/userModel');
-const Song = require('../models/songModel')
+const User = require('../models/user.model');
+const Song = require('../models/song.model')
+const Play = require('../models/play.model')
 
 /**
  * Renders the register page
@@ -42,6 +43,53 @@ const renderHome = async (req, res) => {
         .sort({ createdAt: 'desc'})
         .limit(10)
         .exec();
+
+        // Controller
+
+        const _threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
+
+        const _trendingSongs = await Play.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: _threeDaysAgo }, // Filter for plays that occurred in the last 3 days
+                },
+            },
+            {
+                $group: {
+                    _id: "$songId", // Group by song ID
+                    totalPlays: { $sum: 1 }, // Count the number of plays for each song
+                    artwork: { $first: "$artwork" },
+                    songFile: { $first: "$songFile" },
+                    songTitle: { $first: "$songTitle" },
+                    artistName: { $first: "$artistName" },
+                    albumTitle: { $first: "$albumTitle" },
+                    releaseYear: { $first: "$releaseYear" },
+                    genre: { $first: "$genre" },
+                    user: { $first: "$user" },
+                    spotify: { $first: "$spotify" },
+                    appleMusic: { $first: "$appleMusic" },
+                    youtubeMusic: { $first: "$youtubeMusic" },
+                    boomplay: { $first: "$boomplay" },
+                    tidal: { $first: "$tidal" },
+                    amazon: { $first: "$amazon" },
+                    pandora: { $first: "$pandora" },
+                    soundcloud: { $first: "$soundcloud" },
+                    audiomack: { $first: "$audiomack" },
+                    deezer: { $first: "$deezer" },
+                    //totalPlays: { $sum: "$totalPlays" }, // Sum the total plays for each song
+                    totalLikes: { $first: "$totalLikes" },
+                    region: { $first: "$region" },
+                    country: { $first: "$country" },
+                    createdAt: { $first: "$createdAt" },
+                },
+            },
+            {
+                $sort: { totalPlays: -1 }, // Sort by totalPlays in descending order
+            },
+            {
+                $limit: 5, // Limit the results to the top 5 songs
+            },
+        ]);
 
         
         // Retrieve Trending Songs
@@ -124,6 +172,7 @@ const renderHome = async (req, res) => {
             route: req.originalUrl,
             latestSongs,
             trendingSongs,
+            _trendingSongs,
             topSongs,
             songsByRegion,
             songsByGenre,
@@ -131,7 +180,6 @@ const renderHome = async (req, res) => {
         });
 
         // console.log(latestSongs);
-
         
     }catch(error){
         // Log and throw error if there's an issue rendering page

@@ -14,9 +14,9 @@ const crypto = require('crypto');
 /**
  * custom modules
  */
-const uploadToCloudinary = require('../config/cloudinaryConfig')
-const Song = require('../models/songModel')
-const User = require('../models/userModel');
+const uploadToCloudinary = require('../config/cloudinary.config')
+const Song = require('../models/song.model')
+const User = require('../models/user.model');
 const { log } = require('console');
 
 /**

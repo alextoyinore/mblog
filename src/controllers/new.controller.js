@@ -14,8 +14,8 @@ const moment = require('moment');
 /**
  * custom modules
  */
-const User = require('../models/userModel');
-const Song = require('../models/songModel')
+const User = require('../models/user.model');
+const Song = require('../models/song.model')
 
 /**
  * Renders the register page
