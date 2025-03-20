@@ -189,7 +189,7 @@ if (name){
       <div class="flex items-center justify-center space-x-8 py-2">
         <!-- Genres Dropdown Trigger -->
         <div class="relative group">
-          <button id="genreButton" class="flex items-center text-gray-800 cursor-pointer dark:text-gray-200 hover:text-red-500 dark:hover:text-gray-400 text-sm">
+          <button id="genreButton" onclick="toggleMegaMenu(event)" class="flex items-center text-gray-800 cursor-pointer dark:text-gray-200 hover:text-red-500 dark:hover:text-gray-400 text-sm">
             Genres
             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -197,6 +197,7 @@ if (name){
           </button>
 
           <%- include('./mega.ejs') %>
+
         </div>
   
         <!-- Other nav items -->
@@ -302,12 +303,12 @@ if (name){
           class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
           >Submit Link or URL</a
         >
-        <% } %>
 
          <!-- Logout -->
-        <form action="/logout" method="POST" class="block mt-4">
+         <form action="/logout" method="POST" class="block mt-4">
           <button type="submit" class="w-full cursor-pointer text-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500">Sign out</button>
         </form>
+        <% } %>
       </div>
       </nav>
     </div>

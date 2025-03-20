@@ -20,6 +20,14 @@ $form.addEventListener('submit', async(e) => {
     e.preventDefault();
     // Disabling submit button to prevent mulitple submissions
     $submitBtn.setAttribute('disabled', '');
+    // Create a spinner element
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner'; // Add the spinner class
+
+    // Replace the button's inner text with the spinner
+    $submitBtn.innerHTML = ''; // Clear existing text
+    $submitBtn.appendChild(spinner); // Add the spinner to the button
+
     // Creating FormData object to capture form data
     const formData = new FormData($form);
     
@@ -40,6 +48,9 @@ $form.addEventListener('submit', async(e) => {
 
     // Handle case where response status is 400 (Bad Request)
     if (response.status >= 400) {
+        $submitBtn.removeAttribute('disabled');
+        $submitBtn.removeChild(spinner); // remove the spinner to the button
+
         // Enable submit button and show error message
         const { message } = await response.json();
         Snackbar({
@@ -51,6 +62,9 @@ $form.addEventListener('submit', async(e) => {
 
     // Handle case where response status is 400 (Bad Request)
     if (response.status >= 500) {
+        $submitBtn.removeAttribute('disabled');
+        $submitBtn.removeChild(spinner); // remove the spinner to the button
+
         // Enable submit button and show error message
         // const { message } = await response.json();
         Snackbar({

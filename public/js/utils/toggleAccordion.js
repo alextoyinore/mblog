@@ -20,3 +20,5 @@ function toggleAccordion(event) {
       accordionContent.style.maxHeight = '0'; // Reset max-height for animation
     }
   }
+
+  

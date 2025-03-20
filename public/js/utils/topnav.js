@@ -80,23 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Call the function to apply the saved theme on page load
   document.addEventListener('DOMContentLoaded', applySavedTheme);
 
-  // Mega menu
-  const genresButton = document.getElementById('genresButton');
-  const megaMenu = document.getElementById('megaMenu');
-
-  // Toggle mega menu visibility
-  genresButton.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent click event from bubbling up
-    megaMenu.classList.toggle('hidden');
-  });
-
-  // Close mega menu when clicking outside
-  document.addEventListener('click', (event) => {
-    if (!genresButton.contains(event.target) && !megaMenu.contains(event.target)) {
-      megaMenu.classList.add('hidden');
-    }
-  });
-
   // Toggle mobile menu
   const hamburgerButton = document.getElementById('hamburgerButton');
   const mobileMenu = document.getElementById('mobileMenu');

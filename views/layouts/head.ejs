@@ -46,6 +46,7 @@
 
 <!-- Add this to your head section -->
 <script type="module" src="/js/utils/mobileNav.js"></script>
+<script src="/js/utils/megaMenu.js"></script>
 <script type="module" src="/js/utils/topnav.js"></script>
 <script src="/js/utils/incrementPlays.js"></script>
 <script src="/js/utils/toggleAccordion.js"></script>
@@ -80,6 +81,8 @@
       transition: max-height 0.3s ease, opacity 0.3s ease;
     }
 
+    /* Add this CSS to your global stylesheet */
+
     /* For WebKit browsers (Chrome, Safari) */
     ::-webkit-scrollbar {
       width: 8px; /* Width of the scrollbar */
@@ -87,22 +90,54 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: #f1f1f1; /* Background of the scrollbar track */
+      background: #fff; /* Light mode track color */
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #888; /* Color of the scrollbar thumb */
+      background: #4a556877; /* Darker gray for the thumb */
       border-radius: 10px; /* Rounded corners for the thumb */
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #555; /* Color of the thumb on hover */
+      background: #2d374877; /* Darker shade on hover */
     }
 
     /* For Firefox */
     * {
       scrollbar-width: thin; /* Makes the scrollbar thin */
-      scrollbar-color: #888 #f1f1f1; /* Thumb color and track color */
+      scrollbar-color: #4a556877 #fff; /* Thumb color and track color */
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      scrollbar-color: #a0aec077 #2d374877; /* Thumb color and track color for dark mode */
+    }
+
+    body.dark-mode::-webkit-scrollbar-track {
+      background: #2d374877; /* Dark mode track color */
+    }
+
+    body.dark-mode::-webkit-scrollbar-thumb {
+      background: #a0aec077; /* Light gray for the thumb in dark mode */
+    }
+
+    body.dark-mode::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e177; /* Lighter shade on hover in dark mode */
+    }
+
+    /* Add this CSS to your stylesheet */
+    .spinner {
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #fff; /* Change this color to match your theme */
+      border-radius: 50%;
+      width: 20px; /* Adjust size as needed */
+      height: 20px; /* Adjust size as needed */
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 </style>
 

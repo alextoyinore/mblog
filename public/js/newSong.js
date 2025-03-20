@@ -28,10 +28,20 @@ const handleAddSong = async (event) => {
     event.preventDefault();
     // Disable submit button
     submitSongBtn.setAttribute('disabled', '');
+    // Create a spinner element
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner'; // Add the spinner class
+
+    // Replace the button's inner text with the spinner
+    submitSongBtn.innerHTML = ''; // Clear existing text
+    submitSongBtn.appendChild(spinner); // Add the spinner to the button
+
     // Creating formData object to capture form data
     const formData = new FormData(form);
     // handle case where no artwork has been selected
     if (!formData.get('artwork').size) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
         // Enable publish button and show error
         submitSongBtn.removeAttribute('disabled');
         // Show snackbar
@@ -43,6 +53,8 @@ const handleAddSong = async (event) => {
     }
     // handle artwork size greater than 512k
     if (formData.get('artwork').size > config.artwork.maxByteSize) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
         // Enable publish button and show error
         submitSongBtn.removeAttribute('disabled');
         // Show snackbar
@@ -56,6 +68,8 @@ const handleAddSong = async (event) => {
     formData.set('artwork', await imageAsDataURL(formData.get('artwork')));
     // handle case no song title
     if (!formData.get('songTitle')) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
         submitSongBtn.removeAttribute('disabled');
         // Show snackbar
         Snackbar({
@@ -66,6 +80,8 @@ const handleAddSong = async (event) => {
     }
     // handle case no artist name
     if (!formData.get('artistName')) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
         submitSongBtn.removeAttribute('disabled');
         // Show snackbar
         Snackbar({
@@ -76,6 +92,8 @@ const handleAddSong = async (event) => {
     }
     // handle case no link added
     if (!formData.get('spotify') && !formData.get('appleMusic') && !formData.get('youtubeMusic') && !formData.get('boomplay') && !formData.get('tidal') && !formData.get('amazon') && !formData.get('pandora') && !formData.get('soundcloud') && !formData.get('deezer') && !formData.get('audiomack')) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
         submitSongBtn.removeAttribute('disabled');
         // Show snackbar
         Snackbar({
@@ -88,6 +106,8 @@ const handleAddSong = async (event) => {
     if (formData.get('spotify')) {
         let isValid = formData.get('spotify').includes('open.spotify.com');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -101,6 +121,8 @@ const handleAddSong = async (event) => {
     if (formData.get('appleMusic')) {
         let isValid = formData.get('appleMusic').includes('music.apple.com');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -114,6 +136,8 @@ const handleAddSong = async (event) => {
     if (formData.get('youtubeMusic')) {
         let isValid = formData.get('youtubeMusic').includes('music.youtube.com/watch?v=');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -127,6 +151,8 @@ const handleAddSong = async (event) => {
     if (formData.get('boomplay')) {
         let isValid = formData.get('boomplay').includes('boomplay.com/songs');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -140,6 +166,8 @@ const handleAddSong = async (event) => {
     if (formData.get('audiomack')) {
         let isValid = formData.get('audiomack').includes('audiomack.com/song');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -153,6 +181,8 @@ const handleAddSong = async (event) => {
     if (formData.get('deezer')) {
         let isValid = formData.get('deezer').includes('dzr.page.link');
         if (!isValid) {
+            submitSongBtn.removeChild(spinner); // remove the spinner to the button
+            submitSongBtn.innerHTML = 'Publish Song'
             submitSongBtn.removeAttribute('disabled');
             // Show snackbar
             Snackbar({
@@ -182,7 +212,10 @@ const handleAddSong = async (event) => {
     }
 
     // handle case where response is 400 (Bad Request)
-    if (response.status === 400) {
+    if (response.status >= 400) {
+        submitSongBtn.removeChild(spinner); // remove the spinner to the button
+        submitSongBtn.innerHTML = 'Publish Song'
+        submitSongBtn.removeAttribute('disbaled')
         const { message } = await response.json()
         Snackbar({
             type: 'error',
