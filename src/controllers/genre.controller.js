@@ -43,11 +43,64 @@ const renderGenre = async (req, res) => {
         }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
         .sort({ createdAt: 'desc'});
 
-        res.render('./pages/genre', {
-            songs: songs,
-            title: toTitleCase(genre),
+        // Top Genres
+        const topGenres = await Song.aggregate([
+            {
+                $group: {
+                    _id: "$genre",
+                    totalViews: { $sum: "$totalPlays" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    genre: "$_id",
+                    totalViews: 1
+                }
+            },
+            {
+                $sort: { totalViews: -1 }
+            }
+        ]);
+
+
+        // Trending Genres
+        const threeDaysAgo = moment().subtract(3, 'days').toDate();
+
+        const trendingGenres = await Song.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: threeDaysAgo }
+                }
+            },
+            {
+                $group: {
+                    _id: "$genre",
+                    totalViews: { $sum: "$totalPlays" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    genre: "$_id",
+                    totalViews: 1
+                }
+            },
+            {
+                $sort: { totalViews: -1 }
+            }
+        ]);
+
+        res.render('./layouts/base', {
+            page: 'genre',
+            title: `${toTitleCase(genre)}`,
+            widgets: ['top-genres', 'trending-genres'],
+            sessionUser: req.session.user,
             route: req.originalUrl,
-            moment: moment
+            songs: songs,
+            trendingGenres,
+            topGenres,
+            moment
         });
 
     } catch (error) {

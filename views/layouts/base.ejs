@@ -26,7 +26,8 @@
                   class="lg:pl-4 lg:w-125 overflow-y-auto lg:sticky lg:top-0"
                   >
                       <% locals.widgets.forEach(widget => { %>
-                          <%- include(`../widgets/${widget}`) %> 
+                          <%- include(`../widgets/${widget}`) %>
+                          <div class="mt-4"></div> 
                       <% }) %>
                   
                       <div class="my-8">

@@ -1,0 +1,21 @@
+<% if (locals.trendingGenres.length) { %> 
+  <h2 class="font-instrument text-lg lg:mt-4 dark:text-white font-bold mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 flex items-center">
+    <span class="text-sky-500 mr-2">&bullet;</span> Trending Genres
+  </h2>
+  <% locals.trendingGenres.forEach(genre => { %>
+<div class="accordion-item">
+  <a href="/genre/<%= genre.genre %>" class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header">
+    <!-- <div>
+      <img src="<%= // song.artwork.url %>" alt="<%= // song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+    </div> -->
+    <div class="ml-3 flex-grow min-w-0 flex items-center">
+      <span class="text-sm font-bold dark:text-white"><%= genre.genre || 'Global' %></span>
+    </div>
+    <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+      <span><%= genre.count %> songs</span>
+    </div>
+  </a>
+</div>
+<% }) %> 
+<% } %>
+
