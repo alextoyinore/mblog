@@ -16,6 +16,7 @@ const moment = require('moment');
  */
 const User = require('../models/user.model');
 const Song = require('../models/song.model')
+const {toTitleCase} = require('../../public/js/utils/funcs')
 
 /**
  * Renders the register page
@@ -46,11 +47,18 @@ const renderSearch = async (req, res) => {
         .sort({ createdAt: 'desc'})
         .exec();
 
-        res.render('./pages/search', {
+        const topSearches = []
+        const trendingSearches = []
+
+        res.render('./layouts/base', {
+            page: 'search',
+            title: `Search result(s) for: '${toTitleCase(query)}'`,
             sessionUser: req.session.user,
+            widgets: ['top-searches', 'trending-searches'],
             route: req.originalUrl,
             songs: results,
-            title: 'Search result(s) for: ' + query,
+            topSearches,
+            trendingSearches,
             moment
         });
         

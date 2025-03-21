@@ -61,7 +61,7 @@ const renderGenre = async (req, res) => {
             {
                 $sort: { totalViews: -1 }
             }
-        ]);
+        ]).limit(10);
 
 
         // Trending Genres
@@ -89,7 +89,7 @@ const renderGenre = async (req, res) => {
             {
                 $sort: { totalViews: -1 }
             }
-        ]);
+        ]).limit(10);
 
         res.render('./layouts/base', {
             page: 'genre',

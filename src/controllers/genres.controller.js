@@ -49,15 +49,63 @@ const renderGenres = async (req, res) => {
             }
         ]);
 
+        // Top Genres
+        const topGenres = await Song.aggregate([
+            {
+                $group: {
+                    _id: "$genre",
+                    totalViews: { $sum: "$totalPlays" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    genre: "$_id",
+                    totalViews: 1
+                }
+            },
+            {
+                $sort: { totalViews: -1 }
+            }
+        ]).limit(10);
+
+
+        // Trending Genres
+        const threeDaysAgo = moment().subtract(3, 'days').toDate();
+
+        const trendingGenres = await Song.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: threeDaysAgo }
+                }
+            },
+            {
+                $group: {
+                    _id: "$genre",
+                    totalViews: { $sum: "$totalPlays" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    genre: "$_id",
+                    totalViews: 1
+                }
+            },
+            {
+                $sort: { totalViews: -1 }
+            }
+        ]).limit(10);
+
         res.render('./layouts/base', {
             page: 'genres',
             title: 'Genres',
-            widgets: ['trending', 'topsongs'],
+            widgets: ['trending-genres', 'top-genres'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             genres: genresWithCounts,
-            // trendingSongs,
-            // topSongs,
+            trendingGenres,
+            topGenres,
             moment
         });
 

@@ -192,9 +192,10 @@ if (name){
       class="border-b border-gray-200 dark:border-gray-700 py-4 flex justify-between items-center"
     >
       <!-- Left Menu Group - Logo -->
-    <div class="">
+     <div class="py-4 px-2 lg:border-b border-gray-200 dark:border-gray-700 lg:hidden">
       <a href="/">
-        <img src="./images/icon.svg" class="h-6 dark:inline" alt="musicone icon" />
+        <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
+        <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
       </a>
     </div>
 
@@ -263,7 +264,7 @@ if (name){
             >
             <a
               href="/register"
-              class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+              class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-3 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
               >Get Started</a
             >
           </div>
@@ -271,7 +272,7 @@ if (name){
             <% } else { %>
               <a
               href="/publish"
-              class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+              class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-3 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
               >Submit Link or URL</a
             >
 
