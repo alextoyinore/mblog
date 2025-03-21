@@ -6,7 +6,7 @@
   <!-- Toggle Button -->
   <button
     id="sidenavToggle"
-    class="absolute hidden lg:block left-1 bottom-25 bg-white dark:bg-gray-900 border border-gray-700 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
+    class="absolute hidden lg:block left-1 bottom-0 bg-white dark:bg-gray-900 border border-gray-700 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
   >
     <svg
       id="toggleIcon"
@@ -27,12 +27,20 @@
   <!-- Nav Content -->
   <div class="flex flex-col h-full w-60">
     <!-- Left Menu Group - Logo -->
-    <div class="hidden lg:block py-4 px-2 border-b border-gray-200 dark:border-gray-700">
-      <a href="/">
-        <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
-        <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
-      </a>
-      <p class="text-gray-400 text-xs mt-1">...one song, many platforms</p>
+    <div id="logo" class="hidden lg:block py-4 px-2 border-b border-gray-200 dark:border-gray-700">
+      <div class="logo">
+        <a href="/">
+          <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
+          <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
+        </a>
+        <p class="text-gray-400 dark:text-gray-500 text-xs mt-1">...one song, many platforms</p>
+      </div>
+
+      <div class="icon hidden">
+        <a href="/">
+          <img src="/images/icon.svg" class="h-6 lg:h-7 hidden dark:inline" alt="musicone icon" />
+        </a>
+      </div>
     </div>
 
     <!-- Navigation Links -->
@@ -238,6 +246,8 @@
   const sidenavToggle = document.getElementById("sidenavToggle");
   const toggleIcon = document.getElementById("toggleIcon");
   const navTexts = document.querySelectorAll(".nav-text");
+  const logo = document.querySelector('.logo')
+  const icon = document.querySelector('.icon')
 
   // Set initial state based on screen size
   function setInitialState() {
@@ -262,9 +272,13 @@
     if (sidenav.classList.contains("collapsed")) {
       navTexts.forEach((text) => text.classList.add("hidden"));
       sidenav.style.width = "4rem";
+      logo.classList.add('hidden')
+      icon.classList.remove('hidden')
     } else {
       navTexts.forEach((text) => text.classList.remove("hidden"));
       sidenav.style.width = "100%";
+      logo.classList.remove('hidden')
+      icon.classList.add('hidden')
     }
   });
 
