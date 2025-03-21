@@ -32,10 +32,10 @@ const renderNewSongOrURL = (req, res) => {
         return res.redirect('/login');
     }
     
+    
     res.render('./layouts/base', {
         page: 'newsong',
         title: 'New Song',
-        // widgets: ['trending', 'topsongs'],
         sessionUser: req.session.user,
         route: req.originalUrl
     });

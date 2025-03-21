@@ -1,12 +1,12 @@
 <!-- Sidenav -->
 <nav
   id="sidenav"
-  class="hidden md:flex h-[calc(100vh-70px)] overflow-y-auto bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 sticky top-0"
+  class="hidden md:flex lg:h-[calc(100vh-70px)] overflow-y-auto bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 sticky top-0"
 >
   <!-- Toggle Button -->
   <button
     id="sidenavToggle"
-    class="absolute left-1 bottom-25 bg-white dark:bg-gray-900 border border-gray-700 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
+    class="absolute hidden lg:block left-1 bottom-25 bg-white dark:bg-gray-900 border border-gray-700 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
   >
     <svg
       id="toggleIcon"
@@ -27,7 +27,7 @@
   <!-- Nav Content -->
   <div class="flex flex-col h-full w-60">
     <!-- Left Menu Group - Logo -->
-    <div class="py-4 px-2 border-b border-gray-200 dark:border-gray-700">
+    <div class="hidden lg:block py-4 px-2 border-b border-gray-200 dark:border-gray-700">
       <a href="/">
         <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
         <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
@@ -199,7 +199,7 @@
 
     <!-- Genres Dropdown Trigger -->
     <div class="relative group">
-      <a id="genreButton" onclick="toggleMegaMenu(event)" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
+      <a href="/genres" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
         <svg
             class="w-5 h-5"
             fill="none"
@@ -216,7 +216,7 @@
         <span class="nav-text">Genres</span>
       </a>
 
-      <%- include('./mega.ejs') %>
+      <%- // include('./mega.ejs') %>
     </div>
   </div>
 </nav>

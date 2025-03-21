@@ -83,6 +83,15 @@
 
     /* Add this CSS to your global stylesheet */
 
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none; /* Hide the scrollbar */
+    }
+    
+    /* Hide scrollbar for Firefox */
+    .hide-scrollbar {
+        scrollbar-width: none; /* Hide scrollbar */
+    }
+
     /* For WebKit browsers (Chrome, Safari) */
     ::-webkit-scrollbar {
       width: 8px; /* Width of the scrollbar */

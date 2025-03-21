@@ -41,11 +41,34 @@ const renderNew = async (req, res) => {
         .sort({ createdAt: 'desc'})
         .exec();
 
-        res.render('./pages/new', {
+        // Retrieve Top Songs
+        const topSongs = await Song.find()
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+            .sort({ totalPlays: -1 })
+            .limit(5)
+            .exec();
+
+        // Retrieve Trending Songs
+        const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
+
+        const trendingSongs = await Song.find({
+            createdAt: { $gte: threeDaysAgo }, // Filter for songs created in the last 3 days
+            totalPlays: { $gt: 0 } // Ensure that we only consider songs that have been played
+        })
+        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+        .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
+        .limit(5) // Limit the results to 10
+        .exec(); // Execute the query
+
+        res.render('./layouts/base', {
+            page: 'newarrivals',
+            title: 'New Arrivals',
+            widgets: ['trending', 'topsongs'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             latestSongs,
-            title: 'New Arrivals',
+            topSongs,
+            trendingSongs,
             moment
         });
         

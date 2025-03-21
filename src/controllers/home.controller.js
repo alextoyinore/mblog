@@ -175,7 +175,6 @@ const renderHome = async (req, res) => {
             route: req.originalUrl,
             latestSongs,
             trendingSongs,
-            _trendingSongs,
             topSongs,
             songsByRegion,
             songsByGenre,
