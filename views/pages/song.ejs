@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
-  <head>
-    <%- include('../layouts/head', {title : 'Home'}) %>
-    <script type="module" src="/js/song.js"></script>
-  </head>
-  <body class="font-nyt-sans w-full h-full">
-    <%- include('../widgets/topnav') %>
 
-    <main class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] mt-8 pb-20">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:mt-15">
+    <script type="module" src="/js/song.js"></script>
+
+      <div class="grid grid-cols-1 gap-4 lg:mt-5">
         <!-- Left Column - Song Artwork -->
         <div class="flex justify-center">
-          <img src="<%= song.artwork.url %>" alt="<%= song.songTitle %> Artwork" class="object-cover h-80 shadow-lg lg:w-80 w-full rounded-lg" />
+          <img src="<%= song.artwork.url %>" alt="<%= song.songTitle %> Artwork" class="object-cover h-80 shadow-lg w-full rounded-lg" />
         </div>
 
         <!-- Right Column - Song Details -->
-        <div class="lg:col-span-2">
           <h2 class="text-5xl font-bold dark:text-white"><%= song.songTitle %></h2>
           <div class="flex gap-2 items-center text-xs my-2">
             <p class="text-gray-600 dark:text-gray-400"><%= song.artistName %></p>
@@ -25,7 +17,7 @@
             <p class="text-gray-500 dark:text-gray-300"><%= song.country %></p>
           </div>
 
-          <div class="flex gap-4 my-2 flex-wrap py-2 border-b border-t dark:border-gray-800 text-sm items-center"
+          <div class="flex gap-4 my-2 flex-wrap py-2 border-b border-t border-gray-200 dark:border-gray-800 text-sm items-center"
           >
           <button class="bg-red-500 text-white px-5 py-1 rounded hover:bg-red-600 transition-colors cursor-pointer flex items-center">
             <i class="fas fa-play mr-2"></i>
@@ -101,7 +93,7 @@
           </div>
           
 
-          <div class="flex items-center mt-4 border-b py-4 text-sm dark:border-gray-800 gap-2">
+          <div class="flex items-center border-b pb-4 text-sm border-gray-200 dark:border-gray-800 gap-2">
             <button class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-5 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer flex items-center">
               <i class="fas fa-thumbs-up mr-2"></i>
               Like
@@ -118,51 +110,10 @@
 
           <!-- More info -->
            <% if (song.moreInfo) { %>
-            <div class="my-4 pb-4 border-b dark:border-gray-800">
+            <div class="my-4 pb-4 border-b border-gray-200 dark:border-gray-800">
               <h3 class="text-lg font-semibold dark:text-white mb-2">More Info</h3>
               <p class="text-sm dark:text-gray-400 text-gray-500"><%= song.moreInfo %></p>
             </div>
            <% } %>
-          
-          <!-- Related Songs Section -->
-          <div class="mt-6">
-            <h3 class="text-lg font-semibold dark:text-white">Related Songs</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
-              <% relatedSongs.forEach(relatedSong => { %>
-                <a href="/song/<%= relatedSong.id %>" class="flex cursor-pointer border-gray-200 dark:border-gray-700 items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                  <img src="<%= relatedSong.artwork.url %>" alt="<%= relatedSong.songTitle %> Artwork" class="object-cover h-16 w-16 rounded" />
-                  <div class="ml-3 flex-grow min-w-0">
-                    <h4 class="text-sm font-medium dark:text-white"><%= relatedSong.songTitle %></h4>
-                    <p class="text-xs text-gray-500 dark:text-gray-400"><%= relatedSong.artistName %></p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400"><%= relatedSong.genre %></p>
-                  </div>
-                </a>
-              <% }) %>
-            </div>
-          </div>
-
-          <!-- Comments Section -->
-          <!-- <div class="mt-6">
-            <h3 class="text-lg font-semibold dark:text-white">Comments</h3>
-            <div class="mt-2">
-              <textarea class="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md p-2" rows="3" placeholder="Add a comment..."></textarea>
-              <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600 transition-colors">Submit</button>
-            </div>
-            <div class="mt-4">
-              <% // comments.forEach(comment => { %>
-                <div class="border-b border-gray-200 dark:border-gray-700 py-2">
-                  <p class="text-sm dark:text-white"><%= // comment.user %>: <%= // comment.text %></p>
-                  <p class="text-xs text-gray-400 dark:text-gray-500"><%= // moment(comment.createdAt).format('hh:mm a MMM DD YYYY') %></p>
-                </div>
-              <% // }) %>
-            </div>
-          </div> -->
-        </div>
       </div>
-
-      <!-- Include Play Bar -->
-      <%- // include('../widgets/playbar') %>
-    </main>
-  </body>
-</html>
 

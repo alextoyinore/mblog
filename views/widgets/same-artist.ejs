@@ -1,14 +1,14 @@
-<% if (locals.trendingSongs) { %>
+<% if (locals.songsBySameArtist) { %>
     <h2 class="font-instrument text-lg mt-4 dark:text-white font-bold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 flex items-center">
-      <span class="text-red-500 mr-2">&bullet;</span> Trending Now
+      <span class="text-red-500 mr-2">&bullet;</span> By Same Artist
     </h2>
 
     <!-- Trending List -->
     <div class="space-y-0">
-      <% if (locals.trendingSongs.length) { %> 
-        <% locals.trendingSongs.forEach(song => { %>
+      <% if (locals.songsBySameArtist.length) { %> 
+        <% locals.songsBySameArtist.forEach(song => { %>
       <div class="accordion-item">
-        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-red-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
+        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
           <div>
             <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
           </div>
@@ -20,7 +20,7 @@
             <div class="flex items-center">
               <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
               <div class="flex gap-2 text-[12px] items-center text-xs">
-                <span class="text-xs text-red-500">Hot</span>
+                <span class="text-xs text-sky-500">Top</span>
                 <span>.</span>
                 <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
               </div>

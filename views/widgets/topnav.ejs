@@ -6,11 +6,11 @@ if (name){
 }
 %>
 
-<nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b dark:border-gray-700">
+<nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
     <!-- Top Bar -->
-  <div class="container mx-auto">
+  <div class="container">
       <!-- Upper Nav -->
-    <div class="flex items-center gap-5 py-3 pl-5">
+    <div class="flex items-center py-3 justify-between">
 
       <div class="lg:hidden">
         <button id="openMobileMenu" class="text-gray-800 dark:text-gray-200">
@@ -30,44 +30,28 @@ if (name){
         </button>
       </div>
 
-      <!-- Left Menu Group - Logo -->
-      <div class="">
-        <a href="/">
-          <img src="/images/light.svg" class="h-6 hidden dark:inline" alt="music1 logo" />
-          <img src="/images/dark.svg" class="h-6 inline dark:hidden" alt="music1 logo" />
-        </a>
+      <div class="hidden lg:block">
+        <button onclick="window.history.back()" class="flex items-center p-2 bg-transparent border-none cursor-pointer">
+          <svg
+            class="w-5 h-5 text-gray-600 dark:text-gray-300 transform transition-transform cursor-pointer"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+            <!-- <span class="ml-2">Back</span> --> <!-- Optional text next to the icon -->
+        </button>
       </div>
 
       <!-- Centered Search and Country Select -->
       <div class="hidden flex-grow mx-4 lg:flex items-center justify-center">
-        <div class="relative flex items-center w-full max-w-[600px]">
-          <!-- Country Select -->
-         <!--  <div class="relative flex gap-2">
-            <select
-              class="appearance-none bg-gray-50 dark:bg-gray-800 px-4 py-2 text-sm text-gray-800 dark:text-gray-500 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-900 dark:focus:border-gray-400 cursor-pointer rounded-md"
-            >
-              <option value="global">NG</option>
-              <option value="global">UK</option>
-              <option value="us">US</option>
-              <option value="uk">SA</option>
-              <option value="asia">GH</option>
-            </select> -->
-            <!-- Custom Arrow -->
-            <!-- <div
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700 dark:text-gray-300"
-            >
-              <svg
-                class="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                />
-              </svg>
-            </div> 
-          </div> -->
-
+        <div class="relative flex items-center w-full">
           <!-- Search Field -->
           <form action="/search" class="relative flex-1 max-w-[400px]">
             <div class="relative">
@@ -108,8 +92,17 @@ if (name){
         </div>
       </div>
 
+      <!-- Centered Group - Logo -->
+    <div class="py-4 px-2 border-b border-gray-200 dark:border-gray-700 lg:hidden">
+      <a href="/">
+        <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
+        <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
+      </a>
+      <p class="text-gray-400 text-xs mt-1 hidden lg:block">...one song, many platforms</p>
+    </div>
+
       <!-- Right Menu Group -->
-      <div class="absolute right-0 flex items-center lg:space-x-4 pr-5">
+      <div class="flex items-center lg:space-x-4">
         
         <% if (userAuthenticated) { %>
         <button id="profileButton" class="lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 rounded-full bg-gray-100 dark:bg-gray-700 p-1.5 cursor-pointer transition-colors">
@@ -179,32 +172,8 @@ if (name){
         
         <% } else { %>
         <a href="/login" class="hidden lg:block text-sm text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500">Sign In</a>
-        <a href="/register" class="hidden lg:block bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100">Get Started</a>
+        <a href="/register" class="hidden lg:block bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100">Submit Song or URL</a>
         <% } %>
-      </div>
-    </div>
-
-    <!-- Replace the Lower Nav section with this Mega Menu -->
-    <div class="hidden lg:block border-t dark:border-gray-700">
-      <div class="flex items-center justify-center space-x-8 py-2">
-        <!-- Genres Dropdown Trigger -->
-        <div class="relative group">
-          <button id="genreButton" onclick="toggleMegaMenu(event)" class="flex items-center text-gray-800 cursor-pointer dark:text-gray-200 hover:text-red-500 dark:hover:text-gray-400 text-sm">
-            Genres
-            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          <%- include('./mega.ejs') %>
-
-        </div>
-  
-        <!-- Other nav items -->
-        <a href="/new" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">New Releases</a>
-        <a href="/charts" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">Top Charts</a>
-        <a href="/artists" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">Artists</a>
-        <a href="/playlists" class="text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 text-sm transition-colors">Playlists</a>
       </div>
     </div>
   </div>
@@ -313,13 +282,8 @@ if (name){
       </nav>
     </div>
   </div>
-</div>
 
 <div id="snackbarWrapper" class="relative">
   <!-- Snackbar will be appended here -->
 </div>
   
-
-
-
-

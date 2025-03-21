@@ -167,7 +167,10 @@ const renderHome = async (req, res) => {
             songsByGenre[genre] = songsByGenre[genre].slice(0, 10); // Get the first 10 songs
         }
 
-        res.render('./pages/home', {
+        res.render('./layouts/base', {
+            page: 'home',
+            title: 'Home',
+            widgets: ['trending', 'topsongs'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             latestSongs,

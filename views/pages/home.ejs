@@ -1,54 +1,20 @@
-<!DOCTYPE html>
-<html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
-  <head>
-    <%- include('../layouts/head', {title : 'Home'}) %>
-    <!-- <script src="/js/home.js"></script> -->
-  </head>
-  <body class="font-nyt-sans w-full h-full">
-    <%- include('../widgets/topnav') %>
 
-    <main class="container w-full px-5 lg:px-0">
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Left Column - Sidenav (hidden on small screens) -->
-        <div class="lg:col-span-1 hidden lg:block">
-          <%- include('../widgets/sidenav') %>
-        </div>
-
-        <!-- Second Column - Trending Music -->
-        <div
-          class="lg:h-[calc(100vh-150px)] lg:col-span-1 w-full lg:w-150 lg:border-r dark:border-gray-700 lg:pr-4 lg:overflow-y-auto lg:sticky lg:top-0"
+    <!-- Latest Releases Section -->
+    <section class="mb-8">
+        <h2
+            class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
         >
-          <%- include('../widgets/trending') %> 
-          <%- include('../widgets/topsongs') %>
+            Latest Releases
+        </h2>
+
+        <div class="flex flex-col gap-0">
+            <%-  include('../widgets/latest') %>
         </div>
+    </section>
 
-        <!-- Right Column - All Songs -->
-        <div
-          class="w-full lg:h-[calc(100vh-150px)] pr-3 lg:overflow-y-auto lg:sticky lg:top:0 mb-10"
-        >
-          <!-- Latest Releases Section -->
-          <section class="mb-8">
-            <h2
-              class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b dark:border-gray-700"
-            >
-              Latest Releases
-            </h2>
+    <!-- Region Sections -->
+    <%- include('../widgets/region') %>
 
-            <div class="flex flex-col gap-0">
-              <%- include('../widgets/latest') %>
-            </div>
-          </section>
+    <!-- Top Genre Sections -->
+    <%-  include('../widgets/genre') %>
 
-          <!-- Region Sections -->
-          <%- include('../widgets/region') %>
-
-          <!-- Top Genre Sections -->
-          <%- include('../widgets/genre') %>
-        </div>
-      </div>
-
-      <!-- Include Play Bar -->
-      <%- include('../widgets/playbar') %>
-    </main>
-  </body>
-</html>

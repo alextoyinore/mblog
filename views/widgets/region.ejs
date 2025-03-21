@@ -1,7 +1,7 @@
 <% if (locals.songsByRegion) { %> 
     <section class="mb-8 mt-8">
       <% Object.keys(songsByRegion).forEach(region => { %>
-      <h2 class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b dark:border-gray-700"><%= region %></h2>
+      <h2 class="font-instrument text-lg dark:text-white flex-1 font-bold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"><%= region %></h2>
       <div class="flex flex-col gap-0 my-4">
         <% if (songsByRegion[region].length) { %> 
           <% songsByRegion[region].forEach(song => { %>

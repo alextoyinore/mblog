@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
+  <head>
+    <%- include('../layouts/head', {title : locals.title}) %>
+  </head>
+  <body class="font-nyt-sans w-full h-full">
+    <main class="container w-full px-5 lg:px-0">
+      <div class="lg:flex lg:w-[75%] mx-auto lg:flex-grow gap-5">
+        <!-- Left Column - Sidenav (hidden on small screens) -->
+        <div class="lg:col-span-1 hidden lg:block">
+            <%- include('../widgets/sidenav') %>
+        </div>
+        <div class="flex flex-col w-full">
+            <%- include('../widgets/topnav') %>                
+            <div class="lg:flex">
+                <!-- Center Column - All Songs -->
+                <div
+                class="lg:h-[calc(100vh-70px)] lg:pr-4 w-full lg:overflow-y-auto lg:sticky lg:top:0 mb-10 lg:border-r border-gray-200 dark:border-gray-800"
+                >
+                    <%- include(`../pages/${page}`) %>
+                </div>
+
+                <!-- Right Column - Trending Music -->
+                 <% if (locals.widgets) { %>
+                  <div
+                  class="lg:h-[calc(100vh-70px)] lg:pl-4 lg:w-125 lg:overflow-y-auto lg:sticky lg:top-0"
+                  >
+                      <% locals.widgets.forEach(widget => { %>
+                          <%- include(`../widgets/${widget}`) %> 
+                      <% }) %>
+                  
+                      <div class="my-8">
+                          <%- include('../layouts/foot') %>
+                      </div>
+                  </div>
+                 <% } %>
+            </div>
+        </div> 
+      </div>
+    </main>
+  </body>
+</html>
+

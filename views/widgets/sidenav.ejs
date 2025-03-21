@@ -1,12 +1,12 @@
 <!-- Sidenav -->
 <nav
   id="sidenav"
-  class="hidden md:flex h-[calc(100vh-150px)] overflow-y-auto bg-white dark:bg-gray-900 border-r dark:border-gray-800 transition-all duration-300 sticky top-0"
+  class="hidden md:flex h-[calc(100vh-70px)] overflow-y-auto bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 sticky top-0"
 >
   <!-- Toggle Button -->
   <button
     id="sidenavToggle"
-    class="absolute -right-3 bottom-40 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
+    class="absolute left-1 bottom-25 bg-white dark:bg-gray-900 border border-gray-700 dark:border-gray-700 rounded-full p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
   >
     <svg
       id="toggleIcon"
@@ -26,9 +26,18 @@
 
   <!-- Nav Content -->
   <div class="flex flex-col h-full w-60">
+    <!-- Left Menu Group - Logo -->
+    <div class="py-4 px-2 border-b border-gray-200 dark:border-gray-700">
+      <a href="/">
+        <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
+        <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
+      </a>
+      <p class="text-gray-400 text-xs mt-1">...one song, many platforms</p>
+    </div>
+
     <!-- Navigation Links -->
-    <div class="flex-1 px-2 py-4">
-      <div class="space-y-2">
+    <div class="flex-1 pr-2 py-4">
+      <div class="space-y-2 text-sm">
         <!-- Home -->
         <a
           href="/"
@@ -133,23 +142,85 @@
           </svg>
           <span class="nav-text">Liked Songs</span>
         </a>
-      </div>
 
-      <!-- Recently Played Section -->
-      <div class="mt-8">
-        <h3
-          class="px-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider nav-text"
+        <!-- Other nav items -->
+    <a href="/new" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
+      <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+      >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 7v14a2 2 0 002 2h14a2 2 0 002-2V7M3 7l9-4 9 4M3 7l9 4 9-4"
+          />
+      </svg>
+      <span class="nav-text">New Arrivals</span>
+    </a>
+
+
+    <a href="/charts" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
+      <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+      >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3v18h18M3 10h18M3 17h18M3 14h18"
+          />
+      </svg>
+      <span class="nav-text">Charts</span>
+    </a>
+
+
+    <a href="/artists" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
+      <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+      >
+          <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 11c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm-8 0c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2zm0 4c-2.209 0-4 1.791-4 4v1h8v-1c0-2.209-1.791-4-4-4z"
+          />
+      </svg>
+      <span class="nav-text">Artists</span>
+    </a>
+
+    <!-- Genres Dropdown Trigger -->
+    <div class="relative group">
+      <a id="genreButton" onclick="toggleMegaMenu(event)" class="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md group <%= route === '/liked' ? 'bg-gray-100 dark:bg-gray-800' : '' %>">
+        <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
         >
-          Recently Played
-        </h3>
-        <div class="mt-2 space-y-2">
-          <!-- Add dynamic recently played items here -->
-          <%- //include('../widgets/recentlyPlayed') %>
-        </div>
-      </div>
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"
+            />
+        </svg>
+        <span class="nav-text">Genres</span>
+      </a>
+
+      <%- include('./mega.ejs') %>
     </div>
   </div>
 </nav>
+
 
 <style>
   .collapsed .nav-text {

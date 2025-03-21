@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html class="dark:bg-gray-900 font-['Instrument Sans']" lang="en">
-  <head>
-    <%- include('../layouts/head', {title : 'Publish'}) %>
-        <!-- Add WaveSurfer.js library -->
+
     <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
     <script type="module" src="/js/newSong.js"></script>
-  </head>
-  <body class="w-full h-full">
-    <%- include('../widgets/topnav') %>
 
-    <main class="container mx-auto w-[90%] sm:w-[90%] lg:w-[75%] mt-8 pb-20">
-      <h1 class="font-instrument text-2xl font-bold mb-8 dark:text-white">
+      <h1 class="font-instrument text-2xl font-bold mt-4 mb-8 dark:text-white">
         Add New Song
       </h1>
 
-      <form action="" data-add-song-form method="POST" enctype="multipart/form-data">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <form class="w-full" action="" data-add-song-form method="POST" enctype="multipart/form-data">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <!-- Left Column - Song Details -->
           <div class="space-y-6">
             <h2
@@ -116,14 +108,6 @@
                   <!-- Suggestions dropdown -->
                   <div id="genreSuggestions" class="hidden absolute w-full mt-1 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-md shadow-lg z-10 max-h-48 overflow-y-auto"></div>
                 </div>
-
-                <!-- Producer Input -->
-                <!-- <input
-                  placeholder="Producer"
-                  type="text"
-                  name="producer"
-                  class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
-                /> -->
               </div>
             </div>
           </div>
@@ -385,7 +369,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
           <div>
               <!-- Region Specific Code -->
@@ -479,7 +463,7 @@
         <textarea
         placeholder="More info"
         name="moreInfo"
-        class="w-full h-32 bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+        class="w-full h-36 bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
       ></textarea>
 
         <!-- Song File Upload with Waveform -->
@@ -510,12 +494,8 @@
     </div>
 
         <!-- Submit Button - Full Width -->
-
-        <div class="mt-10">
-          <button type="submit" data-submit-song class="cursor-pointer text-white bg-red-600 hover:bg-red-600 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-600 mb-5 flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300"> Publish Song</button>
-        </div>
+        <button type="submit" data-submit-song class="mt-8 cursor-pointer text-white bg-red-600 hover:bg-red-600 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-600 mb-5 flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300"> Publish Song</button>
       </form>
-    </main>
 
 
     <script>

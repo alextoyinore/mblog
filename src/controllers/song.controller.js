@@ -10,6 +10,7 @@
  * node modules
  */
 const bcrypt = require('bcrypt');
+const moment = require('moment')
 
 /**
  * custom modules
@@ -43,11 +44,22 @@ const renderSongPage = async (req, res) => {
             .limit(3)
             .exec();
 
-        res.render('./pages/song', {
+        const songsBySameArtist = await Song.find()
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+            .where('artistName').equals(song.artistName)
+            .limit(3)
+            .exec();
+
+        res.render('./layouts/base', {
+            page: 'song',
+            title: `${song.songTitle}`,
+            widgets: ['relatedsongs', 'same-artist'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             song: song,
-            relatedSongs: relatedSongs
+            relatedSongs: relatedSongs,
+            songsBySameArtist,
+            moment
         });
     } else {
         res.status(404).send('Song not found');
