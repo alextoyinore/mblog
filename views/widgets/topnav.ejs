@@ -95,7 +95,7 @@ if (name){
       </div>
 
       <!-- Centered Group - Logo -->
-    <div class="py-4 px-2 border-b border-gray-200 dark:border-gray-700 lg:hidden">
+    <div class="py-4 px-2 lg:border-b border-gray-200 dark:border-gray-700 lg:hidden">
       <a href="/">
         <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
         <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
@@ -189,9 +189,15 @@ if (name){
   <div class="h-full flex flex-col p-4">
     <!-- Mobile Menu Header -->
     <div
-      class="border-b dark:border-gray-700 p-4 flex justify-between items-center"
+      class="border-b border-gray-200 dark:border-gray-700 py-4 flex justify-between items-center"
     >
-      <h2 class="text-xl dark:text-white">Menu</h2>
+      <!-- Left Menu Group - Logo -->
+    <div class="">
+      <a href="/">
+        <img src="./images/icon.svg" class="h-6 dark:inline" alt="musicone icon" />
+      </a>
+    </div>
+
       <button
         id="closeMobileMenu"
         class="text-gray-800 dark:text-gray-200 hover:text-red-500"
@@ -213,7 +219,7 @@ if (name){
     </div>
 
     <!-- Mobile Menu Content -->
-    <div class="flex-1 overflow-y-auto p-4 mb-20">
+    <div class="flex flex-col overflow-y-auto">
       <!-- Search Bar -->
       <form action="/search" class="mb-6">
         <div class="relative">
@@ -243,44 +249,38 @@ if (name){
   
       <!-- Navigation Links -->
       <nav>
-        <!-- Main Links -->
-        <!-- <div class="mb-6 font-bold">
-          <a href="/new" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">New Releases</a>
-          <a href="/charts" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Top Charts</a>
-          <a href="/artists" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Artists</a>
-          <a href="/playlists" class="block text-lg text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500 mb-4">Playlists</a>
-        </div> -->
 
         <!-- Genres Section -->
-        <%- include('./sidenav') %>
+        <%- include('./mobile-nav') %>
 
           <!-- Bottom Section -->
-      <% if (!userAuthenticated) { %>
-        <div class="mt-8 pt-6 border-t dark:border-gray-700">
-          <a
-            href="/login"
-            class="block mb-4 py-2 text-sm text-center text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
-            >Sign In</a
-          >
-          <a
-            href="/register"
-            class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
-            >Get Started</a
-          >
-        </div>
-        <% } else { %>
-          <a
-          href="/publish"
-          class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
-          >Submit Link or URL</a
-        >
+        <% if (!userAuthenticated) { %>
+          <div class="mt-8 pt-6 border-t dark:border-gray-700">
+            <a
+              href="/login"
+              class="block mb-4 py-2 text-sm text-center text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
+              >Sign In</a
+            >
+            <a
+              href="/register"
+              class="block w-full bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+              >Get Started</a
+            >
+          </div>
+          
+            <% } else { %>
+              <a
+              href="/publish"
+              class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-2 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+              >Submit Link or URL</a
+            >
 
-         <!-- Logout -->
-         <form action="/logout" method="POST" class="block mt-4">
-          <button type="submit" class="w-full cursor-pointer text-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500">Sign out</button>
-        </form>
-        <% } %>
-      </div>
+            <!-- Logout -->
+            <form action="/logout" method="POST" class="block mt-4">
+              <button type="submit" class="w-full cursor-pointer text-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500">Sign out</button>
+            </form>
+            <% } %>
+    </div>
       </nav>
     </div>
   </div>

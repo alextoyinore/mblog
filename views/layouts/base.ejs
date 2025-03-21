@@ -15,7 +15,7 @@
             <div class="lg:flex">
                 <!-- Center Column - All Songs -->
                 <div
-                class="lg:pr-4 w-full overflow-y-auto max-h-screen lg:sticky lg:top:0 mb-10 lg:border-r border-gray-200 dark:border-gray-800"
+                class="lg:pr-4 w-full order-2 lg:order-1 overflow-y-auto max-h-screen lg:sticky lg:top:0 mb-10 lg:border-r border-gray-200 dark:border-gray-800"
                 >
                     <%- include(`../pages/${page}`) %>
                 </div>
@@ -23,7 +23,7 @@
                 <!-- Right Column - Trending Music -->
                  <% if (locals.widgets) { %>
                   <div
-                  class="lg:pl-4 lg:w-125 overflow-y-auto lg:sticky lg:top-0"
+                  class="lg:pl-4 order-1 lg:order-2 lg:w-125 overflow-y-auto lg:sticky lg:top-0"
                   >
                       <% locals.widgets.forEach(widget => { %>
                           <%- include(`../widgets/${widget}`) %> 
