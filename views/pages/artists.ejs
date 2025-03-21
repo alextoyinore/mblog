@@ -1,0 +1,36 @@
+
+<% 
+function getInitialsFromWords(str) {
+    const words = str.split(' ');
+
+    // Get the first two words
+    const firstTwoWords = words.slice(0, 2);
+
+    // Map through the first two words and get the first letter of each
+    const initials = firstTwoWords.map(word => word.charAt(0).toUpperCase()).join('');
+
+    return initials; // Return the concatenated initials
+}
+
+function getFirstNames(str) {
+    return str.split(',')[0];
+}
+%>
+
+<section class="mb-8 lg:pr-4">
+    <h1 class="font-instrument text-2xl bg-white dark:bg-gray-900 py-5 font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 sticky top-0 lg:top-0"><%= locals.title %></h1>
+    <div class="grid grid-cols-3 gap-8">
+        <% artists.forEach(artist => { %>
+            <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center">
+                <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
+                    <p class="inline"><%= getInitialsFromWords(artist.artistName) %></p>
+                </div>
+                <p class="text-sm text-gray-500"><%= getFirstNames(artist.artistName) %></p>
+                <p class="text-xs text-gray-400"><% artist.country %><%= artist.totalPlays %> plays</p>
+            </a>
+        <% }) %>
+    </div>
+    
+</section>
+
+      

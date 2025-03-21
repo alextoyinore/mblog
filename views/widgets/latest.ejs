@@ -20,50 +20,7 @@
     </div>
 
     <!-- Streaming Platforms Links -->
-    <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-      <div class="flex gap-4 flex-wrap py-4 border-b dark:border-gray-800 justify-center">
-        <% if (song.spotify) { %>
-        <a target="_blank" href="<%= song.spotify %>" onclick="incrementPlays('<%= song.id %>')" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-        <% } %> 
-        <% if (song.youtubeMusic) { %>
-        <a target="_blank" href="<%= song.youtubeMusic %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-        <% } %> 
-        <% if (song.appleMusic) { %>
-        <a target="_blank" href="<%= song.appleMusic %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-        <% } %> 
-        <% if (song.boomplay) { %>
-        <a target="_blank" href="<%= song.boomplay %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-        <% } %> 
-        <% if (song.tidal) { %>
-        <a target="_blank" href="<%= song.tidal %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-        <% } %> 
-        <% if (song.amazon) { %>
-        <a target="_blank" href="<%= song.amazon %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-        <% } %> 
-        <% if (song.pandora) { %>
-        <a target="_blank" href="<%= song.pandora %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-        <% } %> 
-        <% if (song.soundcloud) { %>
-        <a target="_blank" href="<%= song.soundcloud %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-        <% } %> 
-        <% if (song.audiomack) { %>
-        <a target="_blank" href="<%= song.audiomack %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-        <% } %> 
-        <% if (song.deezer) { %>
-        <a target="_blank" href="<%= song.deezer %>"
-          onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-        <% } %>
-        <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
-      </div>
-    </div>
+    <%- include('./streamers', {song}) %>
   </div>
   <% }) %> 
   <% } %>

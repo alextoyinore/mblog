@@ -75,6 +75,7 @@ const logout = require('./src/routes/logout.route')
 const search = require('./src/routes/search.route')
 const genre = require('./src/routes/genre.route')
 const genres = require('./src/routes/genres.route')
+const artists = require('./src/routes/artists.route')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongoose.config');
@@ -103,6 +104,10 @@ app.use('/search', search)
 app.use('/genre', genre)
 // genres
 app.use('/genres', genres)
+// artists
+app.use('/artists', artists)
+
+
 /**
  * start server
  */
