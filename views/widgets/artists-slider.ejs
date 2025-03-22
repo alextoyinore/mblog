@@ -1,0 +1,40 @@
+<% 
+function getInitialsFromWords(str) {
+    const words = str.split(' ');
+
+    // Get the first two words
+    const firstTwoWords = words.slice(0, 2);
+
+    // Map through the first two words and get the first letter of each
+    const initials = firstTwoWords.map(word => word.charAt(0).toUpperCase()).join('');
+
+    return initials; // Return the concatenated initials
+}
+
+function getFirstNames(str) {
+    return str.split(',')[0];
+}
+%>
+
+<% if (artistsWithRecentPlays.length > 0) { %>
+    <section class="mb-8 lg:pr-4">
+        <div class="artists-slider">
+            <% artistsWithRecentPlays.forEach(artist => { %>
+                <div class="artist-item">
+                    <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center hover:text-red-500">
+                        <% if (artist.artwork) { %>
+                            <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="object-cover h-25 w-25 rounded-full" />
+                        <% } else { %>
+                            <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
+                                <p class="inline"><%= getInitialsFromWords(artist.artistName) %></p>
+                            </div>
+                        <% } %>
+                        <p class="text-sm text-center text-gray-500"><%= getFirstNames(artist.artistName) %></p>
+                        <p class="text-xs text-gray-400"><%= artist.country %> - <%= artist.totalPlays %> plays</p>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </section>    
+<% } %>
+

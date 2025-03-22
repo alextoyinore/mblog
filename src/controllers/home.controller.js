@@ -167,6 +167,45 @@ const renderHome = async (req, res) => {
             songsByGenre[genre] = songsByGenre[genre].slice(0, 10); // Get the first 10 songs
         }
 
+        // const threeDaysAgo = new Date();
+        threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // Calculate the date for three days ago
+
+        const artistsWithRecentPlays = await Song.aggregate([
+            // Step 1: Match songs played in the last three days
+            {
+                $match: {
+                    playDate: { $gte: threeDaysAgo } // Filter for songs played in the last three days
+                }
+            },
+            // Step 2: Group by artist name, region, and country
+            {
+                $group: {
+                    _id: {
+                        artistName: "$artistName", // Group by artist name
+                        region: "$region",         // Include region in the grouping
+                        country: "$country",       // Include country in the grouping
+                    },
+                    artwork: { $first: "$artwork" }, // Get the artwork of the first song for the artist
+                    totalPlays: { $sum: "$totalPlays" } // Sum the total plays for each artist
+                }
+            },
+            // Step 3: Project the final output
+            {
+                $project: {
+                    _id: 0, // Exclude the default _id field
+                    artistName: "$_id.artistName", // Rename _id.artistName to artistName
+                    region: "$_id.region",         // Include region
+                    country: "$_id.country",       // Include country
+                    totalPlays: 1,                // Include totalPlays
+                    artwork: 1                     // Include artwork
+                }
+            },
+            // Step 4: Sort by totalPlays in descending order
+            {
+                $sort: { totalPlays: -1 }
+            }
+        ]);
+
         res.render('./layouts/base', {
             page: 'home',
             title: 'Home',
@@ -178,6 +217,7 @@ const renderHome = async (req, res) => {
             topSongs,
             songsByRegion,
             songsByGenre,
+            artistsWithRecentPlays,
             moment
         });
 

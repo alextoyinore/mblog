@@ -51,6 +51,39 @@
 <script src="/js/utils/incrementPlays.js"></script>
 <script src="/js/utils/toggleAccordion.js"></script>
 
+<!-- CAROUSEL -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.artists-slider').slick({
+            dots: true, // Show dots for navigation
+            infinite: true, // Infinite looping
+            speed: 500, // Transition speed
+            slidesToShow: 3, // Number of slides to show at once
+            slidesToScroll: 1, // Number of slides to scroll at once
+            responsive: [
+                {
+                    breakpoint: 1024, // For tablets
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600, // For mobile devices
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        dots: true
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
 
 <!-- Add this to your layout.ejs or equivalent -->
 <script>
