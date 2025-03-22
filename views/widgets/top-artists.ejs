@@ -7,25 +7,25 @@
     <div class="space-y-0 mb-8">
       <% if (locals.topArtists.length) { %> 
         <% locals.topArtists.forEach(artist => { %>
-      <div class="accordion-item">
-        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
-          <!-- <div>
-            <img src="<%=// song.artwork.url %>" alt="<%=// song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-          </div> -->
+      <a href="/artist/<%= artist.artist %>">
+        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header">
+          <div>
+            <img src="<%= artist.artwork.url %>" alt="<%= artist.artist %>" class="object-cover h-8 w-8 rounded-full" />
+          </div>
           <div class="ml-3 flex-grow min-w-0">
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= artist.artist %></h3>
-              <!-- <span class="text-xs text-gray-400"><%=// moment(song.createdAt).fromNow() %></span> -->
-            </div>
-            <div class="flex items-center">
-              <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= artist.artist %></p>
               <div class="flex gap-2 text-[12px] items-center text-xs">
                 <span class="text-xs text-gray-500 dark:text-gray-300"><%= artist.totalViews %> streams</span>
               </div>
             </div>
+            <div class="flex items-center">
+              <p class="truncate text-gray-600 text-xs pr-2 font-medium"><%= artist.region %></p>
+              <p class="truncate text-gray-600 text-xs pr-2 font-medium"><%= artist.country %></p>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       <% }) %> 
     <% } %>
     </div>

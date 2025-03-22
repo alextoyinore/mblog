@@ -76,6 +76,8 @@ const search = require('./src/routes/search.route')
 const genre = require('./src/routes/genre.route')
 const genres = require('./src/routes/genres.route')
 const artists = require('./src/routes/artists.route')
+const artist = require('./src/routes/artist.route')
+const profile = require('./src/routes/profile.route')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongoose.config');
@@ -106,6 +108,10 @@ app.use('/genre', genre)
 app.use('/genres', genres)
 // artists
 app.use('/artists', artists)
+// artist
+app.use('/artist', artist)
+// profile
+app.use('/profile', profile)
 
 
 /**

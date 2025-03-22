@@ -21,11 +21,15 @@ function getFirstNames(str) {
     <h1 class="font-instrument text-2xl bg-white dark:bg-gray-900 py-5 font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 sticky top-0 lg:top-0"><%= locals.title %></h1>
     <div class="grid grid-cols-3 gap-8">
         <% artists.forEach(artist => { %>
-            <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center">
+            <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center hover:text-red-500">
+                <% if (artist.artwork) { %>
+                    <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="object-cover h-25 w-25 rounded-full" />
+                <% } else { %>
                 <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
                     <p class="inline"><%= getInitialsFromWords(artist.artistName) %></p>
                 </div>
-                <p class="text-sm text-gray-500"><%= getFirstNames(artist.artistName) %></p>
+                <% } %>
+                <p class="text-sm text-center text-gray-500"><%= getFirstNames(artist.artistName) %></p>
                 <p class="text-xs text-gray-400"><% artist.country %><%= artist.totalPlays %> plays</p>
             </a>
         <% }) %>

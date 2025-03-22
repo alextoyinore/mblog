@@ -33,19 +33,21 @@ const renderArtists = async (req, res) => {
         const artistsWithPlayCounts = await Song.aggregate([
             {
                 $group: {
-                    _id: "$artistName",
-                    totalPlays: { $sum: "$totalPlays" }
+                    _id: "$artistName", // Group by artist name
+                    totalPlays: { $sum: "$totalPlays" }, // Sum the total plays for each artist
+                    artwork: { $first: "$artwork" } // Get the artwork of the first song for the artist
                 }
             },
             {
                 $project: {
-                    _id: 0,
-                    artistName: "$_id",
-                    totalPlays: 1
+                    _id: 0, // Exclude the default _id field
+                    artistName: "$_id", // Rename _id to artistName
+                    totalPlays: 1, // Include the totalPlays field
+                    artwork: 1 // Include the artwork field
                 }
             },
             {
-                $sort: { totalPlays: -1 }
+                $sort: { totalPlays: -1 } // Sort by totalPlays in descending order
             }
         ]);
 
@@ -53,21 +55,32 @@ const renderArtists = async (req, res) => {
         const topArtists = await Song.aggregate([
             {
                 $group: {
-                    _id: "$artistName",
-                    totalViews: { $sum: "$totalPlays" }
+                    _id: {
+                        artistName: "$artistName", // Group by artist name
+                        region: "$region",         // Include region in the grouping
+                        country: "$country",        // Include country in the grouping
+                    },
+                    artwork: { $first: "$artwork" }, // Get the artwork of the first song for the artist
+                    totalViews: { $sum: "$totalPlays" } // Sum the total plays for each artist
                 }
             },
             {
                 $project: {
-                    _id: 0,
-                    artist: "$_id",
-                    totalViews: 1
+                    _id: 0, // Exclude the default _id field
+                    artist: "$_id.artistName", // Rename _id.artistName to artist
+                    region: "$_id.region",     // Include region
+                    country: "$_id.country",   // Include country
+                    artwork: 1, // Include the artwork field
+                    totalViews: 1             // Include the totalViews field
                 }
             },
             {
-                $sort: { totalViews: -1 }
+                $sort: { totalViews: -1 } // Sort by totalViews in descending order
+            },
+            {
+                $limit: 5 // Limit the results to the top 5 artists
             }
-        ]).limit(5);
+        ]);
 
 
         // Trending Genres
