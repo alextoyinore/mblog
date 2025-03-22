@@ -2154,7 +2154,7 @@
   .bg-gray-800 {
     background-color: var(--color-gray-800);
   }
-  .bg-gray-900 {
+  .bg-black {
     background-color: var(--color-gray-900);
   }
   .bg-lime-700 {
@@ -4238,12 +4238,12 @@
       background-color: color-mix(in oklab, var(--color-gray-800) 90%, transparent);
     }
   }
-  .dark\:bg-gray-900 {
+  .dark\:bg-black {
     @media (prefers-color-scheme: dark) {
       background-color: var(--color-gray-900);
     }
   }
-  .dark\:bg-gray-900\/90 {
+  .dark\:bg-black\/90 {
     @media (prefers-color-scheme: dark) {
       background-color: color-mix(in oklab, var(--color-gray-900) 90%, transparent);
     }
@@ -4400,7 +4400,7 @@
       }
     }
   }
-  .dark\:hover\:bg-gray-900 {
+  .dark\:hover\:bg-black {
     @media (prefers-color-scheme: dark) {
       &:hover {
         @media (hover: hover) {

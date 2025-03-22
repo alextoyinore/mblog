@@ -1,8 +1,7 @@
-
     <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
     <script type="module" src="/js/newSong.js"></script>
 
-      <h1 class="font-instrument text-2xl font-bold mt-4 mb-8 dark:text-white">
+      <h1 class="text-2xl font-bold mt-4 mb-8 dark:text-white">
         Add New Song
       </h1>
 
@@ -11,7 +10,7 @@
           <!-- Left Column - Song Details -->
           <div class="space-y-6">
             <h2
-              class="text-lg font-medium text-gray-800 dark:text-white border-b dark:border-gray-800 pb-2"
+              class="text-md border-gray-200 font-medium text-gray-800 dark:text-white border-b dark:border-gray-800 pb-2"
             >
               Song Details
             </h2>
@@ -115,7 +114,7 @@
           <!-- Right Column - Streaming Links -->
           <div class="space-y-6">
             <h2
-              class="text-lg dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+              class="text-md border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
             >
               Streaming Links
             </h2>
@@ -375,7 +374,7 @@
               <!-- Region Specific Code -->
 
             <h2
-            class="text-lg my-5 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+            class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
           >
             Region
           </h2>
@@ -418,7 +417,7 @@
                   <!-- Composer Specific Code -->
     
                 <h2
-                class="text-lg my-5 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+                class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
               >
                 Composition
               </h2>
@@ -456,7 +455,7 @@
 
         <!-- More information on the song -->
         <h2
-        class="text-lg my-5 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+        class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
       >
         More info
       </h2>
@@ -614,8 +613,8 @@
     });
 
     const genres = [
-      'Afrobeat', 'Amapiano', 'Hip Hop', 'Gospel', 'RnB', 'Pop', 'Rock', 
-      'Alternative', 'Jazz', 'Classical', 'Electronic', 'Dance', 'Reggae', 'Blues', 'Country', 'Folk', 'Metal', 'Punk', 'Soul', 'Funk', 'Disco', 'House', 'Techno', 'Trap', 'Drill', 'Grime', 'Indie', 'Juju', 'Fuji', 'High Life'
+      'Afrobeat', 'Amapiano', 'Hip Hop', 'Gospel', 'RnB', 'Pop', 'Rock', 'Alternative', 'Jazz', 'Classical', 'Electronic', 'Dance', 'Reggae', 'Blues', 'Country', 'Folk', 'Metal', 'Punk', 'Soul', 'Funk', 'Disco', 'House', 'Techno', 'Trap', 'Drill', 'Grime', 'Indie', 'Juju', 'Fuji', 'High Life', 'Ska', 'Bluegrass', 'K-Pop', 'Celtic', 'New Age', 
+      'Ambient', 'Post-Rock', 'Synthwave', 'Lo-fi', 'Chillwave', 'Dubstep', 'Hardcore', 'Salsa', 'Bachata', 'Merengue', 'Tango', 'Cumbia', 'Reggaeton', 'Afrofusion', 'Zouk', 'Kizomba', 'Bossa Nova', 'Gqom'
     ];
 
     const genreInput = document.getElementById('genreInput');
@@ -722,9 +721,9 @@
 
     // Region Suggestion
 
-    const regions = [
-    'Africa', 'US', 'Europe', 'Latin America', 'Asia', 'Australia', 'Canada', 'Caribbean', 'Middle East'
-  ];
+    //const regions = [
+    //'Africa', 'US', 'Europe', 'Latin America', 'Asia', 'Australia', 'Canada', 'Caribbean', 'Middle East'
+  //];
 
   const regionInput = document.getElementById('regionInput');
   const regionSuggestionsDiv = document.getElementById('regionSuggestionsDiv');
@@ -829,11 +828,46 @@
   });
 
   const countries = [
-    'United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 
-    'France', 'Italy', 'Spain', 'Brazil', 'Mexico', 'India', 'China', 
-    'Japan', 'South Korea', 'Nigeria', 'South Africa', 'Argentina', 
-    'Russia', 'Netherlands', 'Sweden', 'Norway', 'Finland', 'Denmark'
-  ];
+    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 
+    'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 
+    'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 
+    'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 
+    'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 
+    'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 
+    'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 
+    'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Democratic Republic of the Congo', 
+    'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 
+    'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 
+    'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 
+    'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 
+    'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 
+    'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 
+    'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 
+    'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 
+    'Korea, South', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 
+    'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 
+    'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 
+    'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 
+    'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 
+    'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 
+    'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 
+    'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 
+    'Oman', 'Pakistan', 'Palau', 'Palestine', 'Panama', 
+    'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 
+    'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 
+    'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 
+    'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 
+    'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 
+    'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 
+    'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 
+    'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 
+    'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 
+    'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 
+    'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 
+    'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 
+    'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 
+    'Yemen', 'Zambia', 'Zimbabwe'
+];
 
   const countryInput = document.getElementById('countryInput');
   const countrySuggestionsDiv = document.getElementById('countrySuggestionsDiv');
@@ -936,6 +970,33 @@
       }
     }
   });
+
+  const regions = [
+    'Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'
+  ];
+
+  function filterRegions() {
+    const input = document.getElementById('region').value.toLowerCase();
+    const suggestions = document.getElementById('region-suggestions');
+    suggestions.innerHTML = ''; // Clear previous suggestions
+
+    if (input) {
+      const filteredRegions = regions.filter(region => 
+        region.toLowerCase().includes(input)
+      );
+
+      filteredRegions.forEach(region => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.textContent = region;
+        suggestionItem.onclick = () => {
+          document.getElementById('region').value = region; // Set input value
+          suggestions.innerHTML = ''; // Clear suggestions
+        };
+        suggestions.appendChild(suggestionItem);
+      });
+    }
+  }
     </script>
 
     <style>
