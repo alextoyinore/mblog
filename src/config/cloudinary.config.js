@@ -41,4 +41,48 @@ const uploadToCloudinary = async (image, public_id) => {
     }
 }
 
-module.exports = uploadToCloudinary
+const uploadAudioToCloudinary = async (audioFile) => {
+    try {
+        // Validate file type
+        // const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg'];
+        const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/ogg'];
+
+        if (!allowedTypes.includes(audioFile.mimetype)) {
+            throw new Error('Invalid audio file type. Please upload MP3 or OGG files only.');
+        }
+
+        // Validate file size (e.g., max 10MB)
+        const maxSize = 3 * 1024 * 1024; // 3MB in bytes
+        if (audioFile.size > maxSize) {
+            throw new Error('Audio file size exceeds 3MB limit.');
+        }
+
+        // Upload to Cloudinary with audio settings
+        const result = await cloudinary.uploader.upload(audioFile.path, {
+            resource_type: "video", // Cloudinary uses "video" type for audio files
+            folder: "audio_uploads", // Specify your folder in Cloudinary
+            format: "mp3", // Convert to MP3 format
+            audio_codec: "mp3", // Use MP3 codec
+            bit_rate: "128k", // Set bitrate
+            overwrite: true,
+            // notification_url: "https://your-callback-url.com/notify", // Optional: URL for upload notifications
+            tags: ["audio", "music"], // Optional: Add tags for organization
+        });
+
+        // Return the upload result
+        return {
+            public_id: result.public_id,
+            url: result.secure_url,
+            format: result.format,
+            duration: result.duration, // Duration in seconds
+            bytes: result.bytes, // File size in bytes
+        };
+
+    } catch (error) {
+        console.error('Error uploading audio to Cloudinary:', error);
+        throw error;
+    }
+};
+
+module.exports = { uploadToCloudinary, uploadAudioToCloudinary }
+

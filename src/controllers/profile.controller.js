@@ -39,6 +39,7 @@ const renderUser = async (req, res) => {
         const userSongs = await Song.find()
             .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
             .where('user').equals(user.id)
+            .sort({ createdAt: 'desc'})
             .exec();
 
             console.log(userSongs)
