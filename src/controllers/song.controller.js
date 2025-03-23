@@ -35,17 +35,17 @@ const renderSongPage = async (req, res) => {
     const songId = req.params.id; // Access the song ID from the URL
 
     // Retrieve songs from database, selecting specified fields and populating user field
-    const song = await Song.findOne({_id: songId}).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt');
+    const song = await Song.findOne({_id: songId}).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user writer producer spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt');
 
     if (song) {
         const relatedSongs = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user writer producer spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
             .where('genre').equals(song.genre)
             .limit(3)
             .exec();
 
         const songsBySameArtist = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user writer producer spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
             .where('artistName').equals(song.artistName)
             .limit(3)
             .exec();

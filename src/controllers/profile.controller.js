@@ -38,8 +38,10 @@ const renderUser = async (req, res) => {
     if (user) {
         const userSongs = await Song.find()
             .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-            .where('id').equals(user._id)
+            .where('user').equals(user.id)
             .exec();
+
+            console.log(userSongs)
 
         res.render('./layouts/base', {
             page: 'profile',

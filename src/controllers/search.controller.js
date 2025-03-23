@@ -37,7 +37,11 @@ const renderSearch = async (req, res) => {
                 { artistName: { $regex: query, $options: 'i' } },
                 { albumTitle: { $regex: query, $options: 'i' } },
                 { genre: { $regex: query, $options: 'i' } },
-                // { releaseYear: { $regex: query, $options: 'i' } },
+                { country: { $regex: query, $options: 'i' } },
+                { region: { $regex: query, $options: 'i' } },
+                { writer: { $regex: query, $options: 'i' } },
+                { producer: { $regex: query, $options: 'i' } },
+                // { releaseYear: { $regex: query } },
             ],
         }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt')
         .populate({

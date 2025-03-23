@@ -1,1 +1,75 @@
-Profile
+
+<% 
+function getInitialsFromWords(str) {
+    const words = str.split(' ');
+
+    // Get the first two words
+    const firstTwoWords = words.slice(0, 2);
+
+    // Map through the first two words and get the first letter of each
+    const initials = firstTwoWords.map(word => word.charAt(0).toUpperCase()).join('');
+
+    return initials; // Return the concatenated initials
+}
+
+function getFirstNames(str) {
+    return str.split(',')[0];
+}
+%>
+
+<div class="flex flex-col mt-5">
+  <!-- Left Column - Song Artwork -->
+   <div class="flex gap-4 lg:gap-6 mb-8 items-center">
+    <% if (user.artwork) { %>
+      <img src="<%= user.artwork.url %>" alt="<%= user.name %>" class="object-cover h-25 w-25 rounded-full" />
+    <% } else { %>
+    <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
+        <p class="inline"><%= getInitialsFromWords(user.name) %></p>
+    </div>
+    <% } %>
+    <div class="flex flex-col">
+      <h1 class="font-black text-2xl lg:text-4xl text-gray-700 dark:text-white"><%= user.name %></h1>
+      <div class="flex flex-wrap text-xs text-gray-400 gap-2 mt-2">
+          <p><%= user.username %></p>
+          <p><%= user.email %></p>
+          <p><%= user.songsPublished %> songs</p>
+          <p>Joined: <%= moment(user.createdAt).fromNow() %></p>
+      </div>
+    </div>
+   </div>
+
+   <p class="text-gray-700 dark:text-gray-400 text-xs"><%= user.bio %></p>
+
+   <h2
+        class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
+    >
+      My Songs
+    </h2>
+  
+  <!-- Right Column - Song Details -->
+  <% if (locals.userSongs.length) { %> 
+    <% locals.userSongs.forEach(song => { %>
+  <div class="accordion-item">
+    <div class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
+      <div>
+        <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+      </div>
+      <div class="ml-3 flex-grow min-w-0 flex items-center">
+        <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
+        <span class="mx-2 text-gray-400">-</span>
+        <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
+      </div>
+      <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+        <span><%= song.releaseYear %></span>
+        <span><%= song.albumTitle %></span>
+        <span><%= moment(song.createdAt).fromNow() %></span>
+      </div>
+    </div>
+
+    <!-- Streaming Platforms Links -->
+    <%- include('../widgets/streamers', {song}) %>
+  </div>
+  <% }) %> 
+  <% } %>
+</div>
+

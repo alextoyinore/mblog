@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const playSchema = new mongoose.Schema(
+const PlaySchema = new mongoose.Schema(
   {
     songId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -13,5 +13,5 @@ const playSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Play", playSchema);
+module.exports = mongoose.model("Play", PlaySchema);
 

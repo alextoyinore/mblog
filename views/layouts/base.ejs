@@ -23,7 +23,7 @@
                 <!-- Right Column - Trending Music -->
                  <% if (locals.widgets) { %>
                   <div
-                  class="lg:pl-4 lg:w-125 h-screen overflow-y-auto lg:sticky lg:top-0"
+                  class="lg:pl-4 lg:w-125 h-screen overflow-hidden lg:sticky lg:top-0"
                   >
                       <% locals.widgets.forEach(widget => { %>
                           <%- include(`../widgets/${widget}`) %>

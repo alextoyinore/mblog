@@ -27,7 +27,7 @@ console.log(recentArtists)
             Artists this week
         </h2>
         <div class="w-full">
-            <div class="artists-slider overflow-x-scroll flex gap-4">
+            <div class="artists-slider overflow-x-scroll flex gap-3">
                 <% recentArtists.forEach(artist => { %>
                     <div class="artist-item flex-shrink-0">
                         <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center hover:text-red-500">
