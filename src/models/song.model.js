@@ -19,7 +19,7 @@ const SongSchema = new mongoose.Schema(
       url: { type: String, required: true },
       public_id: { type: String, required: true },
     },
-    songFile: { url: String, public_id: String },
+    songFile: { url: String, public_id: String, format: String, duration: Number, size: Number },
     songTitle: { type: String, required: true },
     artistName: { type: String, required: true },
     albumTitle: { type: String },

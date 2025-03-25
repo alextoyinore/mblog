@@ -1,0 +1,38 @@
+<% if (userTopSongs) { %>
+    <h2 class="font-instrument text-lg lg:mt-4 dark:text-white font-bold mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 flex items-center">
+      <span class="text-sky-500 mr-2">&bullet;</span> Your Top Songs
+    </h2>
+
+    <!-- Top List -->
+    <div class="space-y-0 mb-8">
+      <% if (userTopSongs.length) { %> 
+        <% userTopSongs.forEach(song => { %>
+      <div class="accordion-item">
+        <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
+          <div>
+            <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+          </div>
+          <div class="ml-3 flex-grow min-w-0">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium pr-4 dark:text-white truncate"><%= song.songTitle %></h3>
+              <span class="text-xs text-gray-400"><%= moment(song.createdAt).fromNow() %></span>
+            </div>
+            <div class="flex items-center">
+              <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
+              <div class="flex gap-2 text-[12px] items-center text-xs">
+                <span class="text-xs text-sky-500">Top</span>
+                <span>.</span>
+                <span class="text-xs text-gray-500 dark:text-gray-300"><%= song.genre %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streaming Platforms Links -->
+        <%- include('./streamers', {song}) %>
+
+      </div>
+      <% }) %> 
+    <% } %>
+    </div>
+  <% } %>

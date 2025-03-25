@@ -9,10 +9,13 @@
  * node modules
  */
 const router = require('express').Router();
+const multer = require('multer')
 
 /**
  * custom modules
  */
+const upload = multer({ dest: 'uploads/' }); // Temporary storage
+
 const {
     handleNewSongOrURL, 
     renderNewSongOrURL, 
@@ -23,7 +26,7 @@ const {
 router.get('/', renderNewSongOrURL);
 
 // POST route: Handles form submission for adding song or song URL
-router.post('/', handleNewSongOrURL);
+router.post('/', upload.single('songFile'), handleNewSongOrURL);
 
 // POST route: Handles form submission for editing song or song URL
 router.post('/', handleEditSongOrURL);

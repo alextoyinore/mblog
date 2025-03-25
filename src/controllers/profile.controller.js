@@ -33,25 +33,26 @@ const renderUser = async (req, res) => {
     }
 
     // Retrieve songs from database, selecting specified fields and populating user field
-    const user = await User.findOne({username: username}).select('id username email name bio songs playlist links songsPublished favourites totalFollowers totalVisits createdAt');
+    const user = await User.findOne({username: username})
+        .select('id username email name bio songs playlist links songsPublished favourites totalFollowers totalVisits createdAt')
+        .populate({
+            path: 'songs',
+            select: 'id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt',
+            options: { sort: { createdAt: -1 } }
+        })
+        .exec()
+
+    const userTopSongs = [...user.songs].sort((a, b) => b.totalPlays - a.totalPlays).slice(0,5);
 
     if (user) {
-        const userSongs = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-            .where('user').equals(user.id)
-            .sort({ createdAt: 'desc'})
-            .exec();
-
-            console.log(userSongs)
-
         res.render('./layouts/base', {
             page: 'profile',
             title: `${user.name}`,
             widgets: ['user-top-songs', 'user-top-artists'],
             sessionUser: req.session.user,
             route: req.originalUrl,
-            userSongs,
-            user,            
+            user,
+            userTopSongs,        
             moment
         });
     } else {

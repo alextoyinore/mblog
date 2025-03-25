@@ -21,6 +21,12 @@ cloudinary.config({
 });
 
 /**
+ * Custom modules
+ */
+const config = require('../../public/js/utils/config.js')
+console.log(config)
+
+/**
  * upload base64 image to cloudinary
  * @param {String} image - The base64 image to upload
  * @param {String} public_id - The  identifier that's used for accessing and delivering the uploaded asset
@@ -45,16 +51,16 @@ const uploadAudioToCloudinary = async (audioFile) => {
     try {
         // Validate file type
         // const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg'];
-        const allowedTypes = ['audio/mpeg', 'audio/mp3', 'audio/ogg'];
+        const allowedTypes = ['audio/mp3', 'audio/mpeg', 'audio/ogg'];
 
         if (!allowedTypes.includes(audioFile.mimetype)) {
             throw new Error('Invalid audio file type. Please upload MP3 or OGG files only.');
         }
 
         // Validate file size (e.g., max 10MB)
-        const maxSize = 3 * 1024 * 1024; // 3MB in bytes
+        const maxSize = 5 * 1024 * 1024; // 3MB in bytes
         if (audioFile.size > maxSize) {
-            throw new Error('Audio file size exceeds 3MB limit.');
+            throw new Error(`Audio file size exceeds ${maxSize}MB limit.`);
         }
 
         // Upload to Cloudinary with audio settings

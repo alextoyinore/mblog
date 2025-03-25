@@ -9,12 +9,13 @@
  * node modules
  */
 const crypto = require('crypto');
+const fs = require('fs').promises; // Add this at the top with other imports
 
 
 /**
  * custom modules
  */
-const uploadToCloudinary = require('../config/cloudinary.config')
+const {uploadToCloudinary, uploadAudioToCloudinary} = require('../config/cloudinary.config')
 const Song = require('../models/song.model')
 const User = require('../models/user.model');
 const { log } = require('console');
@@ -50,15 +51,45 @@ const renderNewSongOrURL = (req, res) => {
  */
 
 const handleNewSongOrURL = async (req, res) => {
-    // console.log(req.body);
-
     try {
         // Retrieve content from request body
-        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
+        const { artwork, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
+
+        // console.log('Request body:', req.body);
+        console.log('Request file:', req.file);
+        // console.log('Request files:', req.files);
+
+        // console.log('File details:', {
+        //     fieldname: req.file.fieldname,
+        //     originalname: req.file.originalname,
+        //     encoding: req.file.encoding,
+        //     mimetype: req.file.mimetype,
+        //     size: req.file.size,
+        //     destination: req.file.destination,
+        //     filename: req.file.filename,
+        //     path: req.file.path
+        // });
+
+        // Keep track of the temporary file path
+        const songFile = req.file ? req.file.path : null;
+
+        // Upload song file to Cloudinary if available
+        const songFileData = await uploadAudioToCloudinary(req.file);
     
         // Upload artwork and song file to Cloudinary
         const public_id = crypto.randomBytes(10).toString('hex');
         const artworkURL = await uploadToCloudinary(artwork, public_id);
+
+        // After successful Cloudinary upload, delete the temporary file
+        if (songFile) {
+            try {
+                await fs.unlink(songFile);
+                console.log('Temporary file deleted:', songFile);
+            } catch (deleteError) {
+                console.error('Error deleting temporary file:', deleteError);
+                // Don't throw here - we don't want to fail the upload if cleanup fails
+            }
+        }
     
         // Find user who is posting the song
         const user = await User.findOne({ username:req.session.user.username }).select('_id songs songsPublished');
@@ -70,7 +101,13 @@ const handleNewSongOrURL = async (req, res) => {
                 url: artworkURL,
                 public_id: public_id
             },
-            songFile: songFile,
+            songFile: {
+                url: songFileData.url,
+                public_id: songFileData.public_id,
+                format: songFileData.format,
+                duration: songFileData.duration,
+                size: songFileData.bytes
+            },
             songTitle: songTitle,
             artistName:  artistName,
             albumTitle: albumTitle,
