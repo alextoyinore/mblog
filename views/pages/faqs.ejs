@@ -1,0 +1,51 @@
+<!-- FAQ Section -->
+<div class="mt-5">
+    <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h1>
+    <div class="space-y-4">
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                <span class="text-lg font-bold text-gray-900 dark:text-white">How do I upload my music?</span>
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="hidden mt-4 text-gray-600 dark:text-gray-400">
+                To upload your music, first create an artist account. Once verified, you can use our upload tool to submit your tracks along with artwork and metadata.
+            </div>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                <span class="text-lg font-bold text-gray-900 dark:text-white">How do royalties work?</span>
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="hidden mt-4 text-gray-600 dark:text-gray-400">
+                Artists earn royalties based on stream counts. Payments are processed monthly, and you can track your earnings in real-time through your dashboard.
+            </div>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                <span class="text-lg font-bold text-gray-900 dark:text-white">How do I report copyright infringement?</span>
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="hidden mt-4 text-gray-600 dark:text-gray-400">
+                If you find content that infringes on your copyright, please submit a DMCA takedown notice through our copyright form or contact our legal team directly.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function toggleFAQ(element) {
+        const content = element.nextElementSibling;
+        const arrow = element.querySelector('svg');
+        content.classList.toggle('hidden');
+        arrow.style.transform = content.classList.contains('hidden') ? '' : 'rotate(180deg)';
+    }
+</script>

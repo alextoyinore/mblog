@@ -68,7 +68,7 @@ const login = require('./src/routes/login.route')
 const home = require('./src/routes/home.route')
 const newSong = require('./src/routes/newsong.route')
 const song = require('./src/routes/song.route')
-const playing = require('./src/routes/playing.route')
+const playing = require('./src/routes/about.route')
 const incrementPlays = require('./src/routes/increment.plays.route')
 const latest = require('./src/routes/newarrivals.route')
 const logout = require('./src/routes/logout.route')
@@ -78,6 +78,16 @@ const genres = require('./src/routes/genres.route')
 const artists = require('./src/routes/artists.route')
 const artist = require('./src/routes/artist.route')
 const profile = require('./src/routes/profile.route')
+
+/**
+ * Places route
+ */
+const about = require('./src/routes/about.route')
+const contact = require('./src/routes/contact.route')
+const terms = require('./src/routes/terms.route')
+const privacy = require('./src/routes/privacy.route')
+const welcome = require('./src/routes/welcome.route')
+const faqs = require('./src/routes/faqs.route')
 
 // Mongoose Config Module
 const {connectDB, disconnectDB} = require('./src/config/mongoose.config');
@@ -113,6 +123,24 @@ app.use('/artist', artist)
 // profile
 app.use('/profile', profile)
 
+
+
+/**
+ * Places
+ */
+
+// about
+app.use('/about', about)
+// privacy
+app.use('/privacy', privacy)
+// contact
+app.use('/contact', contact)
+// terms
+app.use('/terms', terms)
+// welcome
+app.use('/welcome', welcome)
+// faqs
+app.use('/faqs', faqs)
 
 /**
  * start server

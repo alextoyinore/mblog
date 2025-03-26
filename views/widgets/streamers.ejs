@@ -1,107 +1,223 @@
-
-
 <div class="accordion-content hidden pl-8 text-xs transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
-    <div class="flex gap-4 flex-wrap py-4 border-b border-gray-200 dark:border-gray-800 justify-center">
-      <% if (song.songFile && song.songFile.url) { %>
-        <div class="audio-wrapper">
-            <!-- Brand Icon Trigger -->
-            <button 
-                onclick="togglePlayer(this)" 
-                class="brand-icon-trigger flex items-center text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500"
-                data-song-id="<%= song.id %>">
-                <img src="/images/icon.svg" alt="Play on Our Platform" class="w-5 h-5"/>
+    <div class="flex items-center gap-4 flex-wrap py-4 border-b border-gray-200 dark:border-gray-800 justify-center">
+        <% if (song.songFile && song.songFile.url) { %>
+            <button
+                onclick="handlePlayClick(this, '<%= song._id %>', '<%= song.songFile.url %>', '<%= song.songTitle %>', '<%= song.artistName %>', '<%= song.artwork.url %>')" 
+                class="play-button bg-red-500 text-white px-5 py-1 rounded hover:bg-red-600 transition-colors cursor-pointer flex items-center gap-2"
+                data-song-id="<%= song._id %>">
+                <svg class="play-icon w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="pause-icon w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+                <span class="button-text">Play</span>
             </button>
-    
-            <!-- Expandable Player -->
-            <div class="player-accordion hidden mt-4">
-                <div class="audio-player flex flex-col gap-3">
-                    <!-- Seeker -->
-                    <div class="seeker-container relative h-2 rounded cursor-pointer">
-                        <div class="seeker-progress h-full bg-red-500 rounded" style="width: 0%"></div>
-                    </div>
-                    
-                    <!-- Controls -->
-                    <div class="controls flex items-center justify-center gap-4">
-                        <button class="loop-btn text-gray-600 dark:text-gray-500 hover:text-red-500">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                        </button>
-                        <button 
-                            onclick="skipBackward('<%= song.id %>')"
-                            class="skip-backward-btn text-gray-600 dark:text-gray-500 hover:text-red-500">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-                            </svg>
-                        </button>
-                        <button 
-                            onclick="togglePlay('<%= song.id %>', '<%= song.songFile.url %>')" 
-                            class="play-pause-btn" 
-                            data-song-id="<%= song.id %>">
-                            <svg class="play-icon w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <svg class="pause-icon w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                        </button>
-                        <button 
-                            onclick="skipForward('<%= song.id %>')"
-                            class="skip-forward-btn text-gray-600 dark:text-gray-500 hover:text-red-500">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-                            </svg>
-                        </button>
-                        <span class="time-display text-sm text-gray-600 dark:text-gray-500">0:00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% } %>
+        <% } %>
 
-      <% if (song.spotify) { %>
-      <a target="_blank" href="<%= song.spotify %>" onclick="incrementPlays('<%= song.id %>')" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Spotify</a>
-      <% } %> 
-      <% if (song.youtubeMusic) { %>
-      <a target="_blank" href="<%= song.youtubeMusic %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">YouTube Music</a>
-      <% } %> 
-      <% if (song.appleMusic) { %>
-      <a target="_blank" href="<%= song.appleMusic %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Apple Music</a>
-      <% } %> 
-      <% if (song.boomplay) { %>
-      <a target="_blank" href="<%= song.boomplay %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Boomplay</a>
-      <% } %> 
-      <% if (song.tidal) { %>
-      <a target="_blank" href="<%= song.tidal %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Tidal</a>
-      <% } %> 
-      <% if (song.amazon) { %>
-      <a target="_blank" href="<%= song.amazon %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Amazon</a>
-      <% } %> 
-      <% if (song.pandora) { %>
-      <a target="_blank" href="<%= song.pandora %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Pandora</a>
-      <% } %> 
-      <% if (song.soundcloud) { %>
-      <a target="_blank" href="<%= song.soundcloud %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">SoundCloud</a>
-      <% } %> 
-      <% if (song.audiomack) { %>
-      <a target="_blank" href="<%= song.audiomack %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Audiomack</a>
-      <% } %> 
-      <% if (song.deezer) { %>
-      <a target="_blank" href="<%= song.deezer %>"
-        onclick="incrementPlays('<%= song.id %>')"  class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">Deezer</a>
-      <% } %>
-      <a href="/song/<%= song.id %>" class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">View</a>
+        <% if (song.spotify) { %>
+            <a target="_blank" 
+               href="<%= song.spotify %>" 
+               onclick="incrementPlays('<%= song.id %>')" class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Spotify
+            </a>
+        <% } %> 
+
+        <% if (song.youtubeMusic) { %>
+            <a target="_blank" 
+               href="<%= song.youtubeMusic %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                YouTube Music
+            </a>
+        <% } %> 
+
+        <% if (song.appleMusic) { %>
+            <a target="_blank" 
+               href="<%= song.appleMusic %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Apple Music
+            </a>
+        <% } %> 
+
+        <% if (song.boomplay) { %>
+            <a target="_blank" 
+               href="<%= song.boomplay %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Boomplay
+            </a>
+        <% } %> 
+
+        <% if (song.tidal) { %>
+            <a target="_blank" 
+               href="<%= song.tidal %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Tidal
+            </a>
+        <% } %> 
+
+        <% if (song.amazon) { %>
+            <a target="_blank" 
+               href="<%= song.amazon %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Amazon
+            </a>
+        <% } %> 
+
+        <% if (song.pandora) { %>
+            <a target="_blank" 
+               href="<%= song.pandora %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Pandora
+            </a>
+        <% } %> 
+
+        <% if (song.soundcloud) { %>
+            <a target="_blank" 
+               href="<%= song.soundcloud %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                SoundCloud
+            </a>
+        <% } %> 
+
+        <% if (song.audiomack) { %>
+            <a target="_blank" 
+               href="<%= song.audiomack %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Audiomack
+            </a>
+        <% } %> 
+
+        <% if (song.deezer) { %>
+            <a target="_blank" 
+               href="<%= song.deezer %>"
+               onclick="incrementPlays('<%= song.id %>')"  
+               class="text-gray-600 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-500">
+                Deezer
+            </a>
+        <% } %>
+
+        <a href="/song/<%= song.id %>" 
+           class="text-blue-600 dark:text-gray-500 hover:text-sky-500 dark:hover:text-sky-500">
+            View
+        </a>
     </div>
-  </div>
+</div>
 
-  <style>
+<script>
+function handlePlayClick(button, songId, songUrl, songTitle, artistName, artworkUrl) {
+    const buttonText = button.querySelector('.button-text');
+    const playIcon = button.querySelector('.play-icon');
+    const pauseIcon = button.querySelector('.pause-icon');
     
-  </style>
+    if (currentAudio && currentAudio.dataset.songId === songId && !currentAudio.paused) {
+        // Pause current song
+        currentAudio.pause();
+        buttonText.textContent = 'Play';
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        if (miniPlayer) {
+            miniPlayer.classList.add('translate-y-full');
+        }
+    } else {
+        // Stop any currently playing song
+        if (currentAudio && currentAudio.dataset.songId !== songId) {
+            currentAudio.pause();
+            // Reset previous button if exists
+            const prevButton = document.querySelector(`button[data-song-id="${currentAudio.dataset.songId}"]`);
+            if (prevButton) {
+                prevButton.querySelector('.button-text').textContent = 'Play';
+                prevButton.querySelector('.play-icon').classList.remove('hidden');
+                prevButton.querySelector('.pause-icon').classList.add('hidden');
+            }
+        }
+
+        // Create new audio or play current
+        if (!currentAudio || currentAudio.dataset.songId !== songId) {
+            currentAudio = new Audio(songUrl);
+            currentAudio.dataset.songId = songId;
+        }
+
+        // Play the audio
+        currentAudio.play().then(() => {
+            buttonText.textContent = 'Pause';
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+            
+            // Create/show mini player
+            createMiniPlayer(songId, songTitle, artistName, artworkUrl);
+            
+            // Set up time update handler for progress
+            currentAudio.addEventListener('timeupdate', () => {
+                if (miniPlayer) {
+                    const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+                    const seekerProgress = miniPlayer.querySelector('.seeker-progress');
+                    if (seekerProgress) {
+                        seekerProgress.style.width = `${progress}%`;
+                    }
+                    
+                    const timeDisplay = miniPlayer.querySelector('.time-display');
+                    if (timeDisplay) {
+                        const minutes = Math.floor(currentAudio.currentTime / 60);
+                        const seconds = Math.floor(currentAudio.currentTime % 60).toString().padStart(2, '0');
+                        timeDisplay.textContent = `${minutes}:${seconds}`;
+                    }
+                }
+            });
+
+            // Handle song end
+            currentAudio.addEventListener('ended', () => {
+                if (!isLooping) {
+                    buttonText.textContent = 'Play';
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    if (miniPlayer) {
+                        miniPlayer.classList.add('translate-y-full');
+                    }
+                }
+            });
+        }).catch(error => {
+            console.error('Error playing audio:', error);
+            buttonText.textContent = 'Play';
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        });
+    }
+}
+
+// Make sure these variables are defined globally
+if (typeof currentAudio === 'undefined') {
+    var currentAudio = null;
+}
+if (typeof miniPlayer === 'undefined') {
+    var miniPlayer = null;
+}
+if (typeof isLooping === 'undefined') {
+    var isLooping = false;
+}
+</script>
+
+<style>
+.accordion-content {
+    transition: max-height 0.3s ease-in-out;
+}
+
+.play-button {
+    transition: all 0.2s ease-in-out;
+}
+
+.play-button:hover {
+    transform: translateY(-1px);
+}
+
+.play-button:active {
+    transform: translateY(0);
+}
+</style>

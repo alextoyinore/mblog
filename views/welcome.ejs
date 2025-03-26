@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./layouts/head') %>
+<body>
+    <!-- Hero Section with Animated Jumbotron -->
+<div class="relative min-h-screen">
+    <!-- Background with overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center opacity-20"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                Where Music Meets
+                <span class="typewriter text-red-500" id="typewriter"></span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                Join the next generation of music streaming. Upload, discover, and share independent music from around the world.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/register" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors duration-200">
+                    Get Started
+                </a>
+                <a href="/discover" class="inline-flex items-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-white hover:bg-white/10 transition-colors duration-200">
+                    Explore Music
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wave Separator -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg class="fill-white dark:fill-gray-900" viewBox="0 0 1440 120">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+        </svg>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="bg-white dark:bg-gray-900 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Us</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400">Experience music streaming designed for true music lovers</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-12">
+            <!-- Feature 1 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">High-Quality Streaming</h3>
+                <p class="text-gray-600 dark:text-gray-400">Crystal clear audio quality that brings your music to life</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Fair Artist Payouts</h3>
+                <p class="text-gray-600 dark:text-gray-400">Supporting artists with industry-leading revenue sharing</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Global Reach</h3>
+                <p class="text-gray-600 dark:text-gray-400">Connect with listeners from around the world</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Section -->
+<div class="bg-gray-50 dark:bg-gray-800 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="counter-up">
+                <div class="text-4xl font-bold text-red-500 mb-2" data-target="10000">0</div>
+                <div class="text-gray-600 dark:text-gray-400">Active Artists</div>
+            </div>
+            <div class="counter-up">
+                <div class="text-4xl font-bold text-red-500 mb-2" data-target="50000">0</div>
+                <div class="text-gray-600 dark:text-gray-400">Songs Uploaded</div>
+            </div>
+            <div class="counter-up">
+                <div class="text-4xl font-bold text-red-500 mb-2" data-target="100000">0</div>
+                <div class="text-gray-600 dark:text-gray-400">Monthly Listeners</div>
+            </div>
+            <div class="counter-up">
+                <div class="text-4xl font-bold text-red-500 mb-2" data-target="200">0</div>
+                <div class="text-gray-600 dark:text-gray-400">Countries Reached</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Artists Section -->
+<div class="bg-white dark:bg-gray-900 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Artists</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400">Discover amazing independent artists</p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+            <!-- Artist cards will be dynamically populated -->
+            <% featuredArtists.forEach(artist => { %>
+                <div class="group relative overflow-hidden rounded-lg">
+                    <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-white mb-1"><%= artist.name %></h3>
+                            <p class="text-gray-300"><%= artist.genre %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="bg-gray-50 dark:bg-gray-800 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Ready to Share Your Music?</h2>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/register" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 transition-colors duration-200">
+                Start Uploading
+            </a>
+            <a href="/about" class="inline-flex items-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                Learn More
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Add TypewriterJS and custom scripts -->
+<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+<script>
+// Initialize Typewriter
+window.addEventListener('DOMContentLoaded', (event) => {
+    let typewriter = new Typewriter('#typewriter', {
+        strings: ['Freedom', 'Passion', 'Community', 'Innovation'],
+        autoStart: true,
+        loop: true,
+        deleteSpeed: 50,
+        delay: 80
+    });
+
+    // Initialize counters
+    const counters = document.querySelectorAll('.counter-up div[data-target]');
+    const speed = 200;
+
+    const updateCount = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / speed;
+
+        if (count < target) {
+            counter.innerText = Math.ceil(count + increment);
+            setTimeout(() => updateCount(counter), 1);
+        } else {
+            counter.innerText = target;
+        }
+    };
+
+    // Start counting when element is in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                updateCount(entry.target);
+            }
+        });
+    });
+
+    counters.forEach(counter => observer.observe(counter));
+});
+</script>
+<%- include('./layouts/foot') %>
+</body>
+</html>
