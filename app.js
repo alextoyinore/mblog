@@ -78,6 +78,7 @@ const genres = require('./src/routes/genres.route')
 const artists = require('./src/routes/artists.route')
 const artist = require('./src/routes/artist.route')
 const profile = require('./src/routes/profile.route')
+const play = require('./src/routes/play.route')
 
 /**
  * Places route
@@ -122,6 +123,8 @@ app.use('/artists', artists)
 app.use('/artist', artist)
 // profile
 app.use('/profile', profile)
+// play
+app.use('/play', play)
 
 
 
