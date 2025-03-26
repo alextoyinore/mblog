@@ -19,10 +19,29 @@
 
           <div class="flex gap-4 my-2 flex-wrap py-2 border-b border-t border-gray-200 dark:border-gray-800 text-sm items-center"
           >
-          <button class="bg-red-500 text-white px-5 py-1 rounded hover:bg-red-600 transition-colors cursor-pointer flex items-center">
-            <i class="fas fa-play mr-2"></i>
-            Play
+          <% if (song.songFile && song.songFile.url) { %>
+            <button
+                onclick="handlePlayClick(this, '<%= song._id %>', '<%= song.songFile.url %>', '<%= song.songTitle %>', '<%= song.artistName %>', '<%= song.artwork.url %>')" 
+                class="play-button bg-red-500 text-white px-5 py-1 rounded hover:bg-red-600 transition-colors cursor-pointer flex items-center gap-2"
+                data-song-id="<%= song._id %>">
+                <svg class="play-icon w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="pause-icon w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+                <span class="button-text">Play</span>
+            </button>
+        <% } else { %>
+          <button
+            class="play-button bg-black dark:bg-white text-white dark:text-gray-900 px-5 py-1 rounded transition-colors cursor-pointer flex items-center gap-2"
+            data-song-id="<%= song._id %>">
+            <svg class="play-icon w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            <span class="button-text">Play</span>
           </button>
+          <% } %>
 
             <% if (song.spotify) { %>
             <a target="_blank"
