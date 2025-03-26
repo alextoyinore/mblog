@@ -7,10 +7,10 @@
 
 const config = {
     artwork: {
-        maxByteSize: 512 * 1024 // 512kb
+        maxByteSize: 1024 * 1024 // 512kb
     },
     songFile: {
-        maxByteSize: 5 * 1024 * 1024 // 3MB
+        maxByteSize: 8 * 1024 * 1024 // 3MB
     }
 }
 

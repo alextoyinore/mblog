@@ -23,8 +23,7 @@ cloudinary.config({
 /**
  * Custom modules
  */
-const config = require('../../public/js/utils/config.js')
-console.log(config)
+// const config = require('../../public/js/utils/config.js')
 
 /**
  * upload base64 image to cloudinary
@@ -58,7 +57,7 @@ const uploadAudioToCloudinary = async (audioFile) => {
         }
 
         // Validate file size (e.g., max 10MB)
-        const maxSize = 5 * 1024 * 1024; // 3MB in bytes
+        const maxSize = 8 * 1024 * 1024; // 3MB in bytes
         if (audioFile.size > maxSize) {
             throw new Error(`Audio file size exceeds ${maxSize}MB limit.`);
         }

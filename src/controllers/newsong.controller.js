@@ -57,18 +57,6 @@ const handleNewSongOrURL = async (req, res) => {
 
         // console.log('Request body:', req.body);
         console.log('Request file:', req.file);
-        // console.log('Request files:', req.files);
-
-        // console.log('File details:', {
-        //     fieldname: req.file.fieldname,
-        //     originalname: req.file.originalname,
-        //     encoding: req.file.encoding,
-        //     mimetype: req.file.mimetype,
-        //     size: req.file.size,
-        //     destination: req.file.destination,
-        //     filename: req.file.filename,
-        //     path: req.file.path
-        // });
 
         // Keep track of the temporary file path
         const songFile = req.file ? req.file.path : null;
