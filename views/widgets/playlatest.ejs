@@ -1,0 +1,166 @@
+<% if (locals.latestSongs.length) { %> 
+  <section class="mb-8 mt-8 overflow-x-hidden">
+    <h2 class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+      <% if (locals.title) { %>
+        <%= title %>
+      <% } else { %>
+        New Arrivals
+      <% } %>
+    </h2>
+
+    <div class="flex flex-col gap-0">
+      <% locals.latestSongs.forEach(song => { %>
+        <div class="song-item" data-song-id="<%= song._id %>">
+          <div 
+            class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 py-2 px-1 items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer"
+            onclick="handleLatestSongPlay(this, '<%= song._id %>', '<%= song.songFile?.url %>', '<%= song.songTitle %>', '<%= song.artistName %>', '<%= song.artwork?.url %>')"
+          >
+            <div class="relative w-8 h-8">
+              <!-- Artwork (shown by default) -->
+              <img 
+                src="<%= song.artwork?.url %>" 
+                alt="<%= song.artistName %>" 
+                class="object-cover h-8 w-8 rounded-full song-artwork"
+              />
+              <!-- Play Indicator (hidden by default) -->
+              <div class="play-indicator absolute inset-0 rounded-full hidden">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="absolute w-5 h-5 rounded-full bg-red-500 opacity-75 animate-ping"></span>
+                  <span class="absolute w-5 h-5 rounded-full bg-red-500"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ml-3 flex-grow min-w-0 flex items-center">
+              <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
+              <span class="mx-2 text-gray-400">-</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
+            </div>
+
+            <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
+              <% if (song.releaseYear) { %><span><%= song.releaseYear %></span><% } %>
+              <% if (song.albumTitle) { %><span><%= song.albumTitle %></span><% } %>
+              <span><%= moment(song.createdAt).fromNow() %></span>
+            </div>
+          </div>
+        </div>
+      <% }) %> 
+    </div>
+  </section>
+<% } %>
+
+<style>
+.play-indicator {
+  transition: opacity 0.2s ease-in-out;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.song-item:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.dark .song-item:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+</style>
+
+<script>
+function handleLatestSongPlay(element, songId, songUrl, songTitle, artistName, artworkUrl) {
+  if (!songUrl) return;
+
+  const songItem = element.closest('.song-item');
+  const allSongItems = document.querySelectorAll('.song-item');
+  const playIndicator = songItem.querySelector('.play-indicator');
+  const artwork = songItem.querySelector('.song-artwork');
+
+  // Reset all other songs first
+  allSongItems.forEach(item => {
+    if (item !== songItem) {
+      const otherIndicator = item.querySelector('.play-indicator');
+      const otherArtwork = item.querySelector('.song-artwork');
+      otherIndicator.classList.add('hidden');
+      otherArtwork.classList.remove('hidden');
+    }
+  });
+
+  // If this is the current song
+  if (currentAudio && currentAudio.dataset.songId === songId) {
+    if (currentAudio.paused) {
+      // Resume playing
+      currentAudio.play();
+      artwork.classList.add('hidden');
+      playIndicator.classList.remove('hidden');
+    } else {
+      // Pause playing
+      currentAudio.pause();
+      artwork.classList.remove('hidden');
+      playIndicator.classList.add('hidden');
+    }
+  } else {
+    // Stop any currently playing song
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+
+    // Create and play new audio
+    currentAudio = new Audio(songUrl);
+    currentAudio.dataset.songId = songId;
+
+    currentAudio.play().then(() => {
+      // Show play indicator
+      artwork.classList.add('hidden');
+      playIndicator.classList.remove('hidden');
+      
+      // Create/show mini player
+      createMiniPlayer(songId, songTitle, artistName, artworkUrl);
+
+      // Increment plays
+      incrementPlays(songId);
+    }).catch(error => {
+      console.error('Error playing audio:', error);
+      artwork.classList.remove('hidden');
+      playIndicator.classList.add('hidden');
+    });
+
+    // Handle song end
+    currentAudio.addEventListener('ended', () => {
+      if (!isLooping) {
+        artwork.classList.remove('hidden');
+        playIndicator.classList.add('hidden');
+        if (miniPlayer) {
+          miniPlayer.classList.add('translate-y-full');
+        }
+      }
+    });
+  }
+}
+
+// Listen for mini player controls
+document.addEventListener('miniPlayerStateChange', (e) => {
+  const { songId, isPlaying } = e.detail;
+  const songItem = document.querySelector(`.song-item[data-song-id="${songId}"]`);
+  if (songItem) {
+    const playIndicator = songItem.querySelector('.play-indicator');
+    const artwork = songItem.querySelector('.song-artwork');
+    
+    if (isPlaying) {
+      artwork.classList.add('hidden');
+      playIndicator.classList.remove('hidden');
+    } else {
+      artwork.classList.remove('hidden');
+      playIndicator.classList.add('hidden');
+    }
+  }
+});
+</script>
