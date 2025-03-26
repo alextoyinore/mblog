@@ -9,51 +9,12 @@
  * node modules
  */
 const router = require('express').Router();
-const multer = require('multer');
-const path = require('path');
-
-
-// Configure storage
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/') // Make sure this directory exists
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
-    }
-});
-
-// Configure file filter
-const fileFilter = (req, file, cb) => {
-    if (file.fieldname === 'songFile') {
-        // Accept audio files
-        if (file.mimetype.startsWith('audio/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only audio files are allowed!'), false);
-        }
-    } else if (file.fieldname === 'artwork') {
-        // Accept image files
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only image files are allowed!'), false);
-        }
-    } else {
-        cb(new Error('Unexpected field'), false);
-    }
-};
+const multer = require('multer')
 
 /**
  * custom modules
  */
-const upload = multer({ storage: storage,
-    fileFilter: fileFilter,
-    limits: {
-        fileSize: 8 * 1024 * 1024, // 300MB limit
-    } 
-}); // Temporary storage
+const upload = multer({ dest: 'uploads/' }); // Temporary storage
 
 const {
     handleNewSongOrURL, 

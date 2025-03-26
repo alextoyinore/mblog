@@ -36,7 +36,7 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
     miniPlayer.innerHTML = `
         <div class="max-w-7xl mx-auto">
             <!-- Progress Bar -->
-            <div class="seeker-container relative h-1 bg-gray-200 dark:bg-gray-700 cursor-pointer">
+            <div class="seeker-container relative h-2 bg-gray-200 dark:bg-gray-700 cursor-pointer">
                 <div class="seeker-progress h-full bg-red-500" style="width: 0%"></div>
             </div>
             
@@ -52,12 +52,12 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
 
                 <!-- Controls -->
                 <div class="flex items-center gap-6">
-                    <button onclick="toggleLoop()" class="loop-btn text-gray-600 dark:text-gray-400 hover:text-red-500">
+                    <button onclick="toggleLoop()" class="loop-btn text-gray-600 dark:text-gray-400 hidden lg:block hover:text-red-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </button>
-                    <button onclick="skipBackward()" class="text-gray-600 dark:text-gray-400 hover:text-red-500">
+                    <button onclick="skipBackward()" class="text-gray-600 dark:text-gray-400 hidden lg:block hover:text-red-500">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
                         </svg>
@@ -72,12 +72,12 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
                             <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
                         </svg>
                     </button>
-                    <button onclick="skipForward()" class="text-gray-600 dark:text-gray-400 hover:text-red-500">
+                    <button onclick="skipForward()" class="text-gray-600 dark:text-gray-400 hidden lg:block hover:text-red-500">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
                         </svg>
                     </button>
-                    <span class="time-display text-sm text-gray-600 dark:text-gray-400">0:00</span>
+                    <span class="time-display hidden lg:block text-sm text-gray-600 dark:text-gray-400">0:00</span>
                 </div>
             </div>
         </div>
