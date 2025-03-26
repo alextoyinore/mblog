@@ -53,13 +53,14 @@ const renderNewSongOrURL = (req, res) => {
 const handleNewSongOrURL = async (req, res) => {
     try {
         // Retrieve content from request body
-        const { artwork, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
+        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
 
         // console.log('Request body:', req.body);
         console.log('Request file:', req.file);
 
+
         // Keep track of the temporary file path
-        const songFile = req.file ? req.file.path : null;
+        const theFile = req.file ? req.file.path : null;
 
         // Upload song file to Cloudinary if available
         const songFileData = await uploadAudioToCloudinary(req.file);
@@ -69,10 +70,10 @@ const handleNewSongOrURL = async (req, res) => {
         const artworkURL = await uploadToCloudinary(artwork, public_id);
 
         // After successful Cloudinary upload, delete the temporary file
-        if (songFile) {
+        if (theFile) {
             try {
-                await fs.unlink(songFile);
-                console.log('Temporary file deleted:', songFile);
+                await fs.unlink(theFile);
+                console.log('Temporary file deleted:', theFile);
             } catch (deleteError) {
                 console.error('Error deleting temporary file:', deleteError);
                 // Don't throw here - we don't want to fail the upload if cleanup fails

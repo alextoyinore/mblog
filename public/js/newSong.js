@@ -35,20 +35,6 @@ const handleSubmitSong = async (event) => {
     // Creating formData object
     const formData = new FormData(form);
 
-    // Add the selected audio file
-    // if (window.selectedAudioFile) {
-    //     formData.append('songFile', window.selectedAudioFile);
-    // } else {
-    //     submitSongBtn.removeAttribute('disabled');
-    //     submitSongBtn.removeChild(spinner);
-    //     submitSongBtn.innerHTML = 'Publish Song';
-    //     Snackbar({
-    //         type: 'error',
-    //         message: 'Please select an audio file.'
-    //     });
-    //     return;
-    // }
-
     // handle case where no artwork has been selected
     if (!formData.get('artwork').size) {
         // Enable publish button and show error
@@ -80,7 +66,7 @@ const handleSubmitSong = async (event) => {
     formData.set('artwork', await imageAsDataURL(formData.get('artwork')));
     
     // handle song file larger than required
-    const songFile = formData.get('songFile');
+    const songFile = formData.get('file');
     if (songFile && songFile.size > config.songFile.maxByteSize) {
         submitSongBtn.removeAttribute('disabled');
         submitSongBtn.removeChild(spinner);
@@ -94,6 +80,8 @@ const handleSubmitSong = async (event) => {
         return;
     }
     // Pass audio path to FormData
+    // file = document.querySelector('#songFileName').files[0]
+    // formData.append('file', file)
     
     // handle case no song title
     if (!formData.get('songTitle')) {
