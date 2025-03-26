@@ -23,6 +23,7 @@ import imageAsDataURL from './utils/imageAsDataURL.js';
 const form = document.querySelector('[data-add-song-form]');
 const submitSongBtn = document.querySelector('[data-submit-song]');
 const theSongFile  = document.querySelector('[data-song-file]');
+const theSongArtwork  = document.querySelector('[data-artwork]');
 
 const handleSubmitSong = async (event) => {
     event.preventDefault();
@@ -37,6 +38,7 @@ const handleSubmitSong = async (event) => {
     const formData = new FormData(form);
 
     formData.append('songFile', theSongFile.files[0])
+    formData.append('artwork', theSongArtwork.files[0])
 
     // handle case where no artwork has been selected
     if (!formData.get('artwork').size) {
