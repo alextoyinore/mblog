@@ -18,14 +18,14 @@ function getFirstNames(str) {
 %>
 
 <% if (recentArtists) { %>
-    <section class="mb-4 mt-4 lg:pr-4 max-w-full">
+    <section class="mb-4 mt-4 lg:pr-4">
         <h2
             class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
         >
             Artists this week
         </h2>
-        <div class="w-full">
-            <div class="artists-slider overflow-x-scroll flex gap-3">
+        <div class="w-[200px] overflow-x-scroll">
+            <div class="artists-slider flex gap-3">
                 <% recentArtists.forEach(artist => { %>
                     <div class="artist-item flex-shrink-0">
                         <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center hover:text-red-500">

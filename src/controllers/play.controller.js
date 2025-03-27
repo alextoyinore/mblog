@@ -45,25 +45,17 @@ const renderPlay = async (req, res) => {
         .sort({ createdAt: 'desc'})
         .exec()
 
+
+        const topSongs = [...latestSongs].sort((a, b) => b.totalPlays - a.totalPlays).slice(0,5);
+
         
         // Retrieve Trending Songs
         const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
 
-        const trendingSongs = await Song.find({
-            createdAt: { $gte: threeDaysAgo }, // Filter for songs created in the last 3 days
-            totalPlays: { $gt: 0 } // Ensure that we only consider songs that have been played
-        })
-        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-        .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
-        .limit(5) // Limit the results to 10
-        .exec(); // Execute the query
-
-        // Retrieve Top Songs
-        const topSongs = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-            .sort({ totalPlays: -1 })
-            .limit(5)
-            .exec();
+        // Filter latestSongs to get songs created in the last 3 days that have been played
+        const trendingSongs = latestSongs.filter(song => 
+            song.createdAt >= threeDaysAgo && song.totalPlays > 0
+        ).slice(0,5);
 
         /**
          * Songs by Region
@@ -72,10 +64,7 @@ const renderPlay = async (req, res) => {
         // Group songs by region
         
         // Fetch all songs from the database
-        const songs = await Song.find()
-        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-        .limit(10)
-        .exec();
+        const songs = [...latestSongs]
 
         // Group songs by region
         const songsByRegion = {};

@@ -10,40 +10,7 @@
 
     <div class="flex flex-col gap-0">
       <% locals.latestSongs.forEach(song => { %>
-        <div class="song-item" data-song-id="<%= song._id %>">
-          <div 
-            class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 py-2 px-1 items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer"
-            onclick="handleLatestSongPlay(this, '<%= song._id %>', '<%= song.songFile?.url %>', '<%= song.songTitle %>', '<%= song.artistName %>', '<%= song.artwork?.url %>')"
-          >
-            <div class="relative w-8 h-8">
-              <!-- Artwork (shown by default) -->
-              <img 
-                src="<%= song.artwork?.url %>" 
-                alt="<%= song.artistName %>" 
-                class="object-cover h-8 w-8 rounded-full song-artwork"
-              />
-              <!-- Play Indicator (hidden by default) -->
-              <div class="play-indicator absolute inset-0 rounded-full hidden">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <span class="absolute w-4 h-4 rounded-full bg-red-600 opacity-75 animate-ping"></span>
-                  <span class="absolute animate-pulse w-4 h-4 rounded-full bg-red-600"></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="ml-3 flex-grow min-w-0 flex items-center">
-              <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
-              <span class="mx-2 text-gray-400">-</span>
-              <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
-            </div>
-
-            <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-              <% if (song.releaseYear) { %><span><%= song.releaseYear %></span><% } %>
-              <% if (song.albumTitle) { %><span><%= song.albumTitle %></span><% } %>
-              <span><%= moment(song.createdAt).fromNow() %></span>
-            </div>
-          </div>
-        </div>
+        <%- include('./playitem', {song:song}) %>
       <% }) %> 
     </div>
   </section>

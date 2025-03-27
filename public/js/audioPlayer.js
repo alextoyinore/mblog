@@ -3,6 +3,19 @@ let currentPlayBtn = null;
 let isLooping = false;
 let miniPlayer = null;
 
+// Add this at the top level of your file
+document.addEventListener('keydown', handleSpaceBar);
+
+function handleSpaceBar(e) {
+    // Check if the pressed key is spacebar and we're not in an input field
+    if (e.code === 'Space' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault(); // Prevent page scroll
+        if (currentAudio) {
+            togglePlayPause();
+        }
+    }
+}
+
 // Function to toggle player visibility
 function togglePlayerVisibility(trigger) {
     const wrapper = trigger.closest('.audio-wrapper');
@@ -33,10 +46,16 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
         document.body.appendChild(miniPlayer);
     }
 
+    // Save the current song info to the miniPlayer element
+    miniPlayer.setAttribute('data-song-id', songId);
+    miniPlayer.setAttribute('data-song-title', songTitle);
+    miniPlayer.setAttribute('data-artist-name', artistName);
+    miniPlayer.setAttribute('data-artwork-url', artworkUrl);
+
     miniPlayer.innerHTML = `
         <div class="max-w-7xl mx-auto">
             <!-- Progress Bar -->
-            <div class="seeker-container relative h-2 bg-gray-200 dark:bg-gray-700 cursor-pointer">
+            <div class="seeker-container relative h-1 bg-gray-200 dark:bg-gray-700 cursor-pointer">
                 <div class="seeker-progress h-full bg-red-500" style="width: 0%"></div>
             </div>
             
@@ -44,7 +63,7 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
                 <!-- Song Info -->
                 <div class="flex items-center gap-4">
                     <img src="${artworkUrl || '/images/default-artwork.jpg'}" alt="${songTitle}" class="w-12 h-12 rounded object-cover"/>
-                    <div>
+                    <div class="song-info">
                         <h3 class="font-medium text-gray-900 dark:text-white">${songTitle}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400">${artistName}</p>
                     </div>
@@ -62,19 +81,17 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
                             <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
                         </svg>
                     </button>
-                    <button 
-                        onclick="handlePlayClick(document.querySelector('button[data-song-id=\\'${songId}\\']'), '${songId}')" 
-                        class="text-gray-600 dark:text-gray-400 hover:text-red-500">
-                        <svg class="play-icon w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <button onclick="togglePlayPause()" class="play-pause-btn">
+                        <svg class="play-icon w-8 h-8 text-red-500 hidden" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
                         </svg>
-                        <svg class="pause-icon w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="pause-icon w-8 h-8 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
                         </svg>
                     </button>
                     <button onclick="skipForward()" class="text-gray-600 dark:text-gray-400 hidden lg:block hover:text-red-500">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                            <path d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/>
                         </svg>
                     </button>
                     <span class="time-display hidden lg:block text-sm text-gray-600 dark:text-gray-400">0:00</span>
@@ -161,33 +178,14 @@ function togglePlay(songId, songUrl, songTitle, artistName, artworkUrl) {
     // Toggle play/pause
     if (currentAudio.paused) {
         currentAudio.play();
-        // Update main button
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-        // Update mini player button
-        if (miniPlayer) {
-            const miniPlayIcon = miniPlayer.querySelector('.play-icon');
-            const miniPauseIcon = miniPlayer.querySelector('.pause-icon');
-            miniPlayIcon.classList.add('hidden');
-            miniPauseIcon.classList.remove('hidden');
-        }
+        updatePlayState(true);
         
-        // Show mini player if not looping
         if (!isLooping) {
             createMiniPlayer(songId, songTitle, artistName, artworkUrl);
         }
     } else {
         currentAudio.pause();
-        // Update main button
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-        // Update mini player button
-        if (miniPlayer) {
-            const miniPlayIcon = miniPlayer.querySelector('.play-icon');
-            const miniPauseIcon = miniPlayer.querySelector('.pause-icon');
-            miniPlayIcon.classList.remove('hidden');
-            miniPauseIcon.classList.add('hidden');
-        }
+        updatePlayState(false);
     }
 
     currentPlayBtn = playBtn;
@@ -238,6 +236,70 @@ function skipBackward(songId) {
     if (currentAudio) {
         currentAudio.currentTime = Math.max(currentAudio.currentTime - 10, 0);
     }
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+    
+    if (currentAudio.paused) {
+        currentAudio.play();
+        updatePlayState(true);
+    } else {
+        currentAudio.pause();
+        updatePlayState(false);
+    }
+}
+
+function updatePlayState(isPlaying) {
+    // Update mini player
+    if (miniPlayer) {
+        const miniPlayIcon = miniPlayer.querySelector('.play-icon');
+        const miniPauseIcon = miniPlayer.querySelector('.pause-icon');
+        
+        if (isPlaying) {
+            miniPlayIcon.classList.add('hidden');
+            miniPauseIcon.classList.remove('hidden');
+            miniPauseIcon.classList.remove('text-red-500');
+        } else {
+            miniPlayIcon.classList.remove('hidden');
+            miniPauseIcon.classList.add('hidden');
+            miniPlayIcon.classList.add('text-red-500');
+        }
+    }
+
+    // Update main player
+    const songId = currentAudio.dataset.songId;
+    const mainPlayer = document.querySelector(`button[data-song-id="${songId}"]`);
+    if (mainPlayer) {
+        const mainPlayIcon = mainPlayer.querySelector('.play-icon');
+        const mainPauseIcon = mainPlayer.querySelector('.pause-icon');
+        
+        if (isPlaying) {
+            mainPlayIcon.classList.add('hidden');
+            mainPauseIcon.classList.remove('hidden');
+        } else {
+            mainPlayIcon.classList.remove('hidden');
+            mainPauseIcon.classList.add('hidden');
+        }
+    }
+}
+
+// Update the audio event listeners
+function setupAudioEventListeners() {
+    if (!currentAudio) return;
+
+    currentAudio.addEventListener('pause', () => {
+        updatePlayState(false);
+    });
+
+    currentAudio.addEventListener('play', () => {
+        updatePlayState(true);
+    });
+
+    // Add ended event listener
+    currentAudio.addEventListener('ended', () => {
+        updatePlayState(false);
+    });
 }
 
 // Add these styles to your CSS
