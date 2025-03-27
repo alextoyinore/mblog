@@ -102,12 +102,17 @@ function handleLatestSongPlay(element, songId, songUrl, songTitle, artistName, a
 
     // Handle song end
     currentAudio.addEventListener('ended', () => {
-      if (!isLooping) {
-        artwork.classList.remove('hidden');
-        playIndicator.classList.add('hidden');
-        if (miniPlayer) {
-          miniPlayer.classList.add('translate-y-full');
-        }
+      // Find the next song item
+      const nextSongItem = songItem.nextElementSibling; // Get the next sibling
+      if (nextSongItem) {
+        const nextSongId = nextSongItem.dataset.songId;
+        const nextSongUrl = nextSongItem.querySelector('.song-item').dataset.songUrl; // Ensure you have the correct data attribute
+        const nextSongTitle = nextSongItem.querySelector('.song-title').textContent; // Adjust as necessary
+        const nextArtistName = nextSongItem.querySelector('.artist-name').textContent; // Adjust as necessary
+        const nextArtworkUrl = nextSongItem.querySelector('.song-artwork').src; // Adjust as necessary
+
+        // Play the next song
+        handleLatestSongPlay(nextSongItem, nextSongId, nextSongUrl, nextSongTitle, nextArtistName, nextArtworkUrl);
       }
     });
   }

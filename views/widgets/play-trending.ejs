@@ -1,0 +1,15 @@
+<% if (locals.trendingSongs) { %>
+    <h2 class="font-instrument text-lg lg:mt-4 dark:text-white font-bold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 flex items-center">
+      <span class="text-red-500 mr-2">&bullet;</span> Trending Now
+    </h2>
+
+    <!-- Trending List -->
+    <div class="space-y-0">
+      <% if (locals.trendingSongs.length) { %> 
+        <% locals.trendingSongs.forEach(song => { %>
+            <%- include('./playitem', {song:song}) %>
+      <% }) %> 
+    <% } %>
+    </div>
+    <% } %>
+    

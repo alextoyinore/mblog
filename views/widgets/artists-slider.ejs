@@ -17,20 +17,31 @@ function getFirstNames(str) {
 
 %>
 
+<style>
+.artists-slider {
+    display: flex;
+    overflow-x: auto; /* Allow horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Enable snap scrolling */
+}
+
+.artist-item {
+    scroll-snap-align: start; /* Align items to the start of the container */
+}
+
+</style>
+
 <% if (recentArtists) { %>
     <section class="mb-4 mt-4 lg:pr-4">
-        <h2
-            class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
-        >
+        <h2 class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
             Artists this week
         </h2>
-        <div class="w-[200px] overflow-x-scroll">
-            <div class="artists-slider flex gap-3">
+        <div class="w-full overflow-x-auto custom-scrollbar">
+            <div class="artists-slider flex gap-3 py-2">
                 <% recentArtists.forEach(artist => { %>
                     <div class="artist-item flex-shrink-0">
                         <a href="/artist/<%= artist.artistName %>" class="flex flex-col items-center hover:text-red-500">
                             <% if (artist.artwork) { %>
-                                <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="object-cover h-25 w-25 rounded-full" />
+                                <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="object-cover h-25 w-25 rounded-full flex-shrink-0" />
                             <% } else { %>
                                 <div class="h-25 w-25 flex rounded-full bg-gray-100 dark:text-gray-400 text-gray-600 text-center justify-center font-black text-5xl p-6">
                                     <p class="inline"><%= getInitialsFromWords(artist.artistName) %></p>
@@ -45,4 +56,5 @@ function getFirstNames(str) {
         </div>
     </section>    
 <% } %>
+
 

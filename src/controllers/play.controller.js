@@ -155,14 +155,14 @@ const renderPlay = async (req, res) => {
         res.render('./layouts/base', {
             page: 'play',
             title: 'Play',
-            widgets: ['trending', 'topsongs'],
+            widgets: ['play-trending', 'play-topsongs'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             latestSongs,
             trendingSongs,
             topSongs,
-            songsByRegion,
-            songsByGenre,
+            // songsByRegion,
+            // songsByGenre,
             recentArtists,
             moment
         });
