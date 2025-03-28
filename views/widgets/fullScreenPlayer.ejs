@@ -1,0 +1,38 @@
+<div id="fullScreenPlayer" class="fixed inset-x-0 bottom-0 bg-white dark:bg-gray-800 transform translate-y-full transition-transform duration-300 ease-in-out z-50 hidden h-[85vh] w-full rounded-t-3xl shadow-2xl">
+    <div class="max-w-2xl mx-auto px-4 py-6 h-full flex flex-col overflow-y-auto">
+        <!-- Drag handle for visual indication -->
+        <div class="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto mb-6"></div>
+
+        <!-- Close button -->
+        <button onclick="closeFullScreenPlayer()" class="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-red-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div class="lg:flex lg:w-1/2 gap-5 mb-20 justify-center lg:justify-start">
+            <!-- Artwork -->
+            <div class="flex items-center justify-center">
+                <img id="fullScreenArtwork" class="w-50 rounded-lg shadow-xl object-cover" src="" alt="Album artwork" />
+            </div>
+
+            <div class="flex flex-col lg:flex-row lg:text-center justify-center lg:justify-start">
+                <!-- Song Info -->
+                <div class="mt-6 mb-6">
+                    <h2 id="fullScreenTitle" class="text-4xl text-center lg:text-left font-bold text-gray-900 dark:text-white"></h2>
+                    <p id="fullScreenArtist" class="text-base text-center lg:text-left text-gray-600 dark:text-gray-400 mt-2"></p>
+                </div>
+                <!-- More Info -->
+                <div class="mt-6 text-sm text-gray-600 dark:text-gray-400 overflow-y-auto">
+                    <div id="fullScreenMoreInfo" class="space-y-2">
+                        <!-- More info will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+</script>

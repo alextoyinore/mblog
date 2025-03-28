@@ -128,6 +128,46 @@ function createMiniPlayer(songId, songTitle, artistName, artworkUrl) {
             currentAudio.currentTime = clickPosition * currentAudio.duration;
         });
     }
+
+    // Add click handler to the content area
+    const contentArea = miniPlayer.querySelector('.flex.items-center.justify-between');
+    contentArea.addEventListener('click', (e) => {
+        if (!e.target.closest('.play-pause-btn') && !e.target.closest('.loop-btn')) {
+            openHalfScreenPlayer();
+        }
+    });
+}
+
+function openHalfScreenPlayer() {
+    const halfScreenPlayer = document.getElementById('fullScreenPlayer');
+    if (!halfScreenPlayer) return;
+
+    // Remove hidden class and set to half screen
+    halfScreenPlayer.classList.remove('hidden');
+    halfScreenPlayer.classList.remove('translate-y-full');
+    // Add half screen specific classes
+    halfScreenPlayer.classList.add('translate-y-1/2');
+
+    // Update player info
+    document.getElementById('fullScreenTitle').textContent = miniPlayer.dataset.songTitle;
+    document.getElementById('fullScreenArtist').textContent = miniPlayer.dataset.artistName;
+    document.getElementById('fullScreenArtwork').src = miniPlayer.dataset.artworkUrl;
+
+    updatePlayState(currentAudio && !currentAudio.paused);
+    updateFullScreenSeeker();
+}
+
+function closeFullScreenPlayer() {
+    const halfScreenPlayer = document.getElementById('fullScreenPlayer');
+    if (!halfScreenPlayer) return;
+
+    halfScreenPlayer.classList.add('translate-y-full');
+    halfScreenPlayer.classList.remove('translate-y-1/2');
+    
+    halfScreenPlayer.addEventListener('transitionend', function handler() {
+        halfScreenPlayer.classList.add('hidden');
+        halfScreenPlayer.removeEventListener('transitionend', handler);
+    });
 }
 
 function togglePlayer(trigger) {
