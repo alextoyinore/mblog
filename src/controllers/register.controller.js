@@ -41,7 +41,7 @@ const renderRegister = (req, res) => {
 const handleRegister = async (req, res) => {
     try {
         // Extract user data from request body
-        const { name, email, password } = req.body;
+        const { name, email, securityQuestion, securityAnswer, password } = req.body;
         // console.log(req.body);
         
         // Create username
@@ -49,7 +49,7 @@ const handleRegister = async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10)
         // Create user with provided data
-        await User.create({ name, email, password: hashedPassword, username });
+        await User.create({ name, email, securityQuestion, securityAnswer, password: hashedPassword, username });
         // Redirect user to login page upon success
         res.redirect('/login');
 

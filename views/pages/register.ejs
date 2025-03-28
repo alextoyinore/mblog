@@ -8,18 +8,18 @@
 
     <div id="snackbarWrapper" class="relative">
         <!-- Snackbar will be appended here -->
-      </div>
+    </div>
   
     <div class="w-full h-screen flex items-center justify-center px-10">
         <form action="" data-register-form class="max-w-sm flex flex-col lg:w-[20%] w-full">
-            <div class="flex flex-col gap-3 mb-5 items-center">
-                 <!-- Logo -->
-                 <a href="/">
+            <div class="flex flex-col gap-3 mb-12 items-center">
+                <!-- Logo -->
+                <a href="/">
                     <img src="/images/light.svg" class="h-8 hidden dark:inline" alt="musicnow logo">
                     <img src="/images/dark.svg" class="h-8 inline dark:hidden" alt="musicnow logo">
-                    </a>
+                </a>
                 <div class="text-gray-500 text-xs text-center flex flex-col gap-1">
-                    <p>Access your favourite song on all streaming platform from one convenient place</p>
+                    <p>Access your favourite song on all streaming platforms from one convenient place</p>
                 </div>
             </div>
 
@@ -36,13 +36,36 @@
                 <input name="confirm_password" data-confirm-password type="password" id="confirm-password" class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Confirm Password" required />
             </div>
 
+            <!-- Security Question -->
+            <div class="mb-4">
+                <label for="security-question" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Security Question</label>
+                <select id="security-question" name="securityQuestion" class="mt-1 block w-full bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
+                    <option value="" disabled selected>Select a question</option>
+                    <option value="What is the name of your first pet?">What is the name of your first pet?</option>
+                    <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+                    <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                    <option value="In what city were you born?">In what city were you born?</option>
+                    <option value="What is your favorite book?">What is your favorite book?</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <input name="securityAnswer" type="text" id="security-answer" class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Answer" required />
+            </div>
+
+            <div class="mb-4">
+                <label class="flex items-center">
+                    <input type="checkbox" required class="mr-2" />
+                    <span class="text-sm text-gray-600 dark:text-gray-400">I have read and agree to the <a href="/terms" class="text-red-600">Terms and Conditions</a>.</span>
+                </label>
+            </div>
+
             <button type="submit" data-submit-btn class="cursor-pointer text-white bg-red-600 hover:bg-red-600 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-600 mb-5 flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300">Get Started</button>
 
             <div class="text-xs">
                 <p class="dark:text-gray-500 text-gray-600 text-center">Already have an account? <a class="text-red-600" href="/login">Sign in</a></p>
             </div>
         </form>
-
     </div>
 
 </body>

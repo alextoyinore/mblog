@@ -339,6 +339,7 @@ function setupAudioEventListeners() {
     });
 
     currentAudio.addEventListener('ended', () => {
+        updatePlayState(false); // Update state to show play icon
         // Automatically play the next song
         const currentSongItem = document.querySelector(`.song-item[data-song-id="${currentAudio.dataset.songId}"]`);
         const nextSongItem = currentSongItem.nextElementSibling;
@@ -472,14 +473,16 @@ function handleLatestSongPlay(element, songId, songUrl, songTitle, artistName, a
 
         // Handle song end
         currentAudio.addEventListener('ended', () => {
-            const nextSongItem = songItem.nextElementSibling; // Get the next sibling
+            updatePlayState(false); // Update state to show play icon
+            const currentSongItem = document.querySelector(`.song-item[data-song-id="${currentAudio.dataset.songId}"]`);
+            const nextSongItem = currentSongItem.nextElementSibling; // Get the next sibling
             if (nextSongItem) {
                 const nextSongId = nextSongItem.dataset.songId;
-                const nextSongUrl = nextSongItem.querySelector('.song-item').dataset.songUrl; // Ensure you have the correct data attribute
                 const nextSongTitle = nextSongItem.querySelector('.song-title').textContent; // Adjust as necessary
                 const nextArtistName = nextSongItem.querySelector('.artist-name').textContent; // Adjust as necessary
                 const nextArtworkUrl = nextSongItem.querySelector('.song-artwork').src; // Adjust as necessary
-
+                const nextSongUrl = nextSongItem.querySelector('.song-file').textContent; // Ensure you have the correct data attribute
+        
                 // Play the next song
                 handleLatestSongPlay(nextSongItem, nextSongId, nextSongUrl, nextSongTitle, nextArtistName, nextArtworkUrl);
             }

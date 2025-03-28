@@ -19,6 +19,8 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, unique: true, required: true, lowercase: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     bio: String,
+    securityQuestion: {type: String},
+    securityAnswer: {type: String},
     password: { type: String, required: true },
     songs: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Song' },
     playlist: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Song' },
