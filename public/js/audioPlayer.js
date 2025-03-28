@@ -328,17 +328,29 @@ function updatePlayState(isPlaying) {
 function setupAudioEventListeners() {
     if (!currentAudio) return;
 
-    currentAudio.addEventListener('pause', () => {
-        updatePlayState(false);
-    });
-
     currentAudio.addEventListener('play', () => {
+        // Update UI for play state
         updatePlayState(true);
     });
 
-    // Add ended event listener
-    currentAudio.addEventListener('ended', () => {
+    currentAudio.addEventListener('pause', () => {
+        // Update UI for pause state
         updatePlayState(false);
+    });
+
+    currentAudio.addEventListener('ended', () => {
+        // Automatically play the next song
+        const currentSongItem = document.querySelector(`.song-item[data-song-id="${currentAudio.dataset.songId}"]`);
+        const nextSongItem = currentSongItem.nextElementSibling;
+        if (nextSongItem) {
+            const nextSongId = nextSongItem.dataset.songId;
+            const nextSongUrl = nextSongItem.querySelector('.song-item').dataset.songUrl;
+            const nextSongTitle = nextSongItem.querySelector('.song-title').textContent;
+            const nextArtistName = nextSongItem.querySelector('.artist-name').textContent;
+            const nextArtworkUrl = nextSongItem.querySelector('.song-artwork').src;
+
+            handleLatestSongPlay(nextSongItem, nextSongId, nextSongUrl, nextSongTitle, nextArtistName, nextArtworkUrl);
+        }
     });
 }
 
@@ -399,3 +411,78 @@ const styles = `
     }
 }
 `;
+
+function handleLatestSongPlay(element, songId, songUrl, songTitle, artistName, artworkUrl) {
+    if (!songUrl) return;
+
+    const songItem = element.closest('.song-item');
+    const allSongItems = document.querySelectorAll('.song-item');
+    const playIndicator = songItem.querySelector('.play-indicator');
+    const artwork = songItem.querySelector('.song-artwork');
+
+    // Reset all other songs first
+    allSongItems.forEach(item => {
+        if (item !== songItem) {
+            const otherIndicator = item.querySelector('.play-indicator');
+            const otherArtwork = item.querySelector('.song-artwork');
+            otherIndicator.classList.add('hidden');
+            otherArtwork.classList.remove('hidden');
+        }
+    });
+
+    // If this is the current song
+    if (currentAudio && currentAudio.dataset.songId === songId) {
+        if (currentAudio.paused) {
+            // Resume playing
+            currentAudio.play();
+            artwork.classList.add('hidden');
+            playIndicator.classList.remove('hidden');
+        } else {
+            // Pause playing
+            currentAudio.pause();
+            artwork.classList.remove('hidden');
+            playIndicator.classList.add('hidden');
+        }
+    } else {
+        // Stop any currently playing song
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+        }
+
+        // Create and play new audio
+        currentAudio = new Audio(songUrl);
+        currentAudio.dataset.songId = songId;
+
+        currentAudio.play().then(() => {
+            // Show play indicator
+            artwork.classList.add('hidden');
+            playIndicator.classList.remove('hidden');
+            
+            // Create/show mini player
+            createMiniPlayer(songId, songTitle, artistName, artworkUrl);
+
+            // Increment plays
+            incrementPlays(songId);
+        }).catch(error => {
+            console.error('Error playing audio:', error);
+            artwork.classList.remove('hidden');
+            playIndicator.classList.add('hidden');
+        });
+
+        // Handle song end
+        currentAudio.addEventListener('ended', () => {
+            const nextSongItem = songItem.nextElementSibling; // Get the next sibling
+            if (nextSongItem) {
+                const nextSongId = nextSongItem.dataset.songId;
+                const nextSongUrl = nextSongItem.querySelector('.song-item').dataset.songUrl; // Ensure you have the correct data attribute
+                const nextSongTitle = nextSongItem.querySelector('.song-title').textContent; // Adjust as necessary
+                const nextArtistName = nextSongItem.querySelector('.artist-name').textContent; // Adjust as necessary
+                const nextArtworkUrl = nextSongItem.querySelector('.song-artwork').src; // Adjust as necessary
+
+                // Play the next song
+                handleLatestSongPlay(nextSongItem, nextSongId, nextSongUrl, nextSongTitle, nextArtistName, nextArtworkUrl);
+            }
+        });
+    }
+}
