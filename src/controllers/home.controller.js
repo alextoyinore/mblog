@@ -28,10 +28,6 @@ const renderHome = async (req, res) => {
     const { userAuthenticated } = req.session.user || {}
     // console.log(req.session.user);
 
-    // if (!userAuthenticated){
-    //     return res.redirect('/login');
-    // }
-
     try{
 
         // Retrieve songs from database, selecting specified fields and populating user field
@@ -163,7 +159,8 @@ const renderHome = async (req, res) => {
             songsByRegion,
             songsByGenre,
             recentArtists,
-            moment
+            moment,
+            user
         });
         
     }catch(error){

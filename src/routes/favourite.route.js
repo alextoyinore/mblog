@@ -32,13 +32,16 @@ router.get('/', async (req, res) => {
     const userId = req.session.user.id; // Assuming you store the user ID in the session
 
     try {
-        const user = await User.findById(userId).populate({
-            path: 'favourites', 
-            select: 'id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt'}); // Populate to get song details if needed
-        
-            if (!user) return res.status(404).send({ message: 'User not found' });
-
-        // favourites = user.favourites // Send back the list of favorite song IDs
+         // Retrieve songs from database, selecting specified fields and populating user field
+         const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+         .populate({
+             path: 'user',
+             select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
+         })
+         .sort({ createdAt: 'desc'})
+         .limit(10)
+         .exec()
+ 
 
         res.render('./layouts/base', {
             page: 'liked',
@@ -47,6 +50,7 @@ router.get('/', async (req, res) => {
             sessionUser: req.session.user,
             route: req.originalUrl,
             favourites: user.favourites,
+            user,
             // trendingSongs,
             // topSongs,
             // songsByRegion,
