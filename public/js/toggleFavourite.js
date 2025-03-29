@@ -1,7 +1,7 @@
 // import Snackbar from './utils/snackbar.js';
 
 async function toggleFavorite(songId) {
-    const response = await fetch('/api/favorite', {
+    const response = await fetch('/favourite', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,36 +32,5 @@ async function toggleFavorite(songId) {
     } else {
         console.error('Failed to toggle favorite');
     }
-}
-
-function updateFavoriteIcon(songId, isFavorited) {
-    const songItem = document.querySelector(`.song-item[data-song-id="${songId}"]`);
-    const favoriteButton = songItem.querySelector('button');
-
-    if (isFavorited) {
-        favoriteButton.classList.add('text-red-500'); // Change color to indicate favorited
-    } else {
-        favoriteButton.classList.remove('text-red-500'); // Change color back
-    }
-}
-
-let userFavorites = []; // This will hold the user's favorite song IDs
-
-// Function to fetch user favorites
-async function fetchUserFavorites() {
-    try {
-        const response = await fetch('/favourite'); // Adjust the endpoint as necessary
-        const data = await response.json();
-        userFavorites = data.favourites; // Assuming the response contains an array of favorite song IDs
-    } catch (error) {
-        console.error('Error fetching user favorites:', error);
-    }
-}
-
-// Function to check if a song is already favorited
-async function checkIfFavorited(songId) {
-    // Ensure userFavorites is populated
-    const userFavorites = await fetchUserFavorites(); // Fetch favorites if not already fetched
-    return userFavorites.includes(songId);
 }
 
