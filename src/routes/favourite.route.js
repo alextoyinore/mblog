@@ -33,15 +33,8 @@ router.get('/', async (req, res) => {
 
     try {
          // Retrieve songs from database, selecting specified fields and populating user field
-         const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-         .populate({
-             path: 'user',
-             select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
-         })
-         .sort({ createdAt: 'desc'})
-         .limit(10)
-         .exec()
- 
+         // Query the Song model to find songs that are in the user's favorites
+        const favourites = await Song.find({ _id: { $in: user.favourites } });
 
         res.render('./layouts/base', {
             page: 'liked',
@@ -50,7 +43,7 @@ router.get('/', async (req, res) => {
             sessionUser: req.session.user,
             route: req.originalUrl,
             favourites: user.favourites,
-            user,
+            // user,
             // trendingSongs,
             // topSongs,
             // songsByRegion,
