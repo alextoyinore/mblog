@@ -14,10 +14,10 @@
 
               <%- include('../widgets/topnav') %>               
   
-            <div class="lg:grid lg:grid-cols-3">
+            <div class="flex-col lg:flex flex-wrap">
                 <!-- Center Column - All Songs -->
                 <div
-                class="lg:pr-4 lg:col-span-2 w-full overflow-hidden lg:sticky lg:top:0 mb-4 lg:border-r border-gray-200 dark:border-gray-800"
+                class="w-full lg:pr-4 overflow-hidden lg:sticky lg:top:0 mb-4 lg:border-r border-gray-200 dark:border-gray-800"
                 >
                     <%- include(`../pages/${page}`) %>
                 </div>

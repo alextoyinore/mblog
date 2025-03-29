@@ -451,49 +451,73 @@
                     
                   </div>
                     </div>
-        </div>
 
-        <!-- More information on the song -->
-        <h2
-        class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
-      >
-        More info
-      </h2>
-        <textarea
-        placeholder="More info"
-        name="moreInfo"
-        class="w-full h-36 bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-300 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
-      ></textarea>
+                    <!-- Video Link -->
 
-        <!-- Song File Upload with Waveform -->
-        <div class="mt-8 space-y-4">
-          <label class="block text-[13px] uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">Song File</label>
-          <label class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer hover:border-gray-400 border-dotted dark:hover:border-gray-500">
-            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-            </svg>
-            <span id="songFileName" class="ml-2 text-sm text-gray-500 dark:text-gray-300">Upload song file (MP3, OGG)</span>
-            <input type="file" class="hidden" data-song-file accept="audio/*" onchange="handleAudioUpload(this)"/>
-          </label>
-
-      <!-- Waveform Preview Container -->
-      <div id="waveformContainer" class="hidden h-25">
-          <!-- Audio Player Controls -->
-          <div class="flex items-center space-x-4 mb-2">
-              <button id="playButton" class="text-gray-600 hover:text-red-500 dark:text-gray-300 dark:hover:text-red-500" onclick="togglePlay()">
-                  ▶
-              </button>
-              <span id="currentTime" class="text-sm text-gray-500 dark:text-gray-300">0:00</span>
-              <div class="flex-1">
-                  <div id="waveform" class="w-full h-24 bg-gray-50 dark:bg-gray-800 rounded"></div>
-              </div>
-              <span id="duration" class="text-sm text-gray-500 dark:text-gray-300">0:00</span>
-          </div>
-      </div>
-    </div>
-
-        <!-- Submit Button - Full Width -->
-        <button type="submit" data-submit-song class="mt-8 cursor-pointer text-white bg-red-600 hover:bg-red-600 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-600 mb-5 flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300"> Publish Song</button>
+                    <div>
+                      <h2
+                      class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+                    >
+                      Video Link
+                    </h2>
+                          <!-- Video Link Input -->
+                          <div class="relative">
+                            <input
+                              id="videoInput"
+                              placeholder="Video Link"
+                              type="text"
+                              name="videoLink"
+                              autocomplete="off"
+                              class="w-full bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-300 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+                            />
+                            
+                          </div>
+                          
+                        </div>
+                          </div>
+                
+                        <!-- More information on the song -->
+                        <h2
+                        class="text-md my-5 border-gray-200 dark:border-gray-800 font-medium text-gray-800 dark:text-white border-b pb-2"
+                      >
+                        More info
+                      </h2>
+                        <textarea
+                        placeholder="More info"
+                        name="moreInfo"
+                        class="w-full h-36 bg-gray-50 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 pl-2 pr-4 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-300 dark:placeholder-gray-400 focus:outline-none focus:border-gray-800 dark:focus:border-gray-400 focus:ring-0"
+                      ></textarea>
+                
+                        <!-- Song File Upload with Waveform -->
+                        <div class="mt-8 space-y-4">
+                          <label class="block text-[13px] uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">Song File</label>
+                          <label class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md cursor-pointer hover:border-gray-400 border-dotted dark:hover:border-gray-500">
+                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                            </svg>
+                            <span id="songFileName" class="ml-2 text-sm text-gray-500 dark:text-gray-300">Upload song file (MP3, OGG)</span>
+                            <input type="file" class="hidden" data-song-file accept="audio/*" onchange="handleAudioUpload(this)"/>
+                          </label>
+                
+                      <!-- Waveform Preview Container -->
+                      <div id="waveformContainer" class="hidden h-25">
+                          <!-- Audio Player Controls -->
+                          <div class="flex items-center space-x-4 mb-2">
+                              <button id="playButton" class="text-gray-600 hover:text-red-500 dark:text-gray-300 dark:hover:text-red-500" onclick="togglePlay()">
+                                  ▶
+                              </button>
+                              <span id="currentTime" class="text-sm text-gray-500 dark:text-gray-300">0:00</span>
+                              <div class="flex-1">
+                                  <div id="waveform" class="w-full h-24 bg-gray-50 dark:bg-gray-800 rounded"></div>
+                              </div>
+                              <span id="duration" class="text-sm text-gray-500 dark:text-gray-300">0:00</span>
+                          </div>
+                      </div>
+                    </div>
+                
+                        <!-- Submit Button - Full Width -->
+                        <button type="submit" data-submit-song class="mt-8 cursor-pointer text-white bg-red-600 hover:bg-red-600 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-600 mb-5 flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300"> Publish Song</button>
+        </div>        
       </form>
 
 

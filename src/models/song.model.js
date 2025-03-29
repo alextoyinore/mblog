@@ -30,6 +30,7 @@ const SongSchema = new mongoose.Schema(
     user: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
     comments: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Comment' },
     spotify: { type: String },
+    videoLink: { type: String },
     appleMusic: { type: String },
     youtubeMusic: { type: String },
     boomplay: { type: String },

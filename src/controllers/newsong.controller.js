@@ -33,8 +33,7 @@ const renderNewSongOrURL = (req, res) => {
         return res.redirect('/login');
     }
     
-    
-    res.render('./layouts/base', {
+    res.render('./layouts/baseWide', {
         page: 'newsong',
         title: 'New Song',
         sessionUser: req.session.user,
@@ -53,7 +52,7 @@ const renderNewSongOrURL = (req, res) => {
 const handleNewSongOrURL = async (req, res) => {
     try {
         // Retrieve content from request body
-        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, region, country } = req.body
+        const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, videoLink, region, country } = req.body
 
         // console.log('Request body:', req.body);
         console.log('Request file:', req.file);

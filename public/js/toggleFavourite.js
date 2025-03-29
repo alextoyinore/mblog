@@ -12,7 +12,7 @@ function toggleFavorite(songId) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({userId: currenUserId}) // Assuming you have the current user's ID
+        body: JSON.stringify({userId: currentUserId}) // Assuming you have the current user's ID
     })
     .then(response => {
         if (!response.ok) {

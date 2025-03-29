@@ -23,13 +23,13 @@ function getFirstNames(str) {
     <% if (user.artwork) { %>
       <img src="<%= user.artwork.url %>" alt="<%= user.name %>" class="object-cover h-25 w-25 rounded-full" />
     <% } else { %>
-    <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
+    <div class="h-25 w-25 flex rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 text-center justify-center font-black text-5xl p-6">
         <p class="inline"><%= getInitialsFromWords(user.name) %></p>
     </div>
     <% } %>
     <div class="flex flex-col">
-      <h1 class="font-black text-2xl lg:text-4xl text-gray-700 dark:text-white"><%= user.name %></h1>
-      <div class="flex flex-wrap text-xs text-gray-500 gap-2 mt-2">
+      <h1 class="font-black text-2xl lg:text-4xl text-gray-700 dark:text-gray-300"><%= user.name %></h1>
+      <div class="flex flex-wrap text-xs text-gray-500 gap-1 mt-2">
           <p><%= user.username %></p>
           <p><%= user.email %></p>
           <p><%= user.songsPublished %> songs</p>

@@ -112,7 +112,7 @@ if (name){
         </button>
 
         <!-- Dropdown Menu -->
-        <div id="profileDropdown" class="hidden absolute top-12 right-0 w-48 bg-white dark:bg-black rounded-md shadow-lg py-1 border border-gray-200 dark:border-gray-700 z-50">
+        <div id="profileDropdown" class="hidden absolute top-15 right-0 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 border border-gray-200 dark:border-gray-700 z-50">
           
           <!-- User Info Section -->
           <a href="/profile" class="flex gap-2 px-3 py-3 cursor-pointer border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
@@ -146,7 +146,7 @@ if (name){
 
           <div onclick="toggleAccordion(event)" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Theme</div>
 
-            <div class="accordion-item hidden bg-gray-50 dark:bg-black transition-all duration-300 ease-in-out">
+            <div class="accordion-item hidden bg-gray-50 dark:bg-gray-800 transition-all duration-300 ease-in-out">
               <a onclick="systemTheme()" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">System</a>
 
               <a onclick="lightTheme()" class="block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-500 hover:bg-gray-50 dark:hover:bg-gray-700">Light</a>
@@ -184,7 +184,7 @@ if (name){
 <!-- Mobile Navigation Menu -->
 <div
   id="mobileMenu"
-  class="fixed inset-0 bg-white dark:bg-black transform translate-x-full transition-transform duration-300 ease-in-out z-50"
+  class="fixed inset-0 bg-white font-bold dark:bg-black transform translate-x-full transition-transform duration-300 ease-in-out z-50"
 >
   <div class="h-full flex flex-col p-4">
     <!-- Mobile Menu Header -->
@@ -192,7 +192,7 @@ if (name){
       class="border-b border-gray-200 dark:border-gray-700 py-4 flex justify-between items-center"
     >
       <!-- Left Menu Group - Logo -->
-     <div class="py-4 px-2 lg:border-b border-gray-200 dark:border-gray-700 lg:hidden">
+     <div class="px-2 lg:border-b border-gray-200 dark:border-gray-700 lg:hidden">
       <a href="/">
         <img src="/images/light.svg" class="h-6 lg:h-7 hidden dark:inline" alt="music1 logo" />
         <img src="/images/dark.svg" class="h-6 lg:h-7 inline dark:hidden" alt="music1 logo" />
@@ -256,7 +256,7 @@ if (name){
 
           <!-- Bottom Section -->
         <% if (!userAuthenticated) { %>
-          <div class="mt-8 pt-6 border-t dark:border-gray-700">
+          <div class="mt-4 pt-4 border-t dark:border-gray-700">
             <a
               href="/login"
               class="block mb-4 py-2 text-sm text-center text-gray-800 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-500"
@@ -272,13 +272,13 @@ if (name){
             <% } else { %>
               <a
               href="/publish"
-              class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-3 text-center text-sm font-medium rounded hover:bg-gray-800 dark:hover:bg-gray-100"
+              class="block w-full bg-black dark:bg-red-500 text-white dark:text-white px-4 py-3 text-center text-sm font-medium rounded hover:bg-gray-800 mt-2 dark:hover:bg-gray-100"
               >Submit Link or URL</a
             >
 
             <!-- Logout -->
             <form action="/logout" method="POST" class="block">
-              <button type="submit" class="w-full cursor-pointer text-center px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500">Sign out</button>
+              <button type="submit" class="w-full cursor-pointer text-center px-4 py-3 text-sm text-red-600 mt-2 dark:text-red-400 hover:text-red-500 dark:hover:text-red-500">Sign out</button>
             </form>
             <% } %>
     </div>
