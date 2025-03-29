@@ -160,7 +160,7 @@ const renderHome = async (req, res) => {
             songsByGenre,
             recentArtists,
             moment,
-            user
+            // user
         });
         
     }catch(error){
