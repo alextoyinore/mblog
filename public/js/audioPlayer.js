@@ -475,16 +475,21 @@ function handleLatestSongPlay(element, songId, songUrl, songTitle, artistName, a
         currentAudio.addEventListener('ended', () => {
             updatePlayState(false); // Update state to show play icon
             const currentSongItem = document.querySelector(`.song-item[data-song-id="${currentAudio.dataset.songId}"]`);
+            console.log('Current song ended');
             const nextSongItem = currentSongItem.nextElementSibling; // Get the next sibling
+            
             if (nextSongItem) {
+                console.log('Next song found:', nextSongItem.songId);
                 const nextSongId = nextSongItem.dataset.songId;
-                const nextSongTitle = nextSongItem.querySelector('.song-title').textContent; // Adjust as necessary
-                const nextArtistName = nextSongItem.querySelector('.artist-name').textContent; // Adjust as necessary
-                const nextArtworkUrl = nextSongItem.querySelector('.song-artwork').src; // Adjust as necessary
-                const nextSongUrl = nextSongItem.querySelector('.song-file').textContent; // Ensure you have the correct data attribute
+                const nextSongUrl = nextSongItem.dataset.songUrl; // Ensure you have the correct data attribute
+                const nextSongTitle = nextSongItem.songTitle; // Adjust as necessary
+                const nextArtistName = nextSongItem.artistName; // Adjust as necessary
+                const nextArtworkUrl = nextSongItem.songArtwork; // Adjust as necessary
         
                 // Play the next song
                 handleLatestSongPlay(nextSongItem, nextSongId, nextSongUrl, nextSongTitle, nextArtistName, nextArtworkUrl);
+            }else {
+                console.log('No next song found');
             }
         });
     }

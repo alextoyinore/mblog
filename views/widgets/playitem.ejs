@@ -1,4 +1,17 @@
-<div class="song-item" data-song-id="<%= song._id %>">
+
+<div class="song-item"
+      data-song-id="<%= song._id %>" 
+      data-album-title="<%= song.albumTitle %>" 
+      data-song-title="<%= song.songTitle %>" 
+      data-release-year="<%= song.releaseYear %>" 
+      data-genre="<%= song.genre %>" 
+      data-region="<%= song.region %>" 
+      data-country="<%= song.country %>" 
+      data-total-plays="<%= song.totalPlays %>" 
+      data-more-info="<%= song.moreInfo %>"
+      data-song-url="<%= song.songFile?.url %>"
+      data-song-artwork="<%= song.artwork.url %>"
+    >
     <div 
       class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 py-2 px-1 items-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer"
       onclick="handleLatestSongPlay(this, '<%= song._id %>', '<%= song.songFile?.url %>', '<%= song.songTitle %>', '<%= song.artistName %>', '<%= song.artwork?.url %>')"
@@ -18,8 +31,6 @@
           </div>
         </div>
       </div>
-
-      <span class="hidden song-file"><%= song.songFile?.url %></span>
 
       <div class="ml-3 flex-grow min-w-0 flex items-center">
         <span class="text-sm font-medium dark:text-white song-title"><%= song.songTitle %></span>
