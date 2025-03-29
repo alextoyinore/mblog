@@ -10,6 +10,8 @@
  */
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+
 
 /**
  * custom modules
@@ -30,72 +32,60 @@ router.get('/', async (req, res) => {
     const userId = req.session.user.id; // Assuming you store the user ID in the session
 
     try {
-        const user = await User.findById(userId).populate('favourites'); // Populate to get song details if needed
-        if (!user) return res.status(404).send({ message: 'User not found' });
+        const user = await User.findById(userId).populate({
+            path: 'favourites', 
+            select: 'id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt'}); // Populate to get song details if needed
+        
+            if (!user) return res.status(404).send({ message: 'User not found' });
 
-        res.json({ favourites: user.favourites }); // Send back the list of favorite song IDs
+        // favourites = user.favourites // Send back the list of favorite song IDs
+
+        res.render('./layouts/base', {
+            page: 'liked',
+            title: 'Liked Songs',
+            // widgets: ['trending', 'topsongs'],
+            sessionUser: req.session.user,
+            route: req.originalUrl,
+            favourites: user.favourites,
+            // trendingSongs,
+            // topSongs,
+            // songsByRegion,
+            // songsByGenre,
+            // recentArtists,
+            moment
+        });
     } catch (error) {
         return res.status(500).send({ message: error.message });
     }
 });
 
 // Favorite a song
-router.post('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
+    const { songId } = req.body;
+    const userId = req.session.user.id; // Assuming you store userId in session
 
-    const { userAuthenticated } = req.session.user || {}
-
-    if (!userAuthenticated){
-        return res.redirect('/login');
+    if (!userId) {
+        // return res.status(401).json({ message: 'Unauthorized' });
+        return res.redirect('/login')
     }
-
-    const userId  = req.session.user.id // Assuming you send the user ID in the request body
-    const songId  = req.params;
 
     try {
         const user = await User.findById(userId);
-        const song = await Song.findById(songId);
+        const isFavorited = user.favourites.includes(songId);
 
-        if (!user) return res.status(404).send({ message: 'User not found' });
-        if (!song) return res.status(404).send({ message: 'Song not found' });
-
-        // Add song to user's favorites if not already present
-        if (!user.favourites.includes(songId)) {
+        if (isFavorited) {
+            // Remove from favorites
+            user.favourites.pull(songId);
+        } else {
+            // Add to favorites
             user.favourites.push(songId);
-            await user.save();
-            return res.status(200).send({ message: 'Song added to favourites' });
-        } else {
-            return res.status(400).send({ message: 'Song already in favourites' });
         }
+
+        await user.save();
+        res.json({ isFavorited: !isFavorited }); // Return the new state
     } catch (error) {
-        return res.status(500).send({ message: error.message });
-    }
-});
-
-// Unfavorite a song
-router.delete('/:id', async (req, res) => {
-    const { userAuthenticated } = req.session.user || {}
-
-    if (!userAuthenticated){
-        return res.redirect('/login');
-    }
-
-    const userId  = req.session.user.id // Assuming you send the user ID in the request body
-    const songId  = req.params;
-
-    try {
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).send({ message: 'User not found' });
-
-        // Remove song from user's favorites if present
-        if (user.favourites.includes(songId)) {
-            user.favourites = user.favourites.filter(id => id.toString() !== songId);
-            await user.save();
-            return res.status(200).send({ message: 'Song removed from favourites' });
-        } else {
-            return res.status(400).send({ message: 'Song not in favourites' });
-        }
-    } catch (error) {
-        return res.status(500).send({ message: error.message });
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
