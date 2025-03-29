@@ -21,3 +21,4 @@ function incrementPlays(songId) {
         console.error('Error:', error);
     });
 }
+

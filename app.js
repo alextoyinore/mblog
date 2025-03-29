@@ -79,6 +79,7 @@ const artists = require('./src/routes/artists.route')
 const artist = require('./src/routes/artist.route')
 const profile = require('./src/routes/profile.route')
 const play = require('./src/routes/play.route')
+const favourite = require('./src/routes/favourite.route')
 
 /**
  * Places route
@@ -125,6 +126,8 @@ app.use('/artist', artist)
 app.use('/profile', profile)
 // play
 app.use('/play', play)
+// favourite
+app.use('/favourite', favourite)
 
 
 
