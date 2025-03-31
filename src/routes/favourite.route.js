@@ -10,81 +10,19 @@
  */
 const express = require('express');
 const router = express.Router();
-const moment = require('moment');
-
 
 /**
  * custom modules
  */
-const User = require('../models/user.model');
-const Song = require('../models/song.model');
+
+const {renderFavourites, handleAddToFavourites} = require('../controllers/favourite.controller')
 
 
 // Get user favorites
-router.get('/', async (req, res) => {
-
-    const { userAuthenticated } = req.session.user || {}
-
-    if (!userAuthenticated){
-        return res.redirect('/login');
-    }
-
-    const userId = req.session.user.id; // Assuming you store the user ID in the session
-
-    try {
-         // Retrieve songs from database, selecting specified fields and populating user field
-         // Query the Song model to find songs that are in the user's favorites
-        const favourites = await Song.find({ _id: { $in: user.favourites } });
-
-        res.render('./layouts/base', {
-            page: 'liked',
-            title: 'Liked Songs',
-            // widgets: ['trending', 'topsongs'],
-            sessionUser: req.session.user,
-            route: req.originalUrl,
-            favourites: user.favourites,
-            // user,
-            // trendingSongs,
-            // topSongs,
-            // songsByRegion,
-            // songsByGenre,
-            // recentArtists,
-            moment
-        });
-    } catch (error) {
-        return res.status(500).send({ message: error.message });
-    }
-});
+router.get('/', renderFavourites);
 
 // Favorite a song
-router.post('/', async (req, res) => {
-    const { songId } = req.body;
-    const userId = req.session.user.id; // Assuming you store userId in session
-
-    if (!userId) {
-        // return res.status(401).json({ message: 'Unauthorized' });
-        return res.redirect('/login')
-    }
-
-    try {
-        const user = await User.findById(userId);
-        const isFavorited = user.favourites.includes(songId);
-
-        if (isFavorited) {
-            // Remove from favorites
-            user.favourites.pull(songId);
-        } else {
-            // Add to favorites
-            user.favourites.push(songId);
-        }
-
-        await user.save();
-        res.json({ isFavorited: !isFavorited }); // Return the new state
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+router.post('/', handleAddToFavourites);
 
 module.exports = router;
 

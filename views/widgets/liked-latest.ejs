@@ -1,4 +1,4 @@
-<% if (locals.favourites.length) { %>
+<% if (favourites.length) { %>
 <section class="mb-8 mt-8 overflow-x-hidden">
   <h2
     class="font-instrument mt-4 text-lg font-bold dark:text-white flex-1 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700"
@@ -7,7 +7,7 @@
   </h2>
 
   <div class="flex flex-col gap-0">
-    <% locals.favourites.forEach(song => { %>
+    <% favourites.forEach(song => { %>
     <div class="accordion-item">
       <div
         class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header"

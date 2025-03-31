@@ -31,10 +31,9 @@ const renderHome = async (req, res) => {
     try{
 
         // Retrieve songs from database, selecting specified fields and populating user field
-        const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+        const latestSongs = await Song.find()
         .populate({
-            path: 'user',
-            select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
+            path: 'user'
         })
         .sort({ createdAt: 'desc'})
         .limit(10)
