@@ -37,10 +37,9 @@ const renderPlay = async (req, res) => {
         const latestSongs = await Song.find({
             'songFile': { $exists: true, $ne: null },
             'songFile.url': { $exists: true, $ne: '' }
-        }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+        })
         .populate({
             path: 'user',
-            select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
         })
         .sort({ createdAt: 'desc'})
         .exec()
@@ -161,8 +160,6 @@ const renderPlay = async (req, res) => {
             latestSongs,
             trendingSongs,
             topSongs,
-            // songsByRegion,
-            // songsByGenre,
             recentArtists,
             moment
         });

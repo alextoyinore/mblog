@@ -25,7 +25,7 @@ const Song = require('../models/song.model');
  * @param {object} res - The response object
  */
 const renderUser = async (req, res) => {
-    const { userAuthenticated, username } = req.session.user || {}
+    const { userAuthenticated, username, id } = req.session.user || {}
     // console.log(req.session.user);
 
     if (!userAuthenticated){
@@ -34,13 +34,19 @@ const renderUser = async (req, res) => {
 
     // Retrieve songs from database, selecting specified fields and populating user field
     const user = await User.findOne({username: username})
-        .select('id username email name bio songs playlist links songsPublished favourites totalFollowers totalVisits createdAt')
         .populate({
             path: 'songs',
-            select: 'id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt',
+            populate: {
+                path: 'user'
+            },
             options: { sort: { createdAt: -1 } }
         })
         .exec()
+
+    // Retrieve user songs in a way that streamers can update liked and playlist for a song 
+    const userrSongs = await Song.find({ _id: { $in: user.favourites } }) .populate({
+        path: 'user'
+    })
 
     const userTopSongs = [...user.songs].sort((a, b) => b.totalPlays - a.totalPlays).slice(0,5);
 
@@ -52,7 +58,7 @@ const renderUser = async (req, res) => {
             sessionUser: req.session.user,
             route: req.originalUrl,
             user,
-            userTopSongs,        
+            userTopSongs,
             moment
         });
     } else {

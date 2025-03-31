@@ -63,7 +63,7 @@ const handleLogin = async (req, res) => {
         // set session userAuthenticated to true and redirect to homepage
         req.session.user = {
             userAuthenticated: true,
-            // id: currentUser._id,
+            id: currentUser._id,
             name: currentUser.name,
             username: currentUser.username,
             profilePhotoURL: currentUser.profileImage?.url

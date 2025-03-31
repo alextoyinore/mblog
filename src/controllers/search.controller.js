@@ -43,10 +43,9 @@ const renderSearch = async (req, res) => {
                 { producer: { $regex: query, $options: 'i' } },
                 // { releaseYear: { $regex: query } },
             ],
-        }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt')
+        })
         .populate({
             path: 'user',
-            select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
         })
         .sort({ createdAt: 'desc'})
         .exec();

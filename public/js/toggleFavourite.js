@@ -1,7 +1,7 @@
 // import Snackbar from './utils/snackbar.js';
 
 async function toggleFavorite(songId) {
-    const response = await fetch('/favourite', {
+    const response = await fetch('/liked', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

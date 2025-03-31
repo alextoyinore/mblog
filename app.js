@@ -127,8 +127,7 @@ app.use('/profile', profile)
 // play
 app.use('/play', play)
 // favourite
-app.use('/favourite', favourite)
-
+app.use('/liked', favourite)
 
 
 /**

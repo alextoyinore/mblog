@@ -24,41 +24,26 @@ const Song = require('../models/song.model')
  * @param {object} res - The response object
  */
 const renderNew = async (req, res) => {
-    const { userAuthenticated } = req.session.user || {}
-
-    // if (!userAuthenticated){
-    //     return res.redirect('/login');
-    // }
 
     try{
 
         // Retrieve songs from database, selecting specified fields and populating user field
-        const latestSongs = await Song.find().select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora souncloud audiomack deezer totalPlays totalLikes region country createdAt')
+        const latestSongs = await Song.find()
         .populate({
-            path: 'user',
-            select: 'profileImage name username songs playlist favourites totalFollower totalVisits'
+            path: 'user'
         })
         .sort({ createdAt: 'desc'})
         .exec();
 
         // Retrieve Top Songs
-        const topSongs = await Song.find()
-            .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-            .sort({ totalPlays: -1 })
-            .limit(5)
-            .exec();
+        const topSongs = [...latestSongs].sort((a, b) => b.totalPlays - a.totalPlays).slice(0,5);
 
         // Retrieve Trending Songs
         const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
 
-        const trendingSongs = await Song.find({
-            createdAt: { $gte: threeDaysAgo }, // Filter for songs created in the last 3 days
-            totalPlays: { $gt: 0 } // Ensure that we only consider songs that have been played
-        })
-        .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-        .sort({ totalPlays: -1 }) // Sort by totalPlays in descending order
-        .limit(5) // Limit the results to 10
-        .exec(); // Execute the query
+        const trendingSongs = latestSongs.filter(song => 
+            song.createdAt >= threeDaysAgo && song.totalPlays > 0
+        ).slice(0,5);
 
         res.render('./layouts/base', {
             page: 'newarrivals',
