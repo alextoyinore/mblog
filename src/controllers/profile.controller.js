@@ -43,11 +43,7 @@ const renderUser = async (req, res) => {
         })
         .exec()
 
-    // Retrieve user songs in a way that streamers can update liked and playlist for a song 
-    const userrSongs = await Song.find({ _id: { $in: user.favourites } }) .populate({
-        path: 'user'
-    })
-
+    // Retrieve user's most played songs
     const userTopSongs = [...user.songs].sort((a, b) => b.totalPlays - a.totalPlays).slice(0,5);
 
     if (user) {

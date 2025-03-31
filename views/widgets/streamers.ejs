@@ -33,6 +33,19 @@ const route = locals.route || ''
                     <%= song.user.favourites.includes(song._id) ? 'Liked' : 'Like' %>
                 </span>
             </button>
+
+            <button
+                data-song-id-for-playlist='<%= song._id %>'
+                onclick="toggleToPlaylist('<%= song._id %>')" 
+                class="flex gap-1 items-center cursor-pointer font-sm transition-colors favourite 
+                    <%= song.user.playlist.includes(song._id) ? 'text-red-500' : 'text-gray-500' %>">
+                    <svg class="playlist-icon w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 3h18v2H3V3zm0 5h18v2H3V8zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+                    </svg>
+                <span class="playlist-text">
+                    <%= song.user.playlist.includes(song._id) ? 'Added' : 'Add' %>
+                </span>
+            </button>
         <% } %>
 
         <% if (song.spotify) { %>
