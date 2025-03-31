@@ -81,6 +81,7 @@ const profile = require('./src/routes/profile.route')
 const play = require('./src/routes/play.route')
 const favourite = require('./src/routes/favourite.route')
 const playlist = require('./src/routes/playlist.route')
+const password = require('./src/routes/password.route')
 
 /**
  * Places route
@@ -129,8 +130,10 @@ app.use('/profile', profile)
 app.use('/play', play)
 // favourite
 app.use('/liked', favourite)
-//playlist
+// playlist
 app.use('/playlist', playlist)
+// password
+app.use('/password', password)
 
 /**
  * Places
