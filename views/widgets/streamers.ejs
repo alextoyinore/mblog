@@ -24,9 +24,9 @@ const route = locals.route || ''
                 data-song-id-for-like='<%= song._id %>'
                 onclick="toggleFavorite('<%= song._id %>')" 
                 class="flex gap-1 items-center cursor-pointer font-sm transition-colors favourite 
-                    <%= song.user.favourites.includes(song._id) ? 'text-red-500' : 'text-gray-500' %>">
+                    <%= song.user.favourites.includes(song._id) ? 'text-black dark:text-gray-300' : 'text-gray-500' %>">
                 <svg class="like-icon w-4 h-4" fill="currentColor" stroke="none" viewBox="0 0 24 24" 
-                    class="<%= song.user.favourites.includes(song._id) ? 'text-red-500' : 'text-gray-500' %>">
+                    class="<%= song.user.favourites.includes(song._id) ? 'text-black dark:text-gray-300' : 'text-gray-500' %>">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
                 <span class="favourite-text">
@@ -38,7 +38,7 @@ const route = locals.route || ''
                 data-song-id-for-playlist='<%= song._id %>'
                 onclick="toggleToPlaylist('<%= song._id %>')" 
                 class="flex gap-1 items-center cursor-pointer font-sm transition-colors favourite 
-                    <%= song.user.playlist.includes(song._id) ? 'text-red-500' : 'text-gray-500' %>">
+                    <%= song.user.playlist.includes(song._id) ? 'text-black dark:text-gray-300' : 'text-gray-500' %>">
                     <svg class="playlist-icon w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3 3h18v2H3V3zm0 5h18v2H3V8zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
                     </svg>
@@ -66,9 +66,9 @@ const route = locals.route || ''
             <a target="_blank" 
                href="<%= song.youtubeMusic %>"
                onclick="incrementPlays('<%= song.id %>')"  
-               class="text-red-600 hover:text-red-500 flex gap-1 items-center">
+               class="text-black dark:text-gray-300 hover:text-red-500 flex gap-1 items-center">
                <svg
-                    class="text-red-600 h-4 w-4"
+                    class="text-black dark:text-gray-300 h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -91,9 +91,9 @@ const route = locals.route || ''
             <a target="_blank" 
                href="<%= song.appleMusic %>"
                onclick="incrementPlays('<%= song.id %>')"  
-               class="text-red-600 hover:text-red-500 flex gap-1 items-center">
+               class="text-black dark:text-gray-300 hover:text-red-500 flex gap-1 items-center">
                <svg
-                      class="w-4 h-4 text-red-600"
+                      class="w-4 h-4 text-black dark:text-gray-300"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       id="apple-music"
@@ -111,8 +111,8 @@ const route = locals.route || ''
             <a target="_blank" 
                href="<%= song.boomplay %>"
                onclick="incrementPlays('<%= song.id %>')"  
-               class="text-blue-500 hover:text-red-500 flex gap-1 items-center">
-               <svg class="text-blue-500 hover:text-red-500 h-4 w-4" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+               class="text-sky-500 hover:text-red-500 flex gap-1 items-center">
+               <svg class="text-sky-500 hover:text-red-500 h-4 w-4" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
                 <path fill="currentColor" d="M 25 2 C 12.317 2 2 12.318 2 25 C 2 37.682 12.317 48 25 48 C 37.683 48 48 37.682 48 25 C 48 12.318 37.683 2 25 2 z M 25 4.5 C 36.304 4.5 45.5 13.696 45.5 25 C 45.5 36.304 36.304 45.5 25 45.5 C 13.696 45.5 4.5 36.304 4.5 25 C 4.5 13.696 13.696 4.5 25 4.5 z M 25 6.5 C 14.799 6.5 6.5 14.799 6.5 25 C 6.5 35.201 14.799 43.5 25 43.5 C 35.201 43.5 43.5 35.201 43.5 25 C 43.5 14.799 35.201 6.5 25 6.5 z M 22.619141 12.003906 L 27.837891 12.003906 C 31.598891 12.269906 33.200578 14.159781 32.642578 17.675781 C 31.625578 21.669781 27.730469 23.068359 27.730469 23.068359 C 30.780469 23.690359 31.959578 25.669813 31.267578 29.007812 C 29.693578 33.414813 26.415297 35.777922 21.404297 36.044922 L 18.126953 36.044922 L 17.537109 36.044922 C 16.153109 36.044922 15.03125 34.913531 15.03125 33.519531 C 15.06125 33.185531 15.117266 32.853344 15.197266 32.527344 C 15.222266 32.338344 16.464141 27.930047 16.869141 26.498047 L 21.53125 26.498047 C 21.23225 27.427047 21.233828 28.824922 21.923828 30.169922 C 22.996828 32.271922 24.977719 33.014484 26.386719 32.271484 C 27.795719 31.529484 28.048562 29.617484 26.976562 27.521484 C 26.022562 25.658484 24.25 25 23 25 L 17.263672 25 L 19.845703 16.5 L 23.566406 16.5 C 23.345406 17.195 23.471297 17.989281 23.904297 18.863281 C 24.706297 20.455281 26.122594 21.044906 27.183594 20.503906 C 28.244594 19.963906 28.544187 18.502297 27.742188 16.904297 C 27.086188 15.583297 25.956 15.020719 25 15.011719 L 25 15 L 20.189453 15 L 20.591797 13.566406 C 20.784797 12.607406 21.650141 11.939906 22.619141 12.003906 z"></path>
                 </svg>
                 <span>Boomplay</span>
