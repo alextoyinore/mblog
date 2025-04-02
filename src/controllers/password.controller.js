@@ -45,13 +45,12 @@ const handleRecovery = async (req, res) => {
         // Handle case where no user was found
         if(user && step==1){
             return res.status(200).json({message: 'User account found!', user: user, step: step});
-        
         } else if(user && step == 3) {
             // const {password} = req.body
             const hashedPassword = await bcrypt.hash(password, 10)
             user.password = hashedPassword
-            user.save()
-            res.redirect('/login')
+            await user.save()
+            // res.redirect('/login')
             return res.status(200).json({message: 'Password updated successfully'})
         } else {
             return res.status(400).json({message: 'No record found for this email. Kindly check it and try again.'})

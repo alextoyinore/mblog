@@ -122,9 +122,12 @@ form.addEventListener('submit', async(e) => {
             submitBtn.innerHTML = 'Submit'
             return;
         }
-        formData.append('email', email)
-        formData.append('password', formData.get('password'))
-        formData.append('step', 3)
+        formData.set('email', email)
+        formData.set('password', formData.get('password'))
+        formData.set('step', '3')
+
+        console.log(email, formData.get('password'), formData.get('step'))
+
         const response = await fetch(`${window.location.origin}/password`, {
             method: 'POST',
             headers: {
@@ -135,7 +138,7 @@ form.addEventListener('submit', async(e) => {
 
         // Handle case where response status is success
         if (response.ok) {
-            const {message, user, step} =  await response.json()
+            const {message} =  await response.json()
 
             Snackbar({
                 message: message,
@@ -143,7 +146,7 @@ form.addEventListener('submit', async(e) => {
             });
             
             // Redirect user to login page
-            return window.location = response.url;
+            return window.location.href = window.location.origin+'/login';
         }
 
         // Handle case where response status is 400 (Bad Request)
