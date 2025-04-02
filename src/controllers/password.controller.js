@@ -23,11 +23,6 @@ const User = require('../models/user.model');
  */
 const renderRecovery = (req, res) => {
     const { userAuthenticated } = req.session.user || {}
-    // console.log(req.session.user);
-
-    // if (userAuthenticated){
-    //     return res.redirect('/');
-    // }
     
     res.render('./pages/password');
 }
@@ -42,35 +37,25 @@ const renderRecovery = (req, res) => {
 const handleRecovery = async (req, res) => {
     try {
         // Extract user data from request body
-        const { email, password } = req.body;
-        // console.log(req.body);
+        const { email, step, password } = req.body;
 
         // Find the user from database by email
-        const currentUser = await User.findOne({email: email})
-        // console.log(currentUser);
+        const user = await User.findOne({email: email})
 
         // Handle case where no user was found
-        if(!currentUser){
-            return res.status(400).send({message: 'User with this email does not exist in our records'});
-        }
+        if(user && step==1){
+            return res.status(200).json({message: 'User account found!', user: user, step: step});
         
-        // Check if password is valid
-        const passwordValid = await bcrypt.compare(password, currentUser.password);
-        if(!passwordValid){
-            return res.status(400).send({message: 'The password you provided does not match this account.'});
+        } else if(user && step == 3) {
+            // const {password} = req.body
+            const hashedPassword = await bcrypt.hash(password, 10)
+            user.password = hashedPassword
+            user.save()
+            res.redirect('/login')
+            return res.status(200).json({message: 'Password updated successfully'})
+        } else {
+            return res.status(400).json({message: 'No record found for this email. Kindly check it and try again.'})
         }
-        
-        // set session userAuthenticated to true and redirect to homepage
-        req.session.user = {
-            userAuthenticated: true,
-            id: currentUser._id,
-            name: currentUser.name,
-            username: currentUser.username,
-            profilePhotoURL: currentUser.profileImage?.url
-        }
-
-        // Redirect user to login page upon success
-        res.redirect('/');
 
     } catch (error) {
         if (res.status.code >= 400){
