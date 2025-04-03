@@ -55,15 +55,18 @@ const handleNewSongOrURL = async (req, res) => {
         const { artwork, songFile, songTitle, artistName, albumTitle, releaseYear, genre, producer, writer, moreInfo, spotify, appleMusic, youtubeMusic, boomplay, tidal, amazon, pandora, soundcloud, audiomack, deezer, videoLink, region, country } = req.body
 
         // console.log('Request body:', req.body);
-        console.log('Request file:', req.file);
-
+        // console.log('Request file:', req.file);
 
         // Keep track of the temporary file path
         const theFile = req.file ? req.file.path : null;
 
+        let songFileData = null
+
         // Upload song file to Cloudinary if available
-        const songFileData = await uploadAudioToCloudinary(req.file);
-    
+        if (theFile != null){
+            songFileData = await uploadAudioToCloudinary(req.file);
+        }
+
         // Upload artwork and song file to Cloudinary
         const public_id = crypto.randomBytes(10).toString('hex');
         const artworkURL = await uploadToCloudinary(artwork, public_id);
@@ -89,13 +92,13 @@ const handleNewSongOrURL = async (req, res) => {
                 url: artworkURL,
                 public_id: public_id
             },
-            songFile: {
+            songFile: songFileData != null ? {
                 url: songFileData.url,
                 public_id: songFileData.public_id,
                 format: songFileData.format,
                 duration: songFileData.duration,
                 size: songFileData.bytes
-            },
+            }: songFile,
             songTitle: songTitle,
             artistName:  artistName,
             albumTitle: albumTitle,
@@ -115,7 +118,8 @@ const handleNewSongOrURL = async (req, res) => {
             audiomack: audiomack,
             deezer: deezer,
             region: region,
-            country: country
+            country: country,
+            videoLink: videoLink,
         });
 
         // Update user data

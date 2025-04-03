@@ -83,6 +83,7 @@ const favourite = require('./src/routes/favourite.route')
 const playlist = require('./src/routes/playlist.route')
 const password = require('./src/routes/password.route')
 const discover = require('./src/routes/discover.route')
+const charts = require('./src/routes/charts.route')
 
 /**
  * Places route
@@ -137,6 +138,8 @@ app.use('/playlist', playlist)
 app.use('/password', password)
 // discover
 app.use('/discover', discover)
+// charts
+app.use('/charts', charts)
 
 /**
  * Places
