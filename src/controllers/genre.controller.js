@@ -40,7 +40,9 @@ const renderGenre = async (req, res) => {
         // Retrieve songs from database, selecting specified fields and populating user field
         const songs = await Song.find({
             genre: { $regex: new RegExp(genre, 'i') }
-        }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
+        }).select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt').populate({
+            path: 'user'
+        })
         .sort({ createdAt: 'desc'});
 
         // Top Genres
@@ -48,6 +50,7 @@ const renderGenre = async (req, res) => {
             {
                 $group: {
                     _id: "$genre",
+                    // user: "$user",
                     totalViews: { $sum: "$totalPlays" }
                 }
             },
@@ -55,6 +58,7 @@ const renderGenre = async (req, res) => {
                 $project: {
                     _id: 0,
                     genre: "$_id",
+                    // user: "$user",
                     totalViews: 1
                 }
             },
@@ -76,6 +80,7 @@ const renderGenre = async (req, res) => {
             {
                 $group: {
                     _id: "$genre",
+                    // user: "$user",
                     totalViews: { $sum: "$totalPlays" }
                 }
             },
@@ -83,6 +88,7 @@ const renderGenre = async (req, res) => {
                 $project: {
                     _id: 0,
                     genre: "$_id",
+                    // user: "$user",
                     totalViews: 1
                 }
             },
@@ -94,7 +100,7 @@ const renderGenre = async (req, res) => {
         res.render('./layouts/base', {
             page: 'genre',
             title: `${toTitleCase(genre)}`,
-            widgets: ['top-genres', 'trending-genres'],
+            widgets: [], // ['top-genres', 'trending-genres'],
             sessionUser: req.session.user,
             route: req.originalUrl,
             songs: songs,

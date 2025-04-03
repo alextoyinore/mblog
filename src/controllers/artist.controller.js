@@ -43,7 +43,8 @@ const renderArtist = async (req, res) => {
                 _id: {
                     artistName: "$artistName",
                     region: "$region",
-                    country: "$country"
+                    country: "$country",
+                    user: "$user",
                 },
                 totalPlays: { $sum: "$totalPlays" },
                 genres: { $addToSet: "$genre" },
@@ -56,17 +57,20 @@ const renderArtist = async (req, res) => {
                 artistName: "$_id.artistName",
                 region: "$_id.region",
                 country: "$_id.country",
+                user: "$_id.user",
                 totalPlays: 1,
                 genres: 1,
                 artwork: 1,
             }
         }
-    ]);
+    ])
 
     // Retrieve songs from database, selecting specified fields and populating user field
     const songsBySameArtist = await Song.find()
             .select('id artwork songFile songTitle artistName albumTitle releaseYear genre user spotify appleMusic youtubeMusic boomplay tidal amazon pandora soundcloud audiomack deezer totalPlays totalLikes region country totalShares totalPlaylistAdds moreInfo createdAt')
-            .where('artistName').equals(artistName)
+            .where('artistName').equals(artistName).populate({
+                path: 'user'
+            })
             .exec();
 
     const relatedArtists = await Song.aggregate([
@@ -120,7 +124,7 @@ const renderArtist = async (req, res) => {
                 songs: 1 // Include their full song details
             }
         }
-    ]);
+    ])
 
 
     if (artistDetails) {
