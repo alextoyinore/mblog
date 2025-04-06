@@ -7,6 +7,11 @@ const PlaySchema = new mongoose.Schema(
       required: true,
       ref: "Song", // Reference to the Song model
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User", // Reference to the Song model
+    },
   },
   {
     timestamps: true,

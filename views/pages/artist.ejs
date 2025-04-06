@@ -23,7 +23,7 @@ function getFirstNames(str) {
     <% if (artist.artwork) { %>
       <img src="<%= artist.artwork.url %>" alt="<%= artist.artistName %>" class="object-cover h-25 w-25 rounded-full" />
     <% } else { %>
-    <div class="h-25 w-25 flex rounded-full bg-gray-100 text-gray-600 text-center justify-center font-black text-5xl p-6">
+    <div class="h-25 w-25 flex rounded-full bg-gray-100 text-black dark:text-white text-center justify-center font-black text-5xl p-6">
         <p class="inline"><%= getInitialsFromWords(artist.artistName) %></p>
     </div>
     <% } %>
@@ -39,32 +39,8 @@ function getFirstNames(str) {
       </div>
     </div>
    </div>
-  
 
-  <!-- Right Column - Song Details -->
-  <% if (locals.songsBySameArtist.length) { %> 
-    <% locals.songsBySameArtist.forEach(song => { %>
-  <div class="accordion-item">
-    <div class="flex border-b border-gray-200 dark:border-gray-700 flex-wrap gap-1 cursor-pointer py-2 px-1 items-center hover:bg-gray-50 hover:text-red-500 dark:hover:bg-gray-800 transition-colors group dark:hover:text-red-500 accordion-header" onclick="toggleAccordion(event)">
-      <div>
-        <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
-      </div>
-      <div class="ml-3 flex-grow min-w-0 flex items-center">
-        <span class="text-sm font-medium dark:text-white"><%= song.songTitle %></span>
-        <span class="mx-2 text-gray-400">-</span>
-        <span class="text-xs text-gray-500 dark:text-gray-400 truncate"><%= song.artistName %></span>
-      </div>
-      <div class="flex-shrink-0 flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
-        <span><%= song.releaseYear %></span>
-        <span><%= song.albumTitle %></span>
-        <span><%= moment(song.createdAt).fromNow() %></span>
-      </div>
-    </div>
+<%- include('../widgets/song-accordion', {songs: songsBySameArtist}) %>
 
-    <!-- Streaming Platforms Links -->
-    <%- include('../widgets/streamers', {song}) %>
-  </div>
-  <% }) %> 
-  <% } %>
 </div>
 

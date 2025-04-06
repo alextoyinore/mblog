@@ -10,7 +10,7 @@
       <div class="accordion-item">
         <div class="flex gap-2 border-b border-0 dark:border-gray-700 border-gray-200 items-center hover:bg-gray-50 hover:text-sky-500 cursor-pointer dark:hover:bg-gray-800 transition-colors p-2 accordion-header" onclick="toggleAccordion(event)">
           <div>
-            <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover h-8 w-8 rounded-full" />
+            <img src="<%= song.artwork.url %>" alt="<%= song.artistName %>" class="object-cover flex-shrink-0 h-8 w-8 rounded-full" />
           </div>
           <div class="ml-3 flex-grow min-w-0">
             <div class="flex items-center justify-between">
@@ -18,7 +18,7 @@
               <span class="text-xs text-gray-400"><%= moment(song.createdAt).fromNow() %></span>
             </div>
             <div class="flex items-center">
-              <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName %></p>
+              <p class="truncate text-gray-600 text-xs pr-4 font-medium"><%= song.artistName.substring(0,25) %></p>
               <div class="flex gap-2 text-[12px] items-center text-xs">
                 <span class="text-xs text-sky-500">Top</span>
                 <span>.</span>

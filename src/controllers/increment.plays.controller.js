@@ -35,7 +35,7 @@ const incrementPlays = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Song not found' });
         }
         
-        await Play.create({ songId: songId })
+        await Play.create({ songId: songId, user: song.user })
 
         song.totalPlays += 1; // Increment the totalPlays
         await song.save(); // Save the updated song

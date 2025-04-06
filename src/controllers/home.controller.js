@@ -47,9 +47,63 @@ const renderHome = async (req, res) => {
         const threeDaysAgo = moment().subtract(3, 'days').toDate(); // Get the date for 3 days ago
 
         // Filter latestSongs to get songs created in the last 3 days that have been played
-        const trendingSongs = latestSongs.filter(song => 
-            song.createdAt >= threeDaysAgo && song.totalPlays > 0
-        ).slice(0,5);
+        // const trendingSongs = latestSongs.filter(song => 
+        //     song.createdAt >= threeDaysAgo && song.totalPlays > 0
+        // ).slice(0,5);
+
+        // Aggregate plays to count the number of plays for each song in the last three days
+        const trendingSongs = await Play.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: threeDaysAgo } // Filter plays from the last three days
+                }
+            },
+            {
+                $group: {
+                    _id: '$songId', // Group by songId
+                    totalPlays: { $sum: 1 } // Count total plays
+                }
+            },
+            {
+                $sort: { totalPlays: -1 } // Sort by total plays in descending order
+            },
+            {
+                $limit: 10 // Limit to top 10 songs
+            },
+            {
+                $lookup: {
+                    from: 'songs', // The name of the songs collection
+                    localField: '_id', // Field from the Play model
+                    foreignField: '_id', // Field from the Song model
+                    as: 'songDetails' // Output array field
+                }
+            },
+            {
+                $unwind: '$songDetails' // Unwind the songDetails array
+            },
+            {
+                $lookup: {
+                    from: 'users', // The name of the users collection
+                    localField: 'songDetails.user', // Field from the Song model
+                    foreignField: '_id', // Field from the User model
+                    as: 'userDetails' // Output array field
+                }
+            },
+            {
+                $unwind: '$userDetails' // Unwind the userDetails array
+            },
+            {
+                $replaceRoot: { 
+                    newRoot: { 
+                        $mergeObjects: [
+                            '$songDetails', 
+                            { totalPlays: '$totalPlays' },
+                            { user: '$userDetails' } // Include user details
+                        ] 
+                    } 
+                } // Merge song details, total plays, and user details into a single object
+            }
+        ]);
 
         /**
          * Songs by Region

@@ -241,6 +241,9 @@ function handlePlayClick(button, songId, songUrl, songTitle, artistName, artwork
             
             // Create/show mini player
             createMiniPlayer(songId, songTitle, artistName, artworkUrl);
+
+            incrementPlays(songId)
+
             
             // Set up time update handler for progress
             currentAudio.addEventListener('timeupdate', () => {
